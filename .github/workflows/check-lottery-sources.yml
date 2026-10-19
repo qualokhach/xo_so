@@ -1,42 +1,64 @@
-
 name: Check lottery data sources
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '17 */6 * * *'
+    # Runs every 6 hours (UTC). GitHub may delay scheduled runs.
+    - cron: "17 */6 * * *"
 
 permissions:
   contents: write
 
+concurrency:
+  group: lottery-source-check
+  cancel-in-progress: false
+
 jobs:
   check-sources:
+    name: Check candidate lottery sources
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+
     steps:
-      - name: Checkout repository
+      - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: "3.12"
 
       - name: Check candidate pages
+        id: source-check
         run: python scripts/check_sources.py
 
-      - name: Publish report
+      - name: Commit updated JSON report to repository
         if: always()
+        shell: bash
         run: |
           if [ ! -f reports/source-status.json ]; then
-            echo "Report file not found"
+            echo "Report not found: reports/source-status.json"
             exit 1
           fi
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add reports/source-status.json
+
           if git diff --cached --quiet; then
-            echo "No report changes"
+            echo "The report has not changed; no commit is needed."
           else
             git commit -m "chore: update lottery source report"
             git push
           fi
+
+      - name: Upload JSON report as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: appnho-lottery-source-report
+          path: reports/source-status.json
+          if-no-files-found: warn
+          retention-days: 14
