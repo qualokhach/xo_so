@@ -62,8 +62,11 @@ def norm_date(s):
  m=DATE_RE.search(s or "")
  if not m:return None
  d,mo,y=map(int,m.groups())
- try:return f"{y:04d}-{mo:02d}-{d:02d}"
- except:return None
+ try:
+  parsed=datetime(y,mo,d)
+  return parsed.strftime("%Y-%m-%d")
+ except ValueError:
+  return None
 
 def prize_name(s):
  s=re.sub(r"\s+"," ",s.strip()).casefold().rstrip(":")
@@ -178,10 +181,15 @@ def vietlott_from_html(html,src):
   segment=text[max(0,m.start()-100):m.end()+800]
   width=3 if "3D" in product else 2
   if width==2:
-   matches=list(re.finditer(r"(?<!\d)(\d{2}(?:\s+\d{2}){5})(?:\s*[|+]\s*(\d{2}))?(?!\d)",segment))
-   if matches:
-    nums=re.findall(r"\d{2}",matches[0].group(1));extra=matches[0].group(2)
-    prizes=[{"name":"Bộ số trúng thưởng","numbers":nums+( [extra] if extra else [])}]
+   if product=="LOTTO 5/35":
+    matches=list(re.finditer(r"(?<!\d)(\d{2}(?:\s+\d{2}){4})(?!\d)",segment))
+    if matches:
+     prizes=[{"name":"Bộ số trúng thưởng","numbers":re.findall(r"\d{2}",matches[0].group(1))}]
+   else:
+    matches=list(re.finditer(r"(?<!\d)(\d{2}(?:\s+\d{2}){5})(?:\s*[|+]\s*(\d{2}))?(?!\d)",segment))
+    if matches:
+     nums=re.findall(r"\d{2}",matches[0].group(1));extra=matches[0].group(2)
+     prizes=[{"name":"Bộ số trúng thưởng","numbers":nums+([extra] if extra else [])}]
  if not prizes:return []
  key=f"vietlott|{product}|{date}|{draw_no}"
  return [{"key":key,"kind":"vietlott","product":product,"draw_no":draw_no,"date":date,"title":product,"station":product,"prizes":prizes,"source_url":src["url"],"source_id":src["id"]}]
@@ -206,8 +214,11 @@ def record_valid(rec):
    main=next((p for p in prizes if p["name"]=="Bộ số trúng thưởng"),None)
    if main:return len(main["numbers"])==(7 if "POWER" in prod else 6)
    return any(len(p.get("numbers",[])) in (6,7) and all(re.fullmatch(r"\d{2}",n) for n in p["numbers"]) for p in prizes)
-  if "3D" in prod:return any(len(n)==3 for n in vals)
-  return bool(vals)
+  if prod=="LOTTO 5/35":
+   main=next((p for p in prizes if p.get("name")=="Bộ số trúng thưởng"),None)
+   return bool(main and len(main.get("numbers",[]))==5 and all(re.fullmatch(r"\d{2}",n) for n in main["numbers"]))
+  if "3D" in prod:return any(re.fullmatch(r"\d{3}",n) for n in vals)
+  return False
  return False
 
 def get_json(path,default):
@@ -273,7 +284,9 @@ def main():
   report["sources"][kind]={"attempts":attempts,"selected_source":found[0]["source_id"] if found else None,"new_records_locked":added}
  for src in VIETLOTT:
   attempts=[];found=[]
-  urls=[src["url"],"https://xosohn.com/vietlott","https://m.kqxs.vn/xo-so-vietlott"]
+  # Only query the product-specific official page. Generic Vietlott pages can expose
+  # another product's latest draw and must never be mislabeled as this product.
+  urls=[src["url"]]
   for url in urls:
    started=time.time();candidate={**src,"url":url}
    try:
