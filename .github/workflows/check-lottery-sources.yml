@@ -1,0 +1,42 @@
+
+name: Check lottery data sources
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 */6 * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  check-sources:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Check candidate pages
+        run: python scripts/check_sources.py
+
+      - name: Publish report
+        if: always()
+        run: |
+          if [ ! -f reports/source-status.json ]; then
+            echo "Report file not found"
+            exit 1
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/source-status.json
+          if git diff --cached --quiet; then
+            echo "No report changes"
+          else
+            git commit -m "chore: update lottery source report"
+            git push
+          fi
