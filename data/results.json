@@ -1,7 +1,24 @@
 {
   "updated_at_utc": null,
-  "status": "not_run_yet",
-  "results": {},
-  "sources": [],
-  "notice": "Chạy workflow Update lottery results để thu thập kết quả."
+  "status": "empty",
+  "results": {
+    "xsmb": {
+      "name": "Xổ số miền Bắc",
+      "draws": []
+    },
+    "xsmt": {
+      "name": "Xổ số miền Trung",
+      "draws": []
+    },
+    "xsmn": {
+      "name": "Xổ số miền Nam",
+      "draws": []
+    },
+    "vietlott": {
+      "name": "Vietlott",
+      "draws": []
+    }
+  },
+  "archive_count": 0,
+  "notice": "Chạy workflow để quét nhiều nguồn và khóa các kết quả hợp lệ."
 }
