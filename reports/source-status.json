@@ -1,42 +1,7 @@
 {
-  "checked_at_utc": "2026-10-19T02:42:43+00:00",
+  "checked_at_utc": null,
   "purpose": "source feasibility only",
-  "sources": [
-    {
-      "id": "xsmb",
-      "name": "Xổ số miền Bắc (XSMB)",
-      "url": "https://m.kqxs.vn/mien-bac",
-      "status": "unreachable",
-      "error": "URLError: <urlopen error [Errno -3] Temporary failure in name resolution>",
-      "elapsed_seconds": 0.01,
-      "note": "Could be a temporary network block, anti-bot protection, or source outage."
-    },
-    {
-      "id": "xsmt",
-      "name": "Xổ số miền Trung (XSMT)",
-      "url": "https://m.kqxs.vn/mien-trung",
-      "status": "unreachable",
-      "error": "URLError: <urlopen error [Errno -3] Temporary failure in name resolution>",
-      "elapsed_seconds": 5.01,
-      "note": "Could be a temporary network block, anti-bot protection, or source outage."
-    },
-    {
-      "id": "xsmn",
-      "name": "Xổ số miền Nam (XSMN)",
-      "url": "https://m.kqxs.vn/mien-nam",
-      "status": "unreachable",
-      "error": "URLError: <urlopen error [Errno -3] Temporary failure in name resolution>",
-      "elapsed_seconds": 0.0,
-      "note": "Could be a temporary network block, anti-bot protection, or source outage."
-    },
-    {
-      "id": "vietlott",
-      "name": "Vietlott (trang tổng hợp ứng viên)",
-      "url": "https://m.kqxs.vn/xo-so-vietlott",
-      "status": "unreachable",
-      "error": "URLError: <urlopen error [Errno -3] Temporary failure in name resolution>",
-      "elapsed_seconds": 5.01,
-      "note": "Could be a temporary network block, anti-bot protection, or source outage."
-    }
-  ]
+  "status": "not_run_yet",
+  "message": "Chưa có lần chạy thực tế. Chạy GitHub Actions để tạo báo cáo.",
+  "sources": []
 }

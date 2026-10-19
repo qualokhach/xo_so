@@ -1,31 +1,28 @@
-# AppNho Lottery Source Test
+# AppNho Lottery Source Test — tự động hóa báo cáo
 
-Bộ thử nghiệm khả năng truy cập các trang ứng viên cho XSMB, XSMT, XSMN và Vietlott. Đây **chưa phải** hệ thống tự thu thập kết quả xổ số để xuất bản.
+Bộ này **chỉ kiểm tra khả năng truy cập các trang nguồn ứng viên** cho XSMB, XSMT, XSMN và Vietlott. Đây chưa phải hệ thống thu thập/xác minh kết quả trúng thưởng để xuất bản.
 
-## Mở trang index
+## Cách cài đặt (làm một lần)
 
-Mở `index.html` bằng trình duyệt. Trang giúp bạn xem báo cáo JSON sau khi chạy kiểm tra và có liên kết đến các trang nguồn. Không cần cài đặt máy chủ để xem giao diện.
+1. Tạo repository GitHub mới, ví dụ `appnho-lottery-test`.
+2. Upload toàn bộ nội dung thư mục dự án lên branch `main`, bao gồm `.github/workflows/check-lottery-sources.yml`.
+3. Vào **Settings → Actions → General → Workflow permissions**, chọn **Read and write permissions**, rồi lưu. Workflow cần quyền ghi báo cáo vào repository.
+4. Mở **Actions → Check lottery data sources → Run workflow** để chạy thử ngay.
+5. Sau lần chạy, workflow tự cập nhật `reports/source-status.json` trong repository. Không cần tải artifact hoặc upload file thủ công.
+6. Để index tự tải báo cáo: vào **Settings → Pages**; chọn **Deploy from a branch**, branch `main`, folder `/(root)`, rồi Save.
+7. Mở URL GitHub Pages được GitHub cung cấp. `index.html` sẽ tự tải báo cáo và kiểm tra lại mỗi 5 phút. GitHub Actions tự chạy theo lịch mỗi 6 giờ, kể cả khi máy tính của bạn tắt.
 
-## Chạy kiểm tra thật bằng GitHub Actions
+## Những gì tự động
 
-1. Tạo một repository GitHub mới, ví dụ `appnho-lottery-test`.
-2. Upload toàn bộ nội dung thư mục dự án lên repository, bao gồm thư mục `.github` (nếu giao diện web không hiện file ẩn, hãy đảm bảo `.github/workflows/check-lottery-sources.yml` được upload).
-3. Vào tab **Actions** → **Check lottery data sources** → **Run workflow**.
-4. Mở lần chạy mới nhất và tải artifact `appnho-lottery-source-report`.
-5. Giải nén artifact, lấy `source-status.json`, rồi mở `index.html` và chọn file JSON để xem kết quả.
+- Kiểm tra mã HTTP, thời gian phản hồi, từ khóa và chuỗi số cơ bản trong trang HTML.
+- Ghi báo cáo vào `reports/source-status.json` và commit khi có thay đổi.
+- Trang `index.html` tự tải báo cáo cùng website, không yêu cầu tải file JSON.
+- Có thể bấm **Tải báo cáo ngay** để tải lại báo cáo; hoặc bấm **Mở GitHub Actions** để chạy workflow thủ công.
 
-Workflow cũng được đặt lịch chạy mỗi 6 giờ. GitHub Actions có thể trễ lịch và không đảm bảo chạy đúng từng phút.
+## Giới hạn quan trọng
 
-## Những gì script kiểm tra
-
-- Có tải được trang qua HTTP hay không.
-- Mã HTTP, loại nội dung, thời gian phản hồi.
-- Một số từ khóa và chuỗi số cơ bản có xuất hiện trong nội dung HTML hay không.
-
-Kết quả `candidate_accessible` chỉ có nghĩa là trang vượt qua kiểm tra sơ bộ. Nó **không** xác minh các con số là kết quả xổ số chính xác, không bảo đảm cấu trúc trang sẽ ổn định, và không xác nhận quyền tái sử dụng dữ liệu. Cần kiểm tra nguồn chính thức, điều khoản truy cập, và đối chiếu kết quả trước khi dùng cho website thật.
-
-## Lưu ý
-
-- Mở `index.html` không tự chạy script Python; trình duyệt thường chặn truy vấn trực tiếp tới website khác do CORS. Hãy dùng GitHub Actions để kiểm tra nguồn từ máy chủ runner.
-- Script dùng Python standard library, không cần API key.
-- Không có dịch vụ trả phí nào được cấu hình trong gói này. Việc sử dụng GitHub Actions vẫn tuân theo hạn mức và điều khoản của GitHub.
+- Lịch GitHub Actions có thể trễ; chu kỳ 6 giờ chỉ để kiểm tra khả năng truy cập nguồn, không phù hợp để cập nhật kết quả xổ số theo thời gian thực.
+- `candidate_accessible` chỉ là ứng viên truy cập được, không xác minh các con số là kết quả chính xác, không bảo đảm cấu trúc ổn định và không xác nhận quyền tái sử dụng dữ liệu.
+- Nếu nguồn chặn GitHub Actions, báo cáo sẽ thể hiện lỗi truy cập. Không được coi lỗi nguồn là kết quả xổ số.
+- Mở `index.html` bằng `file://` có thể khiến trình duyệt chặn `fetch` JSON. Dùng URL GitHub Pages để tự động đọc báo cáo; tải JSON thủ công chỉ là phương án dự phòng.
+- Gói này dùng Python standard library và GitHub Actions; không cần API key hay dịch vụ trả phí, nhưng vẫn tuân theo hạn mức/điều khoản của GitHub.

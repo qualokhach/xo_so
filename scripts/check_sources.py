@@ -115,9 +115,10 @@ def main():
     if summary_path:
         with open(summary_path, "a", encoding="utf-8") as f:
             f.write("\n".join(lines) + "\n")
-    # A blocked source should be visible in the report but shouldn't hide the other results.
+    # Keep the workflow successful even if every source is unreachable.
+    # The report itself records failures and is still published for the index page.
     if all(r["status"] == "unreachable" for r in report["sources"]):
-        sys.exit("All candidate sources were unreachable. See source-status.json.")
+        print("WARNING: all candidate sources were unreachable; report was still generated.")
 
 if __name__ == "__main__":
     main()
