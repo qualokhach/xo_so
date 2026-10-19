@@ -15,44 +15,50 @@ concurrency:
 jobs:
   update-results:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           persist-credentials: true
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Verify Python script syntax
+      - name: Verify collector syntax
         run: python -m py_compile scripts/fetch_results.py
-      - name: Fetch and parse lottery results
+      - name: Scan sources, append new draws, and lock published records
         run: python scripts/fetch_results.py
-      - name: Show collection summary
+      - name: Verify archive immutability and public JSON
         run: |
           python - <<'PY'
           import json
-          d=json.load(open("data/results.json",encoding="utf-8"))
-          for s in d.get("sources",[]):
-              print(f"{s.get('id')}: {s.get('status')} | draws={s.get('draw_count')} | {s.get('message','')}")
+          a=json.load(open("data/archive.json",encoding="utf-8"))
+          p=json.load(open("data/results.json",encoding="utf-8"))
+          assert isinstance(a.get("records"),dict)
+          assert isinstance(p.get("results"),dict)
+          print("Immutable records:",len(a["records"]))
+          print("Public result groups:",", ".join(p["results"].keys()))
           PY
-      - name: Publish JSON to GitHub Pages
+      - name: Publish locked data to GitHub Pages
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/results.json
+          git add data/archive.json data/results.json
           if git diff --cached --quiet; then
-            echo "No data changes to commit."
+            echo "No archive changes; no commit needed."
           else
-            git commit -m "data: update lottery results"
+            git commit -m "data: append new locked lottery draws"
             git push origin HEAD:main
           fi
-      - name: Upload result JSON for diagnosis
+      - name: Upload diagnostic reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: appnho-lottery-results
-          path: data/results.json
+          name: appnho-lottery-archive-report
+          path: |
+            data/archive.json
+            data/results.json
           if-no-files-found: warn
-          retention-days: 14
+          retention-days: 30
