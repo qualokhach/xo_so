@@ -1,0 +1,13 @@
+{
+  "schema_version": 3,
+  "status": "empty",
+  "record_count": 0,
+  "files": [],
+  "updated_at_vietnam": null,
+  "retention": {
+    "traditional_days": 730,
+    "vietlott_power_mega_3d_days": 730,
+    "lotto_5_35_days": 30
+  },
+  "notice": "Chưa có dữ liệu hợp lệ. Chạy workflow để thu thập và công bố kết quả."
+}
