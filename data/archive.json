@@ -1,5 +1,1018 @@
 {
   "schema_version": 1,
-  "updated_at_utc": null,
-  "records": {}
+  "updated_at_utc": "2026-10-19T14:47:36+00:00",
+  "records": {
+    "xsmb|2026-10-19|Kết quả Xổ số Miền Bắc": {
+      "key": "xsmb|2026-10-19|Kết quả Xổ số Miền Bắc",
+      "kind": "xsmb",
+      "date": "2026-10-19",
+      "title": "Kết quả Xổ số Miền Bắc",
+      "station": "Kết quả Xổ số Miền Bắc",
+      "prizes": [
+        {
+          "name": "Đặc biệt",
+          "numbers": [
+            "55390"
+          ]
+        },
+        {
+          "name": "Giải nhất",
+          "numbers": [
+            "38166"
+          ]
+        },
+        {
+          "name": "Giải nhì",
+          "numbers": [
+            "28540",
+            "27789"
+          ]
+        },
+        {
+          "name": "Giải ba",
+          "numbers": [
+            "12596",
+            "39537",
+            "36650",
+            "54434",
+            "52274",
+            "74471"
+          ]
+        },
+        {
+          "name": "Giải tư",
+          "numbers": [
+            "0908",
+            "2244",
+            "6675",
+            "9995"
+          ]
+        },
+        {
+          "name": "Giải năm",
+          "numbers": [
+            "2828",
+            "4075",
+            "0806",
+            "3086",
+            "5260",
+            "4858"
+          ]
+        },
+        {
+          "name": "Giải sáu",
+          "numbers": [
+            "358",
+            "174",
+            "123"
+          ]
+        },
+        {
+          "name": "Giải bảy",
+          "numbers": [
+            "04",
+            "83",
+            "55",
+            "35"
+          ]
+        },
+        {
+          "name": "Đặc biệt",
+          "numbers": [
+            "84642"
+          ]
+        },
+        {
+          "name": "Giải nhất",
+          "numbers": [
+            "31053"
+          ]
+        },
+        {
+          "name": "Giải nhì",
+          "numbers": [
+            "02918",
+            "26414"
+          ]
+        },
+        {
+          "name": "Giải ba",
+          "numbers": [
+            "08419",
+            "69920",
+            "96611",
+            "90003",
+            "49085",
+            "18235"
+          ]
+        },
+        {
+          "name": "Giải tư",
+          "numbers": [
+            "7732",
+            "2937",
+            "7948",
+            "0695"
+          ]
+        },
+        {
+          "name": "Giải năm",
+          "numbers": [
+            "7607",
+            "4654",
+            "6131",
+            "4116",
+            "3869",
+            "3213"
+          ]
+        },
+        {
+          "name": "Giải sáu",
+          "numbers": [
+            "305",
+            "626",
+            "542"
+          ]
+        },
+        {
+          "name": "Giải bảy",
+          "numbers": [
+            "44",
+            "04",
+            "67",
+            "10"
+          ]
+        },
+        {
+          "name": "Giải Đặc biệt",
+          "numbers": [
+            "500",
+            "000",
+            "000"
+          ]
+        },
+        {
+          "name": "Giải nhất",
+          "numbers": [
+            "10",
+            "000",
+            "000",
+            "15"
+          ]
+        },
+        {
+          "name": "Giải nhì",
+          "numbers": [
+            "000",
+            "000",
+            "30"
+          ]
+        },
+        {
+          "name": "Giải ba",
+          "numbers": [
+            "000",
+            "000",
+            "90"
+          ]
+        },
+        {
+          "name": "Giải tư",
+          "numbers": [
+            "400",
+            "000",
+            "600"
+          ]
+        },
+        {
+          "name": "Giải năm",
+          "numbers": [
+            "200",
+            "000",
+            "900"
+          ]
+        },
+        {
+          "name": "Giải sáu",
+          "numbers": [
+            "100",
+            "000",
+            "500"
+          ]
+        },
+        {
+          "name": "Giải bảy",
+          "numbers": [
+            "40",
+            "000",
+            "60",
+            "000"
+          ]
+        }
+      ],
+      "source_url": "https://m.kqxs.vn/mien-bac",
+      "source_id": "kqxs_mb",
+      "locked_at_utc": "2026-10-19T14:47:36+00:00",
+      "first_source_id": "kqxs_mb",
+      "content_sha256": "19ea419b625a829ed80204acb244acf34f392ad97e5228437eea5df2442b6267"
+    },
+    "xsmt|2026-10-19|Phú YênThừa Thiên Huế": {
+      "key": "xsmt|2026-10-19|Phú YênThừa Thiên Huế",
+      "kind": "xsmt",
+      "date": "2026-10-19",
+      "title": "Phú YênThừa Thiên Huế",
+      "station": "Phú YênThừa Thiên Huế",
+      "prizes": [
+        {
+          "name": "Giải tám",
+          "numbers": [
+            "47",
+            "88"
+          ]
+        },
+        {
+          "name": "Giải bảy",
+          "numbers": [
+            "638",
+            "653"
+          ]
+        },
+        {
+          "name": "Giải sáu",
+          "numbers": [
+            "4181",
+            "7876",
+            "6502",
+            "7248",
+            "1514",
+            "5974"
+          ]
+        },
+        {
+          "name": "Giải năm",
+          "numbers": [
+            "3369",
+            "8687"
+          ]
+        },
+        {
+          "name": "Giải tư",
+          "numbers": [
+            "53415",
+            "77913",
+            "11599",
+            "48883",
+            "08560",
+            "73027",
+            "73254",
+            "59805",
+            "21230",
+            "60506",
+            "94037",
+            "42011",
+            "93464",
+            "24346"
+          ]
+        },
+        {
+          "name": "Giải ba",
+          "numbers": [
+            "72905",
+            "17414",
+            "38480",
+            "68939"
+          ]
+        },
+        {
+          "name": "Giải nhì",
+          "numbers": [
+            "87416",
+            "52669"
+          ]
+        },
+        {
+          "name": "Giải nhất",
+          "numbers": [
+            "68979",
+            "24759"
+          ]
+        },
+        {
+          "name": "Đặc biệt",
+          "numbers": [
+            "425268",
+            "317475"
+          ]
+        },
+        {
+          "name": "Giải tám",
+          "numbers": [
+            "97",
+            "09",
+            "93"
+          ]
+        },
+        {
+          "name": "Giải bảy",
+          "numbers": [
+            "923",
+            "249",
+            "022"
+          ]
+        },
+        {
+          "name": "Giải sáu",
+          "numbers": [
+            "8375",
+            "2144",
+            "1243",
+            "4905",
+            "0976",
+            "9919",
+            "1400",
+            "6811",
+            "1245"
+          ]
+        },
+        {
+          "name": "Giải năm",
+          "numbers": [
+            "2133",
+            "2902",
+            "2915"
+          ]
+        },
+        {
+          "name": "Giải tư",
+          "numbers": [
+            "22136",
+            "35106",
+            "31960",
+            "01113",
+            "70019",
+            "84751",
+            "61993",
+            "37760",
+            "23624",
+            "89926",
+            "14254",
+            "01920",
+            "24869",
+            "54423",
+            "62930",
+            "72881",
+            "76188",
+            "51847",
+            "85677",
+            "14211",
+            "93143"
+          ]
+        },
+        {
+          "name": "Giải ba",
+          "numbers": [
+            "75998",
+            "96646",
+            "42636",
+            "45582",
+            "74963",
+            "74628"
+          ]
+        },
+        {
+          "name": "Giải nhì",
+          "numbers": [
+            "26574",
+            "22113",
+            "48032"
+          ]
+        },
+        {
+          "name": "Giải nhất",
+          "numbers": [
+            "48525",
+            "69637",
+            "50968"
+          ]
+        },
+        {
+          "name": "Đặc biệt",
+          "numbers": [
+            "294495",
+            "746834",
+            "722826"
+          ]
+        },
+        {
+          "name": "Giải nhất",
+          "numbers": [
+            "30",
+            "000",
+            "000"
+          ]
+        },
+        {
+          "name": "Giải nhì",
+          "numbers": [
+            "15",
+            "000",
+            "000"
+          ]
+        },
+        {
+          "name": "Giải ba",
+          "numbers": [
+            "10",
+            "000",
+            "000"
+          ]
+        },
+        {
+          "name": "Giải tư",
+          "numbers": [
+            "000",
+            "000"
+          ]
+        },
+        {
+          "name": "Giải năm",
+          "numbers": [
+            "000",
+            "000"
+          ]
+        },
+        {
+          "name": "Giải sáu",
+          "numbers": [
+            "400",
+            "000"
+          ]
+        },
+        {
+          "name": "Giải bảy",
+          "numbers": [
+            "200",
+            "000"
+          ]
+        },
+        {
+          "name": "Giải tám",
+          "numbers": [
+            "100",
+            "000"
+          ]
+        }
+      ],
+      "source_url": "https://m.kqxs.vn/mien-trung",
+      "source_id": "kqxs_mt",
+      "locked_at_utc": "2026-10-19T14:47:36+00:00",
+      "first_source_id": "kqxs_mt",
+      "content_sha256": "565534cda5136558fe56f5214aa7ced6eeeae2d1fb4ba188097a73a26323cc58"
+    },
+    "xsmt|2026-10-19|Đài 2": {
+      "key": "xsmt|2026-10-19|Đài 2",
+      "kind": "xsmt",
+      "date": "2026-10-19",
+      "title": "Đài 2",
+      "station": "Đài 2",
+      "prizes": [
+        {
+          "name": "Giải nhất",
+          "numbers": [
+            "10"
+          ]
+        },
+        {
+          "name": "Giải nhì",
+          "numbers": [
+            "10"
+          ]
+        },
+        {
+          "name": "Giải ba",
+          "numbers": [
+            "20"
+          ]
+        },
+        {
+          "name": "Giải tư",
+          "numbers": [
+            "70"
+          ]
+        },
+        {
+          "name": "Giải năm",
+          "numbers": [
+            "100"
+          ]
+        },
+        {
+          "name": "Giải sáu",
+          "numbers": [
+            "300"
+          ]
+        },
+        {
+          "name": "Giải bảy",
+          "numbers": [
+            "000"
+          ]
+        },
+        {
+          "name": "Giải tám",
+          "numbers": [
+            "10",
+            "000"
+          ]
+        }
+      ],
+      "source_url": "https://m.kqxs.vn/mien-trung",
+      "source_id": "kqxs_mt",
+      "locked_at_utc": "2026-10-19T14:47:36+00:00",
+      "first_source_id": "kqxs_mt",
+      "content_sha256": "daf26059fefa55879a194cf7ea8639f7dce1b4c400dcfca6cf17064d41e98a78"
+    },
+    "xsmn|2026-10-19|Hồ Chí MinhĐồng ThápCà Mau": {
+      "key": "xsmn|2026-10-19|Hồ Chí MinhĐồng ThápCà Mau",
+      "kind": "xsmn",
+      "date": "2026-10-19",
+      "title": "Hồ Chí MinhĐồng ThápCà Mau",
+      "station": "Hồ Chí MinhĐồng ThápCà Mau",
+      "prizes": [
+        {
+          "name": "Giải tám",
+          "numbers": [
+            "20",
+            "70",
+            "51"
+          ]
+        },
+        {
+          "name": "Giải bảy",
+          "numbers": [
+            "585",
+            "163",
+            "377"
+          ]
+        },
+        {
+          "name": "Giải sáu",
+          "numbers": [
+            "0311",
+            "3054",
+            "4406",
+            "5499",
+            "9819",
+            "7309",
+            "9428",
+            "2375",
+            "6310"
+          ]
+        },
+        {
+          "name": "Giải năm",
+          "numbers": [
+            "4598",
+            "7195",
+            "5630"
+          ]
+        },
+        {
+          "name": "Giải tư",
+          "numbers": [
+            "60091",
+            "34187",
+            "57166",
+            "65410",
+            "65566",
+            "78219",
+            "55300",
+            "36892",
+            "03140",
+            "54437",
+            "06999",
+            "38610",
+            "48667",
+            "00446",
+            "92404",
+            "34073",
+            "01989",
+            "98919",
+            "67735",
+            "95307",
+            "72217"
+          ]
+        },
+        {
+          "name": "Giải ba",
+          "numbers": [
+            "64610",
+            "81890",
+            "43066",
+            "82849",
+            "83284",
+            "57445"
+          ]
+        },
+        {
+          "name": "Giải nhì",
+          "numbers": [
+            "15175",
+            "64256",
+            "06374"
+          ]
+        },
+        {
+          "name": "Giải nhất",
+          "numbers": [
+            "17912",
+            "44126",
+            "38428"
+          ]
+        },
+        {
+          "name": "Đặc biệt",
+          "numbers": [
+            "091891",
+            "813616",
+            "519539"
+          ]
+        },
+        {
+          "name": "Giải tám",
+          "numbers": [
+            "10",
+            "43",
+            "40"
+          ]
+        },
+        {
+          "name": "Giải bảy",
+          "numbers": [
+            "334",
+            "782",
+            "171"
+          ]
+        },
+        {
+          "name": "Giải sáu",
+          "numbers": [
+            "3783",
+            "6305",
+            "8335",
+            "9219",
+            "1344",
+            "6524",
+            "2627",
+            "8165",
+            "1536"
+          ]
+        },
+        {
+          "name": "Giải năm",
+          "numbers": [
+            "8883",
+            "5350",
+            "4565"
+          ]
+        },
+        {
+          "name": "Giải tư",
+          "numbers": [
+            "88582",
+            "19241",
+            "61585",
+            "01425",
+            "87621",
+            "89980",
+            "38434",
+            "38799",
+            "46891",
+            "43147",
+            "82092",
+            "48150",
+            "98288",
+            "61281",
+            "07725",
+            "43222",
+            "73649",
+            "48077",
+            "79864",
+            "07755",
+            "55888"
+          ]
+        },
+        {
+          "name": "Giải ba",
+          "numbers": [
+            "18042",
+            "33439",
+            "91722",
+            "35489",
+            "20679",
+            "12059"
+          ]
+        },
+        {
+          "name": "Giải nhì",
+          "numbers": [
+            "89058",
+            "86727",
+            "15913"
+          ]
+        },
+        {
+          "name": "Giải nhất",
+          "numbers": [
+            "87589",
+            "63200",
+            "52444"
+          ]
+        },
+        {
+          "name": "Đặc biệt",
+          "numbers": [
+            "425917",
+            "316954",
+            "761867"
+          ]
+        },
+        {
+          "name": "Giải nhất",
+          "numbers": [
+            "30",
+            "000",
+            "000"
+          ]
+        },
+        {
+          "name": "Giải nhì",
+          "numbers": [
+            "15",
+            "000",
+            "000"
+          ]
+        },
+        {
+          "name": "Giải ba",
+          "numbers": [
+            "10",
+            "000",
+            "000"
+          ]
+        },
+        {
+          "name": "Giải tư",
+          "numbers": [
+            "000",
+            "000"
+          ]
+        },
+        {
+          "name": "Giải năm",
+          "numbers": [
+            "000",
+            "000"
+          ]
+        },
+        {
+          "name": "Giải sáu",
+          "numbers": [
+            "400",
+            "000"
+          ]
+        },
+        {
+          "name": "Giải bảy",
+          "numbers": [
+            "200",
+            "000"
+          ]
+        },
+        {
+          "name": "Giải tám",
+          "numbers": [
+            "100",
+            "000"
+          ]
+        }
+      ],
+      "source_url": "https://m.kqxs.vn/mien-nam",
+      "source_id": "kqxs_mn",
+      "locked_at_utc": "2026-10-19T14:47:36+00:00",
+      "first_source_id": "kqxs_mn",
+      "content_sha256": "113fcbe1e3a0571c2fd29accf145d02d01bdcb91777fd7893b979158fd9e6a08"
+    },
+    "xsmn|2026-10-19|Đài 2": {
+      "key": "xsmn|2026-10-19|Đài 2",
+      "kind": "xsmn",
+      "date": "2026-10-19",
+      "title": "Đài 2",
+      "station": "Đài 2",
+      "prizes": [
+        {
+          "name": "Giải nhất",
+          "numbers": [
+            "10"
+          ]
+        },
+        {
+          "name": "Giải nhì",
+          "numbers": [
+            "10"
+          ]
+        },
+        {
+          "name": "Giải ba",
+          "numbers": [
+            "20"
+          ]
+        },
+        {
+          "name": "Giải tư",
+          "numbers": [
+            "70"
+          ]
+        },
+        {
+          "name": "Giải năm",
+          "numbers": [
+            "100"
+          ]
+        },
+        {
+          "name": "Giải sáu",
+          "numbers": [
+            "300"
+          ]
+        },
+        {
+          "name": "Giải bảy",
+          "numbers": [
+            "000"
+          ]
+        },
+        {
+          "name": "Giải tám",
+          "numbers": [
+            "10",
+            "000"
+          ]
+        }
+      ],
+      "source_url": "https://m.kqxs.vn/mien-nam",
+      "source_id": "kqxs_mn",
+      "locked_at_utc": "2026-10-19T14:47:36+00:00",
+      "first_source_id": "kqxs_mn",
+      "content_sha256": "f28445a347660bf6908ec24d354597c665e175167e9876706aa8772975cb8443"
+    },
+    "vietlott|2026-10-18|MEGA 6/45": {
+      "key": "vietlott|2026-10-18|MEGA 6/45",
+      "kind": "vietlott",
+      "date": "2026-10-18",
+      "title": "MEGA 6/45",
+      "station": "MEGA 6/45",
+      "prizes": [
+        {
+          "name": "Jackpot",
+          "numbers": [
+            "26",
+            "444",
+            "954",
+            "000"
+          ]
+        },
+        {
+          "name": "Giải nhất",
+          "numbers": [
+            "27",
+            "10",
+            "000",
+            "000"
+          ]
+        },
+        {
+          "name": "Giải nhì",
+          "numbers": [
+            "370",
+            "300",
+            "000"
+          ]
+        },
+        {
+          "name": "Giải ba",
+          "numbers": [
+            "25",
+            "159",
+            "30",
+            "000"
+          ]
+        },
+        {
+          "name": "Jackpot 1",
+          "numbers": [
+            "164",
+            "048",
+            "997",
+            "900"
+          ]
+        },
+        {
+          "name": "Jackpot 2",
+          "numbers": [
+            "816",
+            "405",
+            "550"
+          ]
+        },
+        {
+          "name": "Giải nhất",
+          "numbers": [
+            "41",
+            "40",
+            "000",
+            "000"
+          ]
+        },
+        {
+          "name": "Giải nhì",
+          "numbers": [
+            "182",
+            "500",
+            "000"
+          ]
+        },
+        {
+          "name": "Giải ba",
+          "numbers": [
+            "42",
+            "573",
+            "50",
+            "000"
+          ]
+        },
+        {
+          "name": "Jackpot",
+          "numbers": [
+            "12"
+          ]
+        },
+        {
+          "name": "Giải nhất",
+          "numbers": [
+            "10",
+            "000",
+            "000"
+          ]
+        },
+        {
+          "name": "Giải nhì",
+          "numbers": [
+            "300",
+            "000"
+          ]
+        },
+        {
+          "name": "Giải ba",
+          "numbers": [
+            "30",
+            "000"
+          ]
+        },
+        {
+          "name": "Jackpot 1",
+          "numbers": [
+            "30"
+          ]
+        },
+        {
+          "name": "Giải nhất",
+          "numbers": [
+            "40",
+            "000",
+            "000"
+          ]
+        },
+        {
+          "name": "Giải nhì",
+          "numbers": [
+            "500",
+            "000"
+          ]
+        },
+        {
+          "name": "Giải ba",
+          "numbers": [
+            "50",
+            "000"
+          ]
+        }
+      ],
+      "source_url": "https://m.kqxs.vn/xo-so-vietlott",
+      "source_id": "kqxs_vietlott",
+      "locked_at_utc": "2026-10-19T14:47:36+00:00",
+      "first_source_id": "kqxs_vietlott",
+      "content_sha256": "49e57a7cc39e80a76f383afaff9a5722d5efdb72b4b979f91436a7f3c78408b2"
+    }
+  }
 }
