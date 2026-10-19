@@ -3,7 +3,7 @@ name: Update lottery results
 on:
   workflow_dispatch:
   schedule:
-    - cron: "7,37 * * * *"
+    - cron: "17 * * * *"
 
 permissions:
   contents: write
@@ -53,6 +53,7 @@ jobs:
           print("Validated",total,"records in",len(m.get("files",[])),"partitions")
           PY
       - name: Commit only changed data files
+        if: github.ref == 'refs/heads/main'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
