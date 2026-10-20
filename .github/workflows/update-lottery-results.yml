@@ -30,12 +30,16 @@ jobs:
         run: python -m pip install --disable-pip-version-check beautifulsoup4
       - name: Verify collector syntax
         run: python -m py_compile scripts/fetch_results.py
+      - name: Run deterministic collector tests
+        run: python tests/test_collector.py
       - name: Collect, validate, lock and prune by retention policy
         run: python scripts/fetch_results.py
       - name: Validate partition manifest and all published records
         run: |
           python - <<'PY'
-          import json, re, os
+          import json, re, os, sys
+          sys.path.insert(0, "scripts")
+          import fetch_results
           m=json.load(open("data/index.json",encoding="utf-8"))
           assert m.get("schema_version")==3
           total=0
@@ -43,6 +47,7 @@ jobs:
               assert os.path.isfile(f["url"]), f["url"]
               d=json.load(open(f["url"],encoding="utf-8"))
               for rec in d.get("records",{}).values():
+                  assert fetch_results.record_valid(rec), (f["url"], rec.get("key"), "invalid record")
                   assert rec.get("date") and rec.get("prizes")
                   if rec.get("kind") in ("xsmb","xsmt","xsmn"):
                       assert rec.get("station") and not re.match(r"Đài\s*\d+$",rec["station"],re.I)
