@@ -75,6 +75,43 @@ def test_minhngoc_product_history_parses_independent_draws():
     assert {r['draw_no'] for r in rows}=={'1577','1576'}
 
 
+
+
+def test_three_max3d_products_are_separate():
+    products = {x["product"] for x in f.VIETLOTT}
+    assert {"MAX 3D", "MAX 3D+", "MAX 3D PRO"}.issubset(products)
+    assert len({x["id"] for x in f.VIETLOTT}) == len(f.VIETLOTT)
+
+
+def test_max3dpro_result_and_award_count_fixture():
+    html = '''<html><head><title>Max 3D Pro</title></head><body>
+    <h2>Kết quả quay số mở thưởng Max 3D Pro</h2><h3>Kỳ quay thưởng #00739 ngày 13/06/2026</h3>
+    <h4>Giải Đặc biệt</h4><p>6 1 5</p><p>7 7 1</p><h4>Giải Nhất</h4><p>2 8 3</p><p>9 2 0</p>
+    <table><tr><th>Giải thưởng</th><th>Kết quả</th><th>SL giải</th><th>Giá trị</th></tr>
+    <tr><td>Giải Đặc biệt</td><td>615 771</td><td>1</td><td>2.000.000.000</td></tr></table></body></html>'''
+    src = {"id":"max3dpro", "product":"MAX 3D PRO", "url":"https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3DPro.html"}
+    rows = f.vietlott_from_html(html, src)
+    assert rows and rows[0]["product"] == "MAX 3D PRO"
+    assert rows[0]["date"] == "2026-06-13" and rows[0]["draw_no"] == "739"
+    assert f.record_valid(rows[0])
+    assert rows[0]["award_details"][0]["winner_count"] == "1"
+
+
+
+
+def test_traditional_parser_never_uses_unrelated_page_date():
+    html = '''<html><head><title>Kết quả xổ số ngày 20/10/2026</title></head><body>
+    <h2>Tin tức cập nhật 20/10/2026</h2>
+    <table><tr><th>Giải</th><th>Đà Nẵng</th></tr>
+    <tr><td>Đặc biệt</td><td>123456</td></tr><tr><td>Giải nhất</td><td>123456</td></tr>
+    <tr><td>Giải nhì</td><td>123456</td></tr><tr><td>Giải ba</td><td>123456 123456</td></tr>
+    <tr><td>Giải tư</td><td>123456 123456 123456 123456 123456 123456 123456</td></tr>
+    <tr><td>Giải năm</td><td>123456</td></tr><tr><td>Giải sáu</td><td>123456 123456 123456</td></tr>
+    <tr><td>Giải bảy</td><td>123456</td></tr><tr><td>Giải tám</td><td>56</td></tr></table></body></html>'''
+    rows = f.traditional_from_html(html, 'xsmt', {'id':'fixture','url':'https://example.test'})
+    assert rows == [], "must not borrow the unrelated date from the page title/news heading"
+
+
 if __name__ == '__main__':
     test_dates()
     test_vietlott_product_shapes()
@@ -83,4 +120,63 @@ if __name__ == '__main__':
     test_lotto_parser_handles_two_sessions_same_day()
     test_product_dates_are_not_forced_to_match()
     test_minhngoc_product_history_parses_independent_draws()
+    test_three_max3d_products_are_separate()
+    test_max3dpro_result_and_award_count_fixture()
     print('All collector fixture tests passed.')
+
+
+def test_traditional_validator_rejects_wrong_number_widths():
+    rec = {
+        'kind':'xsmt','date':'2026-10-20','station':'Đà Nẵng',
+        'prizes':[
+            {'name':'Đặc biệt','numbers':['12345']},
+            {'name':'Giải nhất','numbers':['12345']},
+            {'name':'Giải nhì','numbers':['12345']},
+            {'name':'Giải ba','numbers':['12345','23456']},
+            {'name':'Giải tư','numbers':['12345']*7},
+            {'name':'Giải năm','numbers':['1234']},
+            {'name':'Giải sáu','numbers':['1234']*3},
+            {'name':'Giải bảy','numbers':['123']},
+            {'name':'Giải tám','numbers':['12']},
+        ]
+    }
+    assert not f.record_valid(rec)
+
+
+def test_traditional_validator_accepts_correct_digit_widths():
+    rec = {
+        'kind':'xsmt','date':'2026-10-20','station':'Đà Nẵng',
+        'prizes':[
+            {'name':'Đặc biệt','numbers':['123456']},
+            {'name':'Giải nhất','numbers':['12345']},
+            {'name':'Giải nhì','numbers':['23456']},
+            {'name':'Giải ba','numbers':['12345','23456']},
+            {'name':'Giải tư','numbers':['12345']*7},
+            {'name':'Giải năm','numbers':['1234']},
+            {'name':'Giải sáu','numbers':['1234']*3},
+            {'name':'Giải bảy','numbers':['123']},
+            {'name':'Giải tám','numbers':['12']},
+        ]
+    }
+    assert f.record_valid(rec)
+
+
+def test_mega_and_power_reject_duplicate_or_out_of_range_numbers():
+    base={'kind':'vietlott','date':'2026-10-20','draw_no':'123',
+          'prizes':[{'name':'Bộ số trúng thưởng','numbers':['01','02','03','04','05','06']}]}
+    assert f.record_valid({**base,'product':'MEGA 6/45','product_id':'mega645'})
+    duplicate={**base,'product':'MEGA 6/45','product_id':'mega645',
+               'prizes':[{'name':'Bộ số trúng thưởng','numbers':['01','02','03','04','05','05']}]}
+    assert not f.record_valid(duplicate)
+    out_of_range={**base,'product':'MEGA 6/45','product_id':'mega645',
+                  'prizes':[{'name':'Bộ số trúng thưởng','numbers':['01','02','03','04','05','46']}]}
+    assert not f.record_valid(out_of_range)
+
+
+def test_lotto_requires_bonus_ball_and_valid_session_metadata():
+    base={'kind':'vietlott','product':'LOTTO 5/35','product_id':'lotto535',
+          'date':'2026-10-20','draw_no':'123','draw_time':'21:00',
+          'prizes':[{'name':'Bộ số trúng thưởng','numbers':['01','02','03','04','05','06']}]}
+    assert f.record_valid(base)
+    assert not f.record_valid({**base,'prizes':[{'name':'Bộ số trúng thưởng','numbers':['01','02','03','04','05']}]})
+    assert not f.record_valid({**base,'prizes':[{'name':'Bộ số trúng thưởng','numbers':['01','02','03','04','05','13']}]})
