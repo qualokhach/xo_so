@@ -24,9 +24,9 @@ TRADITIONAL = {
  ],
 }
 VIETLOTT=[
- {"id":"mega645","product":"MEGA 6/45","urls":["https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/645","https://xosohn.com/vietlott","https://m.kqxs.vn/xo-so-vietlott"]},
- {"id":"power655","product":"POWER 6/55","urls":["https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/655","https://xosohn.com/vietlott","https://m.kqxs.vn/xo-so-vietlott"]},
- {"id":"max3d","product":"MAX 3D","urls":["https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3D.html","https://xosohn.com/vietlott","https://m.kqxs.vn/xo-so-vietlott"]},
+ {"id":"mega645","product":"MEGA 6/45","urls":["https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/645","https://www.minhngoc.net.vn/ket-qua-xo-so/dien-toan-vietlott/mega-6x45.html","https://xosohn.com/vietlott","https://m.kqxs.vn/xo-so-vietlott"]},
+ {"id":"power655","product":"POWER 6/55","urls":["https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/655","https://www.minhngoc.net.vn/ket-qua-xo-so/dien-toan-vietlott/power-6x55.html","https://xosohn.com/vietlott","https://m.kqxs.vn/xo-so-vietlott"]},
+ {"id":"max3d","product":"MAX 3D","urls":["https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3D.html","https://www.minhngoc.net.vn/ket-qua-xo-so/dien-toan-vietlott.html","https://xosohn.com/vietlott","https://m.kqxs.vn/xo-so-vietlott"]},
  {"id":"lotto535","product":"LOTTO 5/35","urls":["https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/535","https://xosomoinhat.com/xo-so-lotto-535","https://xosohn.com/vietlott","https://m.kqxs.vn/xo-so-vietlott"]},
 ]
 STATIONS=["Thừa Thiên Huế","Thua Thien Hue","Phú Yên","Phu Yen","Đà Nẵng","Da Nang","Khánh Hòa","Khanh Hoa","Đắk Lắk","Dak Lak","Quảng Nam","Quang Nam","Bình Định","Binh Dinh","Quảng Trị","Quang Tri","Quảng Bình","Quang Binh","Gia Lai","Ninh Thuận","Ninh Thuan","Quảng Ngãi","Quang Ngai","Đắk Nông","Dak Nong","Kon Tum","Hồ Chí Minh","Ho Chi Minh","Đồng Tháp","Dong Thap","Cà Mau","Ca Mau","Bến Tre","Ben Tre","Vũng Tàu","Vung Tau","Bạc Liêu","Bac Lieu","Cần Thơ","Can Tho","Sóc Trăng","Soc Trang","Trà Vinh","Tra Vinh","An Giang","Long An","Tiền Giang","Tien Giang","Kiên Giang","Kien Giang","Đồng Nai","Dong Nai","Bình Dương","Binh Duong","Tây Ninh","Tay Ninh","Bình Phước","Binh Phuoc","Bình Thuận","Binh Thuan","Hậu Giang","Hau Giang","Vĩnh Long","Vinh Long"]
@@ -166,6 +166,69 @@ def traditional_from_html(html,kind,src):
  return out
 
 def vietlott_from_html(html,src):
+ # Minh Ngoc exposes several historic draws on one product page. Parse each
+ # product/date block independently; do not assign a mixed page's first draw to every product.
+ try:
+  from bs4 import BeautifulSoup
+ except ImportError:
+  return []
+ soup=BeautifulSoup(html,"html.parser")
+ product=src["product"]
+ host_url=src.get("url","").casefold()
+ title=(soup.title.get_text(" ",strip=True) if soup.title else "").casefold()
+ flat=re.sub(r"\s+"," ",soup.get_text(" ",strip=True))
+ product_pattern={
+  "MEGA 6/45":r"mega\s*6\s*/\s*45",
+  "POWER 6/55":r"power\s*6\s*/\s*55",
+  "MAX 3D":r"max\s*3d(?!\s*pro)",
+  "LOTTO 5/35":r"lotto\s*5\s*/\s*35",
+ }[product]
+ # History-list layout used by Minh Ngoc: each result starts with a product title/date,
+ # then a ticket/draw number and the winning balls. A window ends at the next result heading.
+ if "minhngoc.net.vn" in host_url:
+  headings=list(re.finditer(r"KẾT QUẢ XỔ SỐ\s+(.{0,35}?)\s*[-–]\s*NGÀY\s*:\s*(\d{1,2}/\d{1,2}/\d{4})",flat,re.I))
+  out=[]
+  for i,h in enumerate(headings):
+   label=h.group(1).casefold()
+   if not re.search(product_pattern,label):
+    continue
+   date=norm_date(h.group(2))
+   if not date: continue
+   end=headings[i+1].start() if i+1<len(headings) else min(len(flat),h.end()+1000)
+   seg=flat[h.end():end]
+   drawm=re.search(r"Kỳ\s*(?:vé|quay(?:\s*thưởng)?)\s*:\s*#?0*(\d{3,6})",seg,re.I)
+   if not drawm: continue
+   draw_no=str(int(drawm.group(1)))
+   # Numbers immediately after ticket metadata; never use payout/statistics tables.
+   meta=re.search(r"Ngày\s*quay\s*thưởng\s*\d{1,2}/\d{1,2}/\d{4}",seg,re.I)
+   start=meta.end() if meta else drawm.end()
+   nums_region=seg[start:start+240]
+   if product in ("MEGA 6/45","POWER 6/55"):
+    need=7 if product=="POWER 6/55" else 6
+    # Accept separators commonly used on pages: whitespace, hyphen, vertical bar, bullet.
+    vals=re.findall(r"(?<!\d)(\d{1,2})(?!\d)",nums_region)
+    vals=[f"{int(x):02d}" for x in vals[:need]]
+    limit=55 if product=="POWER 6/55" else 45
+    if len(vals)!=need or any(not 1<=int(x)<=limit for x in vals[:6]):continue
+    if product=="POWER 6/55" and not 1<=int(vals[6])<=55:continue
+   elif product=="LOTTO 5/35":
+    vals=re.findall(r"(?<!\d)(\d{1,2})(?!\d)",nums_region)
+    vals=[f"{int(x):02d}" for x in vals[:6]]
+    if len(vals)<5 or any(not 1<=int(x)<=35 for x in vals[:5]) or len(set(vals[:5]))<5:continue
+    vals=vals[:6]
+   else:
+    # Max 3D history needs groups of three digits; avoid grabbing amounts by requiring a
+    # result block containing at least one explicit 3-digit ball sequence.
+    m3=re.search(r"(?<!\d)(\d{3})(?:\s+|[-|])+(\d{3})(?:\s+|[-|])+(\d{3})",nums_region)
+    if not m3:continue
+    vals=list(m3.groups())
+   rec={"key":f"vietlott|{product}|{date}|{draw_no}","kind":"vietlott","product":product,"product_id":src["id"],"draw_no":draw_no,"date":date,"title":product,"station":product,"prizes":[{"name":"Bộ số trúng thưởng","numbers":vals}],"source_url":src["url"],"source_id":src["id"]}
+   time_match=re.search(r"(?:lúc|vào lúc|tường thuật trực tiếp vào lúc)\s*(\d{1,2}:\d{2}:?\d{0,2})",seg,re.I)
+   if time_match:rec["draw_time"]=time_match.group(1)[:5]
+   if record_valid(rec):out.append(rec)
+  if out:
+   return list({r["key"]:r for r in out}.values())
+ # For non-history pages, use the general product-aware parser below.
  """Extract one or more draws from a product page without mixing draw dates.
 
  Supports common Vietnamese headings such as:
@@ -176,12 +239,6 @@ def vietlott_from_html(html,src):
  For Lotto 5/35, every heading is a separate session. Only the five main balls
  and optional bonus ball immediately following that heading are accepted.
  """
- try:
-  from bs4 import BeautifulSoup
- except ImportError:
-  return []
- soup=BeautifulSoup(html,"html.parser")
- # Use rendered text in document order; remove spaces introduced by HTML layout.
  text=re.sub(r"\s+"," ",soup.get_text(" ",strip=True))
  product=src["product"]
  width=3 if product=="MAX 3D" else 2
@@ -201,7 +258,7 @@ def vietlott_from_html(html,src):
  aliases={"MEGA 6/45":("mega 6/45","mega645"),"POWER 6/55":("power 6/55","power655"),"MAX 3D":("max 3d","max3d"),"LOTTO 5/35":("lotto 5/35","lotto535","lotto-535")}
  # A product-specific page is safe by URL/title. A mixed fallback must identify the
  # product near each draw heading, otherwise never relabel its first draw.
- specific_url=(product=="LOTTO 5/35" and "lotto-535" in src.get("url", "")) or ("vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/" in src.get("url", ""))
+ specific_url=(product=="LOTTO 5/35" and "lotto-535" in src.get("url", "")) or ("vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/" in src.get("url", "")) or ("minhngoc.net.vn" in src.get("url", "") and product in ("MEGA 6/45","POWER 6/55"))
  page_title=(soup.title.get_text(" ",strip=True) if soup.title else "").casefold()
  out=[]
  for i,m in enumerate(matches):
@@ -344,8 +401,9 @@ def main():
     html,final_url,http=get_html(src["url"]);draws=traditional_from_html(html,kind,src)
     new=[d for d in draws if d["key"] not in records and record_valid(d) and is_in_retention(d,today)]
     attempts.append({"source":src["name"],"url":src["url"],"status":"new_valid_draws" if new else "no_new_valid_draws","draw_count":len(draws),"new_count":len(new),"seconds":round(time.time()-started,2)})
-    if new: found=new;break
+    if new: found.extend(new)
    except Exception as e: attempts.append({"source":src["name"],"url":src["url"],"status":"error","error":f"{type(e).__name__}: {e}","seconds":round(time.time()-started,2)})
+  found=list({d["key"]:d for d in found}.values())
   added=0
   for d in found:
    if d["key"] not in records:
@@ -366,8 +424,9 @@ def main():
     valid=[d for d in draws if record_valid(d) and is_in_retention(d,today)]
     new=[d for d in valid if d["key"] not in records]
     attempts.append({"source":url,"status":"new_valid_draws" if new else ("valid_existing_only" if valid else "no_product_specific_valid_draws"),"draw_count":len(draws),"valid_count":len(valid),"new_count":len(new),"seconds":round(time.time()-started,2)})
-    if new: found=new;break
+    if new: found.extend(new)
    except Exception as e: attempts.append({"source":url,"status":"error","error":f"{type(e).__name__}: {e}","seconds":round(time.time()-started,2)})
+  found=list({d["key"]:d for d in found}.values())
   added=0
   for d in found:
    if d["key"] not in records:

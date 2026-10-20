@@ -58,6 +58,23 @@ def test_product_dates_are_not_forced_to_match():
     assert mega['date'] != power['date']
 
 
+
+
+def test_minhngoc_product_history_parses_independent_draws():
+    html='''<html><head><title>Kết quả xổ số Mega 6/45</title></head><body>
+    <h3>KẾT QUẢ XỔ SỐ MEGA 6/45 - NGÀY: 18/10/2026</h3>
+    Chủ nhật Kỳ vé: #01577 | Ngày quay thưởng 18/10/2026 10 11 31 38 40 44
+    Giải thưởng Jackpot 0 26,444,954,000 đồng
+    <h3>KẾT QUẢ XỔ SỐ MEGA 6/45 - NGÀY: 16/10/2026</h3>
+    Thứ sáu Kỳ vé: #01576 | Ngày quay thưởng 16/10/2026 09 20 26 35 36 38
+    </body></html>'''
+    src={'id':'mega645','product':'MEGA 6/45','url':'https://www.minhngoc.net.vn/ket-qua-xo-so/dien-toan-vietlott/mega-6x45.html'}
+    rows=f.vietlott_from_html(html,src)
+    assert len(rows)==2, rows
+    assert {r['date'] for r in rows}=={'2026-10-18','2026-10-16'}
+    assert {r['draw_no'] for r in rows}=={'1577','1576'}
+
+
 if __name__ == '__main__':
     test_dates()
     test_vietlott_product_shapes()
@@ -65,4 +82,5 @@ if __name__ == '__main__':
     test_draw_identity_separates_lotto_sessions()
     test_lotto_parser_handles_two_sessions_same_day()
     test_product_dates_are_not_forced_to_match()
+    test_minhngoc_product_history_parses_independent_draws()
     print('All collector fixture tests passed.')
