@@ -26,12 +26,12 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Install HTML parser
-        run: python -m pip install --disable-pip-version-check beautifulsoup4
+      - name: Install parser and test dependencies
+        run: python -m pip install --disable-pip-version-check beautifulsoup4 pytest
       - name: Verify collector syntax
         run: python -m py_compile scripts/fetch_results.py
-      - name: Run deterministic collector tests
-        run: python tests/test_collector.py
+      - name: Run all collector and regression tests
+        run: python -m pytest -q
       - name: Collect, validate, lock and prune by retention policy
         run: python scripts/fetch_results.py
       - name: Validate partition manifest and all published records
@@ -52,7 +52,7 @@ jobs:
                   if rec.get("kind") in ("xsmb","xsmt","xsmn"):
                       assert rec.get("station") and not re.match(r"Đài\s*\d+$",rec["station"],re.I)
                   if rec.get("kind")=="vietlott":
-                      assert rec.get("product") in ("MEGA 6/45","POWER 6/55","LOTTO 5/35","MAX 3D")
+                      assert rec.get("product") in ("MEGA 6/45","POWER 6/55","LOTTO 5/35","MAX 3D","MAX 3D+","MAX 3D PRO")
               total += len(d.get("records",{}))
           assert total == m.get("record_count"), (total,m.get("record_count"))
           print("Validated",total,"records in",len(m.get("files",[])),"partitions")
