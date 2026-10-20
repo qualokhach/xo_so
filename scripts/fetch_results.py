@@ -24,12 +24,12 @@ TRADITIONAL = {
  ],
 }
 VIETLOTT=[
- {"id":"mega645","product":"MEGA 6/45","url":"https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/645"},
- {"id":"power655","product":"POWER 6/55","url":"https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/655"},
- {"id":"max3d","product":"MAX 3D","url":"https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3D.html"},
- {"id":"lotto535","product":"LOTTO 5/35","url":"https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/535"},
+ {"id":"mega645","product":"MEGA 6/45","urls":["https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/645","https://xosohn.com/vietlott","https://m.kqxs.vn/xo-so-vietlott"]},
+ {"id":"power655","product":"POWER 6/55","urls":["https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/655","https://xosohn.com/vietlott","https://m.kqxs.vn/xo-so-vietlott"]},
+ {"id":"max3d","product":"MAX 3D","urls":["https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3D.html","https://xosohn.com/vietlott","https://m.kqxs.vn/xo-so-vietlott"]},
+ {"id":"lotto535","product":"LOTTO 5/35","urls":["https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/535","https://xosomoinhat.com/xo-so-lotto-535","https://xosohn.com/vietlott","https://m.kqxs.vn/xo-so-vietlott"]},
 ]
-STATIONS=["Thừa Thiên Huế","Thua Thien Hue","Phú Yên","Phu Yen","Đà Nẵng","Da Nang","Khánh Hòa","Khanh Hoa","Đắk Lắk","Dak Lak","Quảng Nam","Quang Nam","Bình Định","Binh Dinh","Quảng Trị","Quang Tri","Quảng Bình","Quang Binh","Gia Lai","Ninh Thuận","Ninh Thuan","Quảng Ngãi","Quang Ngai","Đắk Nông","Dak Nong","Kon Tum","Hồ Chí Minh","Ho Chi Minh","Đồng Tháp","Dong Thap","Cà Mau","Ca Mau","Bến Tre","Ben Tre","Vũng Tàu","Vung Tau","Bạc Liêu","Bac Lieu","Cần Thơ","Can Tho","Sóc Trăng","Soc Trang","Trà Vinh","Tra Vinh","An Giang","Long An","Tiền Giang","Tien Giang","Kiên Giang","Kien Giang","Đồng Nai","Dong Nai","Bình Dương","Binh Duong","Tây Ninh","Tay Ninh"]
+STATIONS=["Thừa Thiên Huế","Thua Thien Hue","Phú Yên","Phu Yen","Đà Nẵng","Da Nang","Khánh Hòa","Khanh Hoa","Đắk Lắk","Dak Lak","Quảng Nam","Quang Nam","Bình Định","Binh Dinh","Quảng Trị","Quang Tri","Quảng Bình","Quang Binh","Gia Lai","Ninh Thuận","Ninh Thuan","Quảng Ngãi","Quang Ngai","Đắk Nông","Dak Nong","Kon Tum","Hồ Chí Minh","Ho Chi Minh","Đồng Tháp","Dong Thap","Cà Mau","Ca Mau","Bến Tre","Ben Tre","Vũng Tàu","Vung Tau","Bạc Liêu","Bac Lieu","Cần Thơ","Can Tho","Sóc Trăng","Soc Trang","Trà Vinh","Tra Vinh","An Giang","Long An","Tiền Giang","Tien Giang","Kiên Giang","Kien Giang","Đồng Nai","Dong Nai","Bình Dương","Binh Duong","Tây Ninh","Tay Ninh","Bình Phước","Binh Phuoc","Bình Thuận","Binh Thuan","Hậu Giang","Hau Giang","Vĩnh Long","Vinh Long"]
 PRIZE_ALIASES={"đb":"Đặc biệt","đặc biệt":"Đặc biệt","giải đặc biệt":"Đặc biệt","giải nhất":"Giải nhất","giải nhì":"Giải nhì","giải ba":"Giải ba","giải tư":"Giải tư","giải năm":"Giải năm","giải sáu":"Giải sáu","giải bảy":"Giải bảy","giải tám":"Giải tám","g.đb":"Đặc biệt","g1":"Giải nhất","g2":"Giải nhì","g3":"Giải ba","g4":"Giải tư","g5":"Giải năm","g6":"Giải sáu","g7":"Giải bảy","g8":"Giải tám"}
 TRAD_COUNTS={"Đặc biệt":1,"Giải nhất":1,"Giải nhì":1,"Giải ba":2,"Giải tư":7,"Giải năm":1,"Giải sáu":3,"Giải bảy":1,"Giải tám":1}
 XSMB_COUNTS={"Đặc biệt":1,"Giải nhất":1,"Giải nhì":2,"Giải ba":6,"Giải tư":4,"Giải năm":6,"Giải sáu":3,"Giải bảy":4}
@@ -69,8 +69,15 @@ def norm_date(s):
   return None
 
 def prize_name(s):
- s=re.sub(r"\s+"," ",s.strip()).casefold().rstrip(":")
- return PRIZE_ALIASES.get(s)
+ s=re.sub(r"\s+"," ",s.strip()).casefold().rstrip(":.")
+ # Common compact labels used by Vietnamese result tables.
+ compact=re.sub(r"[ .]", "", s)
+ aliases={**PRIZE_ALIASES,"giải đb":"Đặc biệt","gđb":"Đặc biệt","g.đb":"Đặc biệt",
+          "g.1":"Giải nhất","g.2":"Giải nhì","g.3":"Giải ba","g.4":"Giải tư",
+          "g.5":"Giải năm","g.6":"Giải sáu","g.7":"Giải bảy","g.8":"Giải tám"}
+ if s in aliases:return aliases[s]
+ compact_alias={re.sub(r"[ .]", "", k):v for k,v in aliases.items()}
+ return compact_alias.get(compact)
 
 def split_station_names(text):
  found=[]
@@ -80,6 +87,18 @@ def split_station_names(text):
  # preserve page/table order using occurrence index
  found.sort(key=lambda n:low.find(n.casefold()))
  return found
+
+CENTRAL_CANONICAL={"thua thien hue","hue","kon tum","khanh hoa","da nang","quang nam","quang ngai","binh dinh","phu yen","ninh thuan","dak lak","dak nong","gia lai","quang tri","quang binh"}
+SOUTH_CANONICAL={"ho chi minh","tp ho chi minh","dong nai","can tho","soc trang","an giang","binh duong","binh phuoc","binh thuan","bac lieu","ben tre","ca mau","dong thap","hau giang","kien giang","long an","tien giang","tra vinh","vinh long","tay ninh","vung tau"}
+def canonical_station(value):
+ import unicodedata
+ value=unicodedata.normalize("NFKD",str(value)).encode("ascii","ignore").decode("ascii").casefold()
+ return re.sub(r"[^a-z0-9]+"," ",value).strip()
+def station_belongs_to_kind(station,kind):
+ name=canonical_station(station)
+ if kind=="xsmt":return name in CENTRAL_CANONICAL
+ if kind=="xsmn":return name in SOUTH_CANONICAL
+ return kind=="xsmb" and name=="mien bac"
 
 def table_rows(table):
  rows=[]
@@ -106,9 +125,10 @@ def traditional_from_html(html,kind,src):
    header_text=" ".join(c.get_text(" ",strip=True) for c in rows[0])
    header_stations=split_station_names(header_text)
    if header_stations:stations=header_stations
+   # Shared aggregator pages may contain all regions. Never assign a station to a
+   # region merely because this source URL was queried for that region.
+   stations=[st for st in dict.fromkeys(stations) if station_belongs_to_kind(st,kind)]
    if not stations:continue
-   # The source page sometimes nests multiple station labels inside one cell; keep exact known names.
-   stations=list(dict.fromkeys(stations))
   if not stations:continue
   # Date must be from this table's nearby heading/context, not a random date elsewhere in page.
   prev=table.find_previous(["h1","h2","h3","h4","time"])
@@ -146,57 +166,109 @@ def traditional_from_html(html,kind,src):
  return out
 
 def vietlott_from_html(html,src):
+ """Extract one or more draws from a product page without mixing draw dates.
+
+ Supports common Vietnamese headings such as:
+   Kết quả QSMT kỳ #00889 ngày 16/09/2026 - Lúc 13:00
+   Kết quả quay số mở thưởng kỳ quay thưởng #123 ngày 16/09/2026
+   Kỳ quay thưởng #123 ngày 16/09/2026
+
+ For Lotto 5/35, every heading is a separate session. Only the five main balls
+ and optional bonus ball immediately following that heading are accepted.
+ """
  try:
   from bs4 import BeautifulSoup
- except ImportError:return []
+ except ImportError:
+  return []
  soup=BeautifulSoup(html,"html.parser")
+ # Use rendered text in document order; remove spaces introduced by HTML layout.
  text=re.sub(r"\s+"," ",soup.get_text(" ",strip=True))
- # Official product pages expose draw number/date near the beginning.
- m=re.search(r"(?:Kỳ quay thưởng|Kỳ quay)\s*#?\s*(\d{3,6})\s*ngày\s*(\d{1,2}/\d{1,2}/\d{4})",text,re.I)
- if not m:
-  m=re.search(r"#\s*(\d{3,6})\s*(\d{1,2}/\d{1,2}/\d{4})",text)
- if not m:return []
- draw_no=m.group(1);date=norm_date(m.group(2))
  product=src["product"]
- prizes=[]
- # Parse only prize rows from the result table. Avoid rows from payout/rules tables.
- for table in soup.find_all("table"):
-  local=[]
-  for row in table_rows(table):
-   if len(row)<2:continue
-   label=row[0].get_text(" ",strip=True)
-   if not re.search(r"(đặc biệt|giải nhất|giải nhì|giải ba|giải tư|giải năm|giải sáu|jackpot)",label,re.I):continue
-   # Result cells contain 2-digit lottery balls or 3-digit Max3D combinations.
-   raw=row[1].get_text(" ",strip=True)
-   if re.search(r"trùng|đồng|VNĐ|vnd|tỷ|triệu",raw,re.I):continue
-   width=3 if "3D" in product else 2
-   nums=re.findall(rf"(?<!\d)\d{{{width}}}(?!\d)",raw)
-   if nums:local.append({"name":re.sub(r"\s+"," ",label),"numbers":nums})
-  if local:
-   # Keep first result-like table with enough recognizable result rows.
-   if len(local)>=1:
-    prizes=local;break
- if not prizes:
-  # Mega/Power result line often appears as six two-digit numbers, optionally followed by Power ball.
-  segment=text[max(0,m.start()-100):m.end()+800]
-  width=3 if "3D" in product else 2
-  if width==2:
-   if product=="LOTTO 5/35":
-    matches=list(re.finditer(r"(?<!\d)(\d{2}(?:\s+\d{2}){4})(?!\d)",segment))
-    if matches:
-     prizes=[{"name":"Bộ số trúng thưởng","numbers":re.findall(r"\d{2}",matches[0].group(1))}]
-   else:
-    matches=list(re.finditer(r"(?<!\d)(\d{2}(?:\s+\d{2}){5})(?:\s*[|+]\s*(\d{2}))?(?!\d)",segment))
-    if matches:
-     nums=re.findall(r"\d{2}",matches[0].group(1));extra=matches[0].group(2)
-     prizes=[{"name":"Bộ số trúng thưởng","numbers":nums+([extra] if extra else [])}]
- if not prizes:return []
- key=f"vietlott|{product}|{date}|{draw_no}"
- return [{"key":key,"kind":"vietlott","product":product,"draw_no":draw_no,"date":date,"title":product,"station":product,"prizes":prizes,"source_url":src["url"],"source_id":src["id"]}]
+ width=3 if product=="MAX 3D" else 2
+ # Different publishers vary the wording and whether the draw id has a # sign.
+ heading_re=re.compile(
+  r"(?:(?:kết quả(?: quay số mở thưởng)?|quay số mở thưởng)\s*)?"
+  r"(?:qsm[dt]\s*)?(?:kỳ(?:\s+quay(?:\s+thưởng)?)?\s*)#?\s*(\d{3,6})"
+  r"\s*(?:ngày|[-–|]\s*)(\d{1,2}[/-]\d{1,2}[/-]\d{4})"
+  r"(?:\s*[-–|,]?\s*(?:lúc|vào lúc|giờ)\s*(\d{1,2}:\d{2}|\d{1,2}\s*[hH]))?",re.I)
+ matches=list(heading_re.finditer(text))
+ # Some official pages render a shorter label.
+ if not matches:
+  heading_re=re.compile(r"(?:kỳ quay thưởng|kỳ quay|kỳ)\s*#?(\d{3,6})\s*(?:ngày\s*)?(\d{1,2}[/-]\d{1,2}[/-]\d{4})(?:\s*[-–,]?\s*(?:lúc|giờ)\s*(\d{1,2}:\d{2}|\d{1,2}\s*[hH]))?",re.I)
+  matches=list(heading_re.finditer(text))
+ if not matches:
+  return []
+ aliases={"MEGA 6/45":("mega 6/45","mega645"),"POWER 6/55":("power 6/55","power655"),"MAX 3D":("max 3d","max3d"),"LOTTO 5/35":("lotto 5/35","lotto535","lotto-535")}
+ # A product-specific page is safe by URL/title. A mixed fallback must identify the
+ # product near each draw heading, otherwise never relabel its first draw.
+ specific_url=(product=="LOTTO 5/35" and "lotto-535" in src.get("url", "")) or ("vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/" in src.get("url", ""))
+ page_title=(soup.title.get_text(" ",strip=True) if soup.title else "").casefold()
+ out=[]
+ for i,m in enumerate(matches):
+  draw_no=m.group(1).lstrip("0") or "0"
+  date=norm_date(m.group(2))
+  if not date:continue
+  # Only consider the text belonging to this draw, ending before the next heading.
+  seg_end=matches[i+1].start() if i+1<len(matches) else min(len(text),m.end()+900)
+  segment=text[m.end():seg_end]
+  if src.get("generic_fallback") and not specific_url:
+   context=text[max(0,m.start()-220):min(len(text),m.end()+300)].casefold()
+   terms=aliases.get(product,())
+   if not any(a in context for a in terms) and not any(a in page_title for a in terms):
+    continue
+  draw_time=None
+  time_match=re.search(r"(?:lúc|vào lúc|giờ)\s*(\d{1,2}:\d{2}|\d{1,2}\s*[hH])",text[m.start():min(len(text),m.end()+100)],re.I)
+  if time_match:
+   draw_time=time_match.group(1).replace(" ","").lower()
+   if re.fullmatch(r"\d{1,2}h",draw_time):draw_time=draw_time[:-1]+":00"
+  prizes=[]
+  if product=="LOTTO 5/35":
+   # Lotto result is five 01-35 balls plus one bonus ball, commonly printed as six values.
+   seq=re.search(r"(?<!\d)(\d{2}(?:\s+\d{2}){5})(?!\d)",segment)
+   if seq:
+    nums=re.findall(r"\d{2}",seq.group(1))
+    if all(1<=int(n)<=35 for n in nums[:5]) and 1<=int(nums[5])<=12:
+     prizes=[{"name":"Bộ số trúng thưởng","numbers":nums[:5]+[nums[5]]}]
+   if not prizes:
+    # Sites may put a separator between the five main balls and bonus ball.
+    seq=re.search(r"(?<!\d)(\d{2}(?:\s+\d{2}){4})\s*[|+·]\s*(\d{2})(?!\d)",segment)
+    if seq:
+     nums=re.findall(r"\d{2}",seq.group(1));bonus=seq.group(2)
+     if all(1<=int(n)<=35 for n in nums) and 1<=int(bonus)<=12:
+      prizes=[{"name":"Bộ số trúng thưởng","numbers":nums+[bonus]}]
+  elif product in ("MEGA 6/45","POWER 6/55"):
+   need=6 if product=="MEGA 6/45" else 7
+   seq=re.search(r"(?<!\d)(\d{2}(?:\s+\d{2}){"+str(need-1)+r"})(?!\d)",segment)
+   if seq:
+    nums=re.findall(r"\d{2}",seq.group(1));limit=45 if product=="MEGA 6/45" else 55
+    if all(1<=int(n)<=limit for n in nums[:6]) and (need==6 or 1<=int(nums[6])<=55):
+     prizes=[{"name":"Bộ số trúng thưởng","numbers":nums}]
+  else: # MAX 3D: use only a result-like table, not prize counts/payouts.
+   for table in soup.find_all("table"):
+    table_text=table.get_text(" ",strip=True)
+    if draw_no not in table_text and date not in table_text:continue
+    nums=re.findall(r"(?<!\d)\d{3}(?!\d)",table_text)
+    if nums:
+     prizes=[{"name":"Bộ số trúng thưởng","numbers":nums[:3]}];break
+   if not prizes:
+    seq=re.search(r"(?<!\d)(\d{3}(?:\s+\d{3}){1,5})(?!\d)",segment)
+    if seq:prizes=[{"name":"Bộ số trúng thưởng","numbers":re.findall(r"\d{3}",seq.group(1))}]
+  if not prizes:continue
+  key=f"vietlott|{product}|{date}|{draw_no}"
+  rec={"key":key,"kind":"vietlott","product":product,"product_id":src["id"],"draw_no":draw_no,"date":date,"title":product,"station":product,"prizes":prizes,"source_url":src["url"],"source_id":src["id"]}
+  if draw_time:rec["draw_time"]=draw_time
+  # Keep each Lotto session unique even if a provider accidentally reuses a draw number.
+  if product=="LOTTO 5/35" and draw_time:rec["key"] += "|"+draw_time
+  if record_valid(rec):out.append(rec)
+ # Preserve source order while deduplicating repeated headings/tables.
+ dedup={r["key"]:r for r in out}
+ return list(dedup.values())
 
 def record_valid(rec):
  kind=rec.get("kind");prizes=rec.get("prizes") or []
  if not rec.get("date") or not prizes:return False
+ try: datetime.strptime(str(rec.get("date")), "%Y-%m-%d")
+ except ValueError: return False
  if kind in ("xsmb","xsmt","xsmn"):
   if not rec.get("station") or re.match(r"Đài\s*\d+$",rec.get("station",""),re.I):return False
   names=[p.get("name","") for p in prizes]
@@ -216,7 +288,7 @@ def record_valid(rec):
    return any(len(p.get("numbers",[])) in (6,7) and all(re.fullmatch(r"\d{2}",n) for n in p["numbers"]) for p in prizes)
   if prod=="LOTTO 5/35":
    main=next((p for p in prizes if p.get("name")=="Bộ số trúng thưởng"),None)
-   return bool(main and len(main.get("numbers",[]))==5 and all(re.fullmatch(r"\d{2}",n) for n in main["numbers"]))
+   return bool(main and len(main.get("numbers",[])) in (5,6) and all(re.fullmatch(r"\d{2}",n) for n in main["numbers"][:5]) and len(set(main["numbers"][:5]))==5 and all(1 <= int(n) <= 35 for n in main["numbers"][:5]) and (len(main["numbers"])==5 or (1 <= int(main["numbers"][5]) <= 12)))
   if "3D" in prod:return any(re.fullmatch(r"\d{3}",n) for n in vals)
   return False
  return False
@@ -286,13 +358,14 @@ def main():
   attempts=[];found=[]
   # Only query the product-specific official page. Generic Vietlott pages can expose
   # another product's latest draw and must never be mislabeled as this product.
-  urls=[src["url"]]
-  for url in urls:
-   started=time.time();candidate={**src,"url":url}
+  urls=src.get("urls",[src.get("url")])
+  for index,url in enumerate(urls):
+   started=time.time();candidate={**src,"url":url,"generic_fallback":index>0}
    try:
     html,final_url,http=get_html(url);draws=vietlott_from_html(html,candidate)
-    new=[d for d in draws if d["key"] not in records and record_valid(d) and is_in_retention(d,today)]
-    attempts.append({"source":url,"status":"new_valid_draws" if new else "no_new_valid_draws","draw_count":len(draws),"new_count":len(new),"seconds":round(time.time()-started,2)})
+    valid=[d for d in draws if record_valid(d) and is_in_retention(d,today)]
+    new=[d for d in valid if d["key"] not in records]
+    attempts.append({"source":url,"status":"new_valid_draws" if new else ("valid_existing_only" if valid else "no_product_specific_valid_draws"),"draw_count":len(draws),"valid_count":len(valid),"new_count":len(new),"seconds":round(time.time()-started,2)})
     if new: found=new;break
    except Exception as e: attempts.append({"source":url,"status":"error","error":f"{type(e).__name__}: {e}","seconds":round(time.time()-started,2)})
   added=0
