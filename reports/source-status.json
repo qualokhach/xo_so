@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-10-19T22:24:35+00:00",
+  "checked_at_utc": "2026-10-20T04:56:59+00:00",
   "purpose": "source feasibility only",
   "sources": [
     {
@@ -16,7 +16,7 @@
         "giải nhất"
       ],
       "numeric_tokens_found": 44,
-      "elapsed_seconds": 2.56,
+      "elapsed_seconds": 2.53,
       "status": "candidate_accessible",
       "note": "Accessibility/content check only; not proof of official accuracy, stable structure, or reuse permission."
     },
@@ -34,7 +34,7 @@
         "giải nhất"
       ],
       "numeric_tokens_found": 130,
-      "elapsed_seconds": 1.95,
+      "elapsed_seconds": 2.74,
       "status": "candidate_accessible",
       "note": "Accessibility/content check only; not proof of official accuracy, stable structure, or reuse permission."
     },
@@ -52,7 +52,7 @@
         "giải nhất"
       ],
       "numeric_tokens_found": 156,
-      "elapsed_seconds": 2.15,
+      "elapsed_seconds": 2.4,
       "status": "candidate_accessible",
       "note": "Accessibility/content check only; not proof of official accuracy, stable structure, or reuse permission."
     },
@@ -70,7 +70,7 @@
         "power"
       ],
       "numeric_tokens_found": 156,
-      "elapsed_seconds": 1.96,
+      "elapsed_seconds": 2.46,
       "status": "candidate_accessible",
       "note": "Accessibility/content check only; not proof of official accuracy, stable structure, or reuse permission."
     }
