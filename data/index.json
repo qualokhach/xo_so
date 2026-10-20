@@ -1,6 +1,6 @@
 {
   "schema_version": 3,
-  "updated_at_vietnam": "2026-10-20T04:31:50+07:00",
+  "updated_at_vietnam": "2026-10-20T08:05:22+07:00",
   "status": "ok",
   "record_count": 21,
   "files": [
@@ -27,7 +27,7 @@
     "lotto_5_35_days": 30
   },
   "collection_report": {
-    "updated_at_vietnam": "2026-10-20T04:31:50+07:00",
+    "updated_at_vietnam": "2026-10-20T08:05:22+07:00",
     "sources": {
       "xsmb": {
         "attempts": [
@@ -37,7 +37,7 @@
             "status": "no_new_valid_draws",
             "draw_count": 1,
             "new_count": 0,
-            "seconds": 2.33
+            "seconds": 2.13
           },
           {
             "source": "KetQua.org miền Bắc",
@@ -45,7 +45,7 @@
             "status": "no_new_valid_draws",
             "draw_count": 0,
             "new_count": 0,
-            "seconds": 0.99
+            "seconds": 1.71
           },
           {
             "source": "XSKT.io miền Bắc",
@@ -53,7 +53,7 @@
             "status": "no_new_valid_draws",
             "draw_count": 0,
             "new_count": 0,
-            "seconds": 1.09
+            "seconds": 1.57
           }
         ],
         "selected_source": null,
@@ -67,19 +67,27 @@
             "status": "no_new_valid_draws",
             "draw_count": 3,
             "new_count": 0,
-            "seconds": 1.87
+            "seconds": 2.23
           },
           {
             "source": "KetQua.org miền Trung",
             "url": "https://ketqua.org/",
-            "status": "new_valid_draws",
+            "status": "no_new_valid_draws",
             "draw_count": 5,
-            "new_count": 4,
-            "seconds": 0.94
+            "new_count": 0,
+            "seconds": 0.91
+          },
+          {
+            "source": "XSKT.io miền Trung",
+            "url": "https://xskt.io/",
+            "status": "no_new_valid_draws",
+            "draw_count": 0,
+            "new_count": 0,
+            "seconds": 1.01
           }
         ],
-        "selected_source": "ketqua_org",
-        "new_records_locked": 4
+        "selected_source": null,
+        "new_records_locked": 0
       },
       "xsmn": {
         "attempts": [
@@ -89,19 +97,27 @@
             "status": "no_new_valid_draws",
             "draw_count": 0,
             "new_count": 0,
-            "seconds": 1.9
+            "seconds": 1.69
           },
           {
             "source": "KetQua.org miền Nam",
             "url": "https://ketqua.org/",
-            "status": "new_valid_draws",
+            "status": "no_new_valid_draws",
             "draw_count": 5,
-            "new_count": 5,
-            "seconds": 0.42
+            "new_count": 0,
+            "seconds": 0.37
+          },
+          {
+            "source": "XSKT.io miền Nam",
+            "url": "https://xskt.io/",
+            "status": "no_new_valid_draws",
+            "draw_count": 0,
+            "new_count": 0,
+            "seconds": 1.16
           }
         ],
-        "selected_source": "ketqua_org",
-        "new_records_locked": 5
+        "selected_source": null,
+        "new_records_locked": 0
       },
       "mega645": {
         "product": "MEGA 6/45",
@@ -110,7 +126,7 @@
             "source": "https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/645",
             "status": "error",
             "error": "HTTPError: HTTP Error 403: Forbidden",
-            "seconds": 0.07
+            "seconds": 0.26
           }
         ],
         "selected_source": null,
@@ -136,7 +152,7 @@
             "source": "https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3D.html",
             "status": "error",
             "error": "HTTPError: HTTP Error 403: Forbidden",
-            "seconds": 0.07
+            "seconds": 0.06
           }
         ],
         "selected_source": null,
@@ -156,18 +172,8 @@
         "new_records_locked": 0
       }
     },
-    "added": [
-      "xsmt|2026-10-19|Phú Yên",
-      "xsmt|2026-10-19|Hồ Chí Minh",
-      "xsmt|2026-10-19|Đồng Tháp",
-      "xsmt|2026-10-19|Cà Mau",
-      "xsmn|2026-10-19|Thừa Thiên Huế",
-      "xsmn|2026-10-19|Phú Yên",
-      "xsmn|2026-10-19|Hồ Chí Minh",
-      "xsmn|2026-10-19|Đồng Tháp",
-      "xsmn|2026-10-19|Cà Mau"
-    ],
-    "kept_existing": 12,
+    "added": [],
+    "kept_existing": 21,
     "quarantined_count": 6,
     "retention": {
       "traditional_and_vietlott_standard_days": 730,
