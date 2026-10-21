@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-10-21T17:17:01+00:00",
+  "checked_at_utc": "2026-10-21T21:46:45+00:00",
   "purpose": "source feasibility only",
   "sources": [
     {
@@ -9,14 +9,14 @@
       "final_url": "https://m.kqxs.vn/mien-bac",
       "http_status": 200,
       "content_type": "text/html; charset=UTF-8",
-      "page_chars": 11794,
+      "page_chars": 11810,
       "matched_keywords": [
         "kết quả xổ số miền bắc",
         "đặc biệt",
         "giải nhất"
       ],
       "numeric_tokens_found": 44,
-      "elapsed_seconds": 2.49,
+      "elapsed_seconds": 2.64,
       "status": "candidate_accessible",
       "note": "Accessibility/content check only; not proof of official accuracy, stable structure, or reuse permission."
     },
@@ -34,7 +34,7 @@
         "giải nhất"
       ],
       "numeric_tokens_found": 104,
-      "elapsed_seconds": 1.82,
+      "elapsed_seconds": 2.9,
       "status": "candidate_accessible",
       "note": "Accessibility/content check only; not proof of official accuracy, stable structure, or reuse permission."
     },
@@ -52,7 +52,7 @@
         "giải nhất"
       ],
       "numeric_tokens_found": 156,
-      "elapsed_seconds": 2.26,
+      "elapsed_seconds": 2.39,
       "status": "candidate_accessible",
       "note": "Accessibility/content check only; not proof of official accuracy, stable structure, or reuse permission."
     },
@@ -63,14 +63,14 @@
       "final_url": "https://m.kqxs.vn/xo-so-vietlott",
       "http_status": 200,
       "content_type": "text/html; charset=UTF-8",
-      "page_chars": 8985,
+      "page_chars": 9001,
       "matched_keywords": [
         "vietlott",
         "mega",
         "power"
       ],
       "numeric_tokens_found": 206,
-      "elapsed_seconds": 1.82,
+      "elapsed_seconds": 2.66,
       "status": "candidate_accessible",
       "note": "Accessibility/content check only; not proof of official accuracy, stable structure, or reuse permission."
     }
