@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-10-21T11:57:23+00:00",
+  "checked_at_utc": "2026-10-21T17:17:01+00:00",
   "purpose": "source feasibility only",
   "sources": [
     {
@@ -9,14 +9,14 @@
       "final_url": "https://m.kqxs.vn/mien-bac",
       "http_status": 200,
       "content_type": "text/html; charset=UTF-8",
-      "page_chars": 11876,
+      "page_chars": 11794,
       "matched_keywords": [
         "kết quả xổ số miền bắc",
         "đặc biệt",
         "giải nhất"
       ],
       "numeric_tokens_found": 44,
-      "elapsed_seconds": 2.7,
+      "elapsed_seconds": 2.49,
       "status": "candidate_accessible",
       "note": "Accessibility/content check only; not proof of official accuracy, stable structure, or reuse permission."
     },
@@ -27,14 +27,14 @@
       "final_url": "https://m.kqxs.vn/mien-trung",
       "http_status": 200,
       "content_type": "text/html; charset=UTF-8",
-      "page_chars": 12055,
+      "page_chars": 11989,
       "matched_keywords": [
         "xổ số miền trung",
         "đặc biệt",
         "giải nhất"
       ],
       "numeric_tokens_found": 104,
-      "elapsed_seconds": 3.04,
+      "elapsed_seconds": 1.82,
       "status": "candidate_accessible",
       "note": "Accessibility/content check only; not proof of official accuracy, stable structure, or reuse permission."
     },
@@ -45,14 +45,14 @@
       "final_url": "https://m.kqxs.vn/mien-nam",
       "http_status": 200,
       "content_type": "text/html; charset=UTF-8",
-      "page_chars": 13784,
+      "page_chars": 13718,
       "matched_keywords": [
         "xổ số miền nam",
         "đặc biệt",
         "giải nhất"
       ],
       "numeric_tokens_found": 156,
-      "elapsed_seconds": 2.38,
+      "elapsed_seconds": 2.26,
       "status": "candidate_accessible",
       "note": "Accessibility/content check only; not proof of official accuracy, stable structure, or reuse permission."
     },
@@ -70,7 +70,7 @@
         "power"
       ],
       "numeric_tokens_found": 206,
-      "elapsed_seconds": 2.84,
+      "elapsed_seconds": 1.82,
       "status": "candidate_accessible",
       "note": "Accessibility/content check only; not proof of official accuracy, stable structure, or reuse permission."
     }
