@@ -207,3 +207,19 @@ def test_max3d_products_never_cross_classify():
         rec = {'kind':'vietlott','product':product,'product_id':pid,'date':'2026-10-20','draw_no':'123',
                'prizes':[{'name':'Bộ số trúng thưởng','numbers':['001','123','999']}]}
         assert f.record_valid(rec), product
+
+
+def test_max3d_pro_history_heading_with_em_dash():
+    html = '''<html><head><title>Kết quả xổ số Max 3D Pro</title></head><body>
+    <h2>Kỳ #794 — 20/10/2026 (Thứ Ba)</h2>
+    <p>Giải đặc biệt 461 055</p><p>Giải nhất 786 338 089 963</p>
+    <p>Giải nhì 357 205 613 849 160 300</p>
+    <p>Giải ba 035 373 493 888 762 279 130 560</p>
+    </body></html>'''
+    src={'id':'max3dpro','product':'MAX 3D PRO','url':'https://xskt.com.vn/xsmax3dpro','generic_fallback':True}
+    rows=f.vietlott_from_html(html,src)
+    assert len(rows)==1, rows
+    assert rows[0]['date']=='2026-10-20'
+    assert rows[0]['draw_no']=='794'
+    assert rows[0]['product']=='MAX 3D PRO'
+    assert f.record_valid(rows[0])
