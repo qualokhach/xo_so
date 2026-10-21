@@ -47,6 +47,56 @@ body{background:radial-gradient(ellipse at 4% 8%,#ffe0e4 0,transparent 28%),radi
 .ticket-top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px dashed #d8a34d;padding-bottom:10px;margin-bottom:12px;font-size:10px;font-weight:900;letter-spacing:.1em}.ticket-mark{display:grid;place-items:center;width:29px;height:29px;border-radius:9px;background:#a91331;color:#fff;font-size:15px}.ticket-numbers{display:flex;gap:7px;justify-content:center;margin:12px 0}.ticket-numbers span{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#d72645,#920d2b);color:white;font-size:12px;font-weight:900;box-shadow:inset 0 -3px 0 #50071930}.ticket-bottom{display:flex;justify-content:space-between;gap:8px;font-size:10px;font-weight:800;color:#8c5260}.ticket-stamp{position:absolute;right:10px;bottom:34px;transform:rotate(12deg);border:2px solid #b51232;border-radius:7px;padding:5px 8px;color:#b51232;background:#fff7df;font-size:10px;font-weight:1000;letter-spacing:.08em}
 @media(max-width:850px){.ticket-art{min-height:190px}}
 
+
+/* V15 readability pass: larger body copy, stronger controls and clearer result tables. */
+body{font-size:17px;line-height:1.65}
+header{padding:30px 18px}
+.logo{width:52px;height:52px;font-size:25px}
+h1{font-size:clamp(30px,4.2vw,40px)}
+.sub{font-size:17px;line-height:1.7}
+.small{font-size:14px}
+.muted{line-height:1.65}
+.btn,.tab{font-size:16px;padding:12px 16px;min-height:46px}
+.filters{gap:12px}
+.filters label{font-size:16px}
+.date-picker-wrap input{font-size:16px;min-height:46px;padding:10px 13px}
+.tab{font-weight:850}
+.region-heading h2,.group-title{font-size:24px}
+.tag{font-size:14px;padding:5px 10px}
+.card h2{font-size:23px;line-height:1.3}
+.product-meta{font-size:15px;line-height:1.65}
+.prize-table th,.prize-table td{font-size:15px;padding:11px 10px;line-height:1.5}
+.prize-table th{font-weight:850}
+.prize-name{width:135px}
+.num{font-size:16px;min-width:46px;min-height:40px;padding:6px 9px}
+.num.special{font-size:19px}
+.lotto-ball{width:48px;height:48px;font-size:21px}
+.landing-hero p{font-size:clamp(17px,1.5vw,19px)}
+.eyebrow{font-size:13px}
+.hero-stat strong{font-size:21px}
+.hero-stat span,.feature-card p,.info-point{font-size:15px}
+.feature-card h3{font-size:19px}
+.quick-product strong{font-size:15px}
+.quick-product span:last-child{font-size:13px}
+.howto-card h3{font-size:17px}
+.howto-card p{font-size:15px}
+.info-band h2{font-size:25px}
+@media(max-width:580px){
+ body{font-size:16px}
+ header{padding:23px 15px}
+ .sub{font-size:16px}
+ .small{font-size:13px}
+ .btn,.tab{font-size:15px;padding:11px 12px}
+ .region-heading h2,.group-title{font-size:21px}
+ .card h2{font-size:21px}
+ .prize-table th,.prize-table td{font-size:14px;padding:9px 7px}
+ .prize-name{width:auto;white-space:normal}
+ .num{font-size:15px;min-width:40px;min-height:37px}
+ .num.special{font-size:17px}
+ .quick-product strong{font-size:14px}
+ .quick-product span:last-child{font-size:12px}
+}
+
 </style></head>
 <body>
 <header><div class="wrap"><div class="brand"><div class="logo">A</div><div><div class="small" style="color:#c6d2ff;font-weight:800;letter-spacing:.12em">APPNHO · TIỆN ÍCH</div><h1>Kết quả xổ số</h1></div></div><p class="sub">AppNho giúp bạn tra cứu kết quả xổ số nhanh chóng, rõ ràng và thuận tiện. Chúc bạn may mắn!</p></div></header>
@@ -107,7 +157,7 @@ body{background:radial-gradient(ellipse at 4% 8%,#ffe0e4 0,transparent 28%),radi
 <script>
 'use strict';
 const $=id=>document.getElementById(id);let records=[],manifest=null,active='xsmb',selectedDate='';const loadedPaths=new Set(),pendingPaths=new Map();
-const APPNHO_BUILD='V13-RED-LOTTERY';
+const APPNHO_BUILD='V15-REGION-LOCK-READABLE-UI';
 const PRODUCT_ORDER=['MEGA 6/45','POWER 6/55','LOTTO 5/35','MAX 3D','MAX 3D+','MAX 3D PRO'];
 // Read published data directly from the main branch. GitHub Pages may not rebuild
 // automatically after a workflow pushes with GITHUB_TOKEN.
@@ -129,16 +179,21 @@ function productType(d){
  return d.product||d.title||'Vietlott';
 }
 function isBadStation(d){const s=String(d.station||d.title||'').trim();return !s||/^Đài\s*\d+$/i.test(s)||/(Hồ Chí MinhĐồng|Phú YênThừa|Kon TumKhánh)/i.test(s)}
-function stationFitsKind(d){
- // `kind` is assigned by the collector's source-specific region parser. Do not
- // reject valid stations merely because a source uses a new spelling/diacritic.
- // Still reject clearly malformed concatenations and generic placeholders.
- const name=String(d.station||d.title||'').trim();
- if(!name || /^Đài\s*\d+$/i.test(name)) return false;
- if(/(?:Hồ Chí MinhĐồng|Phú YênThừa|Kon TumKhánh|Đà NẵngQuảng)/i.test(name)) return false;
- return ['xsmb','xsmt','xsmn'].includes(d.kind);
-}
 function normStation(v){return String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D').toLowerCase().replace(/[^a-z0-9]/g,'')}
+// Fail closed: the region selected in the UI must agree with a station allowlist.
+// This is a second safety barrier in case an upstream source labels a record wrongly.
+const STATIONS_BY_REGION={
+ xsmb:new Set(['mienbac','xosomienbac']),
+ xsmt:new Set(['thuathienhue','hue','kontum','khanhhoa','danang','quangnam','quangngai','binhdinh','phuyen','ninhthuan','daklak','daknong','gialai','quangtri','quangbinh']),
+ xsmn:new Set(['hochiminh','tphochiminh','tphcm','saigon','dongnai','cantho','soctrang','angiang','binhduong','binhphuoc','binhthuan','baclieu','bentre','camau','dongthap','haugiang','kiengiang','longan','tiengiang','travinh','vinhlong','tayninh','vungtau','bariavungtau','dalat','lamdong'])
+};
+function stationFitsKind(d){
+ const raw=String(d.station||d.title||'').trim();
+ if(!raw || /^Đài\s*\d+$/i.test(raw)) return false;
+ if(/(?:Hồ Chí MinhĐồng|Phú YênThừa|Kon TumKhánh|Đà NẵngQuảng)/i.test(raw)) return false;
+ const name=normStation(raw), allowed=STATIONS_BY_REGION[d.kind];
+ return !!allowed && allowed.has(name);
+}
 const STATION_WEEKDAYS={
  xsmt:{'thuathienhue':[1],'hue':[1],'phuyen':[1],'daklak':[2],'quangnam':[2],'khanhhoa':[3,0],'danang':[3,6],'binhdinh':[4],'quangtri':[4],'quangbinh':[4],'gialai':[5],'ninhthuan':[5],'quangngai':[6],'daknong':[6],'kontum':[0]},
  xsmn:{'hochiminh':[1,6],'dongthap':[1],'camau':[1],'bentre':[2],'vungtau':[2],'baclieu':[2],'dongnai':[3],'cantho':[3],'soctrang':[3],'tayninh':[4],'angiang':[4],'binhthuan':[4],'vinhlong':[5],'binhduong':[5],'travinh':[5],'longan':[6],'binhphuoc':[6],'haugiang':[6],'tiengiang':[0],'kiengiang':[0],'dalat':[0],'lamdong':[0]}
