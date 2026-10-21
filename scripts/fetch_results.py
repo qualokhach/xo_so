@@ -31,7 +31,7 @@ VIETLOTT=[
  {"id":"max3dplus","product":"MAX 3D+","urls":["https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3DPlus.html","https://www.minhngoc.me/xo-so-dien-toan-max-3d.html"]},
  {"id":"max3dpro","product":"MAX 3D PRO","urls":["https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3DPro.html","https://xskt.com.vn/xsmax3dpro"]},
 ]
-STATIONS=["Thừa Thiên Huế","Thua Thien Hue","Phú Yên","Phu Yen","Đà Nẵng","Da Nang","Khánh Hòa","Khanh Hoa","Đắk Lắk","Dak Lak","Quảng Nam","Quang Nam","Bình Định","Binh Dinh","Quảng Trị","Quang Tri","Quảng Bình","Quang Binh","Gia Lai","Ninh Thuận","Ninh Thuan","Quảng Ngãi","Quang Ngai","Đắk Nông","Dak Nong","Kon Tum","Hồ Chí Minh","Ho Chi Minh","Đồng Tháp","Dong Thap","Cà Mau","Ca Mau","Bến Tre","Ben Tre","Vũng Tàu","Vung Tau","Bạc Liêu","Bac Lieu","Cần Thơ","Can Tho","Sóc Trăng","Soc Trang","Trà Vinh","Tra Vinh","An Giang","Long An","Tiền Giang","Tien Giang","Kiên Giang","Kien Giang","Đồng Nai","Dong Nai","Bình Dương","Binh Duong","Tây Ninh","Tay Ninh","Bình Phước","Binh Phuoc","Bình Thuận","Binh Thuan","Hậu Giang","Hau Giang","Vĩnh Long","Vinh Long"]
+STATIONS=["Thừa Thiên Huế","Thua Thien Hue","Phú Yên","Phu Yen","Đà Nẵng","Da Nang","Khánh Hòa","Khanh Hoa","Đắk Lắk","Dak Lak","Quảng Nam","Quang Nam","Bình Định","Binh Dinh","Quảng Trị","Quang Tri","Quảng Bình","Quang Binh","Gia Lai","Ninh Thuận","Ninh Thuan","Quảng Ngãi","Quang Ngai","Đắk Nông","Dak Nong","Kon Tum","Hồ Chí Minh","Ho Chi Minh","Đồng Tháp","Dong Thap","Cà Mau","Ca Mau","Bến Tre","Ben Tre","Vũng Tàu","Vung Tau","Bạc Liêu","Bac Lieu","Cần Thơ","Can Tho","Sóc Trăng","Soc Trang","Trà Vinh","Tra Vinh","An Giang","Long An","Tiền Giang","Tien Giang","Kiên Giang","Kien Giang","Đồng Nai","Dong Nai","Bình Dương","Binh Duong","Tây Ninh","Tay Ninh","Bình Phước","Binh Phuoc","Bình Thuận","Binh Thuan","Hậu Giang","Hau Giang","Vĩnh Long","Vinh Long","Đà Lạt","Da Lat","Lâm Đồng","Lam Dong"]
 PRIZE_ALIASES={"đb":"Đặc biệt","đặc biệt":"Đặc biệt","giải đặc biệt":"Đặc biệt","giải nhất":"Giải nhất","giải nhì":"Giải nhì","giải ba":"Giải ba","giải tư":"Giải tư","giải năm":"Giải năm","giải sáu":"Giải sáu","giải bảy":"Giải bảy","giải tám":"Giải tám","g.đb":"Đặc biệt","g1":"Giải nhất","g2":"Giải nhì","g3":"Giải ba","g4":"Giải tư","g5":"Giải năm","g6":"Giải sáu","g7":"Giải bảy","g8":"Giải tám"}
 TRAD_COUNTS={"Đặc biệt":1,"Giải nhất":1,"Giải nhì":1,"Giải ba":2,"Giải tư":7,"Giải năm":1,"Giải sáu":3,"Giải bảy":1,"Giải tám":1}
 XSMB_COUNTS={"Đặc biệt":1,"Giải nhất":1,"Giải nhì":2,"Giải ba":6,"Giải tư":4,"Giải năm":6,"Giải sáu":3,"Giải bảy":4}
@@ -91,10 +91,11 @@ def split_station_names(text):
  return found
 
 CENTRAL_CANONICAL={"thua thien hue","hue","kon tum","khanh hoa","da nang","quang nam","quang ngai","binh dinh","phu yen","ninh thuan","dak lak","dak nong","gia lai","quang tri","quang binh"}
-SOUTH_CANONICAL={"ho chi minh","tp ho chi minh","dong nai","can tho","soc trang","an giang","binh duong","binh phuoc","binh thuan","bac lieu","ben tre","ca mau","dong thap","hau giang","kien giang","long an","tien giang","tra vinh","vinh long","tay ninh","vung tau"}
+SOUTH_CANONICAL={"ho chi minh","tp ho chi minh","dong nai","can tho","soc trang","an giang","binh duong","binh phuoc","binh thuan","bac lieu","ben tre","ca mau","dong thap","hau giang","kien giang","long an","tien giang","tra vinh","vinh long","tay ninh","vung tau","da lat","lam dong"}
 def canonical_station(value):
  import unicodedata
- value=unicodedata.normalize("NFKD",str(value)).encode("ascii","ignore").decode("ascii").casefold()
+ value=str(value).replace("Đ","D").replace("đ","d")
+ value=unicodedata.normalize("NFKD",value).encode("ascii","ignore").decode("ascii").casefold()
  return re.sub(r"[^a-z0-9]+"," ",value).strip()
 def station_belongs_to_kind(station,kind):
  name=canonical_station(station)
@@ -153,7 +154,10 @@ def traditional_from_html(html,kind,src):
    if prev:
     between=prev.find_next("table")
     if between is table and len(prev.get_text(" ",strip=True)) <= 600:
-     date=norm_date(prev.get_text(" ",strip=True))
+     heading_text=prev.get_text(" ",strip=True)
+     # Do not borrow dates from generic news/update headings.
+     if not re.search(r"tin\s*tức|cập\s*nhật|thông\s*báo|bài\s*viết",heading_text,re.I):
+      date=norm_date(heading_text)
   if not date:
    if len(table_dates)==1:
     date=table_dates[0]
@@ -422,6 +426,7 @@ def record_valid(rec):
  if kind in ("xsmb","xsmt","xsmn"):
   station=rec.get("station")
   if not isinstance(station,str) or not station.strip() or re.match(r"Đài\s*\d+$",station,re.I):return False
+  if not station_belongs_to_kind(station,kind):return False
   counts=XSMB_COUNTS if kind=="xsmb" else TRAD_COUNTS
   names=[p.get("name","") for p in prizes]
   if len(names)!=len(counts) or any(names.count(n)!=1 for n in counts):return False
