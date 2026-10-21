@@ -1,6 +1,6 @@
 {
   "schema_version": 3,
-  "updated_at_vietnam": "2026-10-21T22:14:10+07:00",
+  "updated_at_vietnam": "2026-10-22T02:19:09+07:00",
   "status": "ok",
   "record_count": 73,
   "files": [
@@ -53,17 +53,17 @@
     "lotto_5_35_days": 30
   },
   "collection_report": {
-    "updated_at_vietnam": "2026-10-21T22:14:10+07:00",
+    "updated_at_vietnam": "2026-10-22T02:19:09+07:00",
     "sources": {
       "xsmb": {
         "attempts": [
           {
             "source": "KQXS.vn miền Bắc",
             "url": "https://m.kqxs.vn/mien-bac",
-            "status": "new_valid_draws",
+            "status": "no_new_valid_draws",
             "draw_count": 2,
-            "new_count": 1,
-            "seconds": 2.45
+            "new_count": 0,
+            "seconds": 2.64
           },
           {
             "source": "KetQua.org miền Bắc",
@@ -71,7 +71,7 @@
             "status": "no_new_valid_draws",
             "draw_count": 0,
             "new_count": 0,
-            "seconds": 1.25
+            "seconds": 1.44
           },
           {
             "source": "XSKT.io miền Bắc",
@@ -79,11 +79,11 @@
             "status": "no_new_valid_draws",
             "draw_count": 0,
             "new_count": 0,
-            "seconds": 0.87
+            "seconds": 1.37
           }
         ],
-        "selected_source": "kqxs_mb",
-        "new_records_locked": 1
+        "selected_source": null,
+        "new_records_locked": 0
       },
       "xsmt": {
         "attempts": [
@@ -93,7 +93,7 @@
             "status": "no_new_valid_draws",
             "draw_count": 4,
             "new_count": 0,
-            "seconds": 2.0
+            "seconds": 2.57
           },
           {
             "source": "KetQua.org miền Trung",
@@ -101,7 +101,7 @@
             "status": "no_new_valid_draws",
             "draw_count": 0,
             "new_count": 0,
-            "seconds": 1.24
+            "seconds": 1.38
           },
           {
             "source": "XSKT.io miền Trung",
@@ -109,7 +109,7 @@
             "status": "no_new_valid_draws",
             "draw_count": 0,
             "new_count": 0,
-            "seconds": 0.81
+            "seconds": 0.98
           }
         ],
         "selected_source": null,
@@ -123,7 +123,7 @@
             "status": "no_new_valid_draws",
             "draw_count": 6,
             "new_count": 0,
-            "seconds": 2.03
+            "seconds": 2.19
           },
           {
             "source": "KetQua.org miền Nam",
@@ -131,7 +131,7 @@
             "status": "no_new_valid_draws",
             "draw_count": 3,
             "new_count": 0,
-            "seconds": 0.88
+            "seconds": 0.8
           },
           {
             "source": "XSKT.io miền Nam",
@@ -139,7 +139,7 @@
             "status": "no_new_valid_draws",
             "draw_count": 0,
             "new_count": 0,
-            "seconds": 0.82
+            "seconds": 0.99
           }
         ],
         "selected_source": null,
@@ -152,20 +152,20 @@
             "source": "https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/645",
             "status": "error",
             "error": "HTTPError: HTTP Error 403: Forbidden",
-            "seconds": 0.25
+            "seconds": 0.33
           },
           {
             "source": "https://www.minhngoc.net.vn/ket-qua-xo-so/dien-toan-vietlott/mega-6x45.html",
-            "status": "new_valid_draws",
+            "status": "valid_existing_only",
             "draw_count": 10,
             "valid_count": 10,
-            "new_count": 1,
-            "seconds": 1.81
+            "new_count": 0,
+            "seconds": 2.54
           }
         ],
-        "selected_source": "mega645",
-        "new_records_locked": 1,
-        "source_warning": null
+        "selected_source": null,
+        "new_records_locked": 0,
+        "source_warning": "No valid draw parsed from any configured source; do not fabricate a result."
       },
       "power655": {
         "product": "POWER 6/55",
@@ -182,7 +182,7 @@
             "draw_count": 10,
             "valid_count": 10,
             "new_count": 0,
-            "seconds": 2.22
+            "seconds": 2.28
           }
         ],
         "selected_source": null,
@@ -196,20 +196,20 @@
             "source": "https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/535",
             "status": "error",
             "error": "HTTPError: HTTP Error 403: Forbidden",
-            "seconds": 0.05
+            "seconds": 0.1
           },
           {
             "source": "https://xosomoinhat.com/xo-so-lotto-535",
-            "status": "new_valid_draws",
+            "status": "valid_existing_only",
             "draw_count": 20,
             "valid_count": 20,
-            "new_count": 1,
-            "seconds": 1.84
+            "new_count": 0,
+            "seconds": 1.92
           }
         ],
-        "selected_source": "lotto535",
-        "new_records_locked": 1,
-        "source_warning": null
+        "selected_source": null,
+        "new_records_locked": 0,
+        "source_warning": "No valid draw parsed from any configured source; do not fabricate a result."
       },
       "max3d": {
         "product": "MAX 3D",
@@ -218,7 +218,7 @@
             "source": "https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3D.html",
             "status": "error",
             "error": "HTTPError: HTTP Error 403: Forbidden",
-            "seconds": 0.06
+            "seconds": 0.08
           },
           {
             "source": "https://www.minhngoc.me/xo-so-dien-toan-max-3d.html",
@@ -226,7 +226,7 @@
             "draw_count": 0,
             "valid_count": 0,
             "new_count": 0,
-            "seconds": 1.09
+            "seconds": 1.17
           }
         ],
         "selected_source": null,
@@ -240,7 +240,7 @@
             "source": "https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3DPlus.html",
             "status": "error",
             "error": "HTTPError: HTTP Error 403: Forbidden",
-            "seconds": 0.05
+            "seconds": 0.11
           },
           {
             "source": "https://www.minhngoc.me/xo-so-dien-toan-max-3d.html",
@@ -248,7 +248,7 @@
             "draw_count": 0,
             "valid_count": 0,
             "new_count": 0,
-            "seconds": 0.98
+            "seconds": 1.1
           }
         ],
         "selected_source": null,
@@ -262,7 +262,7 @@
             "source": "https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3DPro.html",
             "status": "error",
             "error": "HTTPError: HTTP Error 403: Forbidden",
-            "seconds": 0.05
+            "seconds": 0.08
           },
           {
             "source": "https://xskt.com.vn/xsmax3dpro",
@@ -270,7 +270,7 @@
             "draw_count": 0,
             "valid_count": 0,
             "new_count": 0,
-            "seconds": 2.12
+            "seconds": 1.9
           }
         ],
         "selected_source": null,
@@ -278,12 +278,8 @@
         "source_warning": "No valid draw parsed from any configured source; do not fabricate a result."
       }
     },
-    "added": [
-      "xsmb|2026-10-21|Miền Bắc",
-      "vietlott|MEGA 6/45|2026-10-21|1578",
-      "vietlott|LOTTO 5/35|2026-10-21|960|21:00"
-    ],
-    "kept_existing": 70,
+    "added": [],
+    "kept_existing": 73,
     "quarantined_count": 6,
     "retention": {
       "traditional_and_vietlott_standard_days": 730,
