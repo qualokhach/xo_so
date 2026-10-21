@@ -132,17 +132,31 @@ def traditional_from_html(html,kind,src):
    stations=[st for st in dict.fromkeys(stations) if station_belongs_to_kind(st,kind)]
    if not stations:continue
   if not stations:continue
-  # DATE SAFETY: never infer a draw date from the whole page. The page often contains
-  # yesterday's results and today's date in navigation/metadata, which caused wrong labels.
-  # Accept a date only from this table/caption or a nearby heading with no intervening table.
-  date=norm_date(" ".join([table.get_text(" ",strip=True), (table.find("caption").get_text(" ",strip=True) if table.find("caption") else "")]))
+  # DATE SAFETY: a date must belong to this exact result table.
+  # Never call norm_date() on the whole table: aggregators sometimes append yesterday's
+  # results, next-draw dates, or other station dates to the same table, which can label
+  # a 20th result as the 19th. Prefer caption, then a nearby heading, then accept a date
+  # embedded in the table only when exactly one distinct calendar date occurs.
+  table_text=table.get_text(" ",strip=True)
+  table_dates=[]
+  for dm in DATE_RE.finditer(table_text):
+   candidate=norm_date(dm.group(0))
+   if candidate and candidate not in table_dates:
+    table_dates.append(candidate)
+  # A table that mixes multiple draw dates cannot safely be treated as one draw.
+  if len(table_dates)>1:
+   continue
+  caption=table.find("caption")
+  date=norm_date(caption.get_text(" ",strip=True)) if caption else None
   if not date:
    prev=table.find_previous(["h1","h2","h3","h4","time"])
    if prev:
     between=prev.find_next("table")
-    distance=len(prev.get_text(" ",strip=True))
-    if between is table and distance <= 600:
+    if between is table and len(prev.get_text(" ",strip=True)) <= 600:
      date=norm_date(prev.get_text(" ",strip=True))
+  if not date:
+   if len(table_dates)==1:
+    date=table_dates[0]
   if not date:continue
   collected={}
   for row in rows:
@@ -172,6 +186,27 @@ def traditional_from_html(html,kind,src):
     key=f"{kind}|{date}|{station}"
     out.append({"key":key,"kind":kind,"date":date,"title":station,"station":station,"prizes":ordered,"source_url":src["url"],"source_id":src["id"]})
  return out
+
+def parse_max3d_prizes(text):
+ """Parse Max 3D numbers under their prize labels when labels are present."""
+ area=re.split(r"(?:giải thưởng\s*\|\s*kết quả|bảng thống kê|các lần quay trước|điều kiện lĩnh thưởng)",text,maxsplit=1,flags=re.I)[0]
+ matches=list(re.finditer(r"giải\s*(đặc biệt|nhất|nhì|ba|tư|năm|sáu|bảy|tám|khuyến khích)",area,re.I))
+ aliases={"đặc biệt":"Giải Đặc biệt","nhất":"Giải nhất","nhì":"Giải nhì","ba":"Giải ba","tư":"Giải tư","năm":"Giải năm","sáu":"Giải sáu","bảy":"Giải bảy","tám":"Giải tám","khuyến khích":"Giải khuyến khích"}
+ result=[]
+ for i,m in enumerate(matches):
+  end=matches[i+1].start() if i+1<len(matches) else len(area)
+  chunk=area[m.end():end]
+  nums=re.findall(r"(?<!\d)(\d{3})(?!\d)",chunk)
+  if not nums:
+   runs=re.findall(r"(?<!\d)(?:\d[\s\u00a0]*){6,90}(?!\d)",chunk)
+   for run in runs:
+    digits=re.findall(r"\d",run)
+    if len(digits)>=3:
+     nums=["".join(digits[j:j+3]) for j in range(0,len(digits)-2,3)]
+     break
+  if nums: result.append({"name":aliases[m.group(1).casefold()],"numbers":nums[:30]})
+ return result if len(result)>=2 else []
+
 
 def vietlott_from_html(html,src):
  # Minh Ngoc exposes several historic draws on one product page. Parse each
@@ -315,6 +350,8 @@ def vietlott_from_html(html,src):
     if all(1<=int(n)<=limit for n in nums[:6]) and (need==6 or 1<=int(nums[6])<=55):
      prizes=[{"name":"Bộ số trúng thưởng","numbers":nums}]
   else: # MAX 3D / MAX 3D+ / MAX 3D PRO
+   # Keep prize labels if the source exposes them; do not flatten distinct prize ranks.
+   grouped=parse_max3d_prizes(segment)
    result_area=re.split(r"(?:giải thưởng\s*\|\s*kết quả|các lần quay trước|điều kiện lĩnh thưởng)",segment,maxsplit=1,flags=re.I)[0]
    nums=re.findall(r"(?<!\d)(\d{3})(?!\d)",result_area)
    if not nums:
@@ -324,7 +361,8 @@ def vietlott_from_html(html,src):
      if len(digits)>=6:
       nums=["".join(digits[j:j+3]) for j in range(0,len(digits)-2,3)]
       break
-   if nums:prizes=[{"name":"Bộ số trúng thưởng","numbers":nums[:20]}]
+   if grouped:prizes=grouped
+   elif nums:prizes=[{"name":"Bộ số trúng thưởng","numbers":nums[:20]}]
   if not prizes:continue
   key=f"vietlott|{product}|{date}|{draw_no}"
   rec={"key":key,"kind":"vietlott","product":product,"product_id":src["id"],"draw_no":draw_no,"date":date,"title":product,"station":product,"prizes":prizes,"source_url":src["url"],"source_id":src["id"]}

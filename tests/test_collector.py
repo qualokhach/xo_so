@@ -94,6 +94,7 @@ def test_max3dpro_result_and_award_count_fixture():
     assert rows and rows[0]["product"] == "MAX 3D PRO"
     assert rows[0]["date"] == "2026-06-13" and rows[0]["draw_no"] == "739"
     assert f.record_valid(rows[0])
+    assert {p["name"] for p in rows[0]["prizes"]} >= {"Giải Đặc biệt", "Giải nhất"}
     assert rows[0]["award_details"][0]["winner_count"] == "1"
 
 
@@ -180,3 +181,29 @@ def test_lotto_requires_bonus_ball_and_valid_session_metadata():
     assert f.record_valid(base)
     assert not f.record_valid({**base,'prizes':[{'name':'Bộ số trúng thưởng','numbers':['01','02','03','04','05']}]})
     assert not f.record_valid({**base,'prizes':[{'name':'Bộ số trúng thưởng','numbers':['01','02','03','04','05','13']}]})
+
+
+
+def test_traditional_table_with_multiple_dates_is_rejected_not_mislabeled():
+    # Regression: a page/table contains both today's and yesterday's results.
+    # The parser must not blindly take the first date and attach it to every station.
+    html = """<html><body>
+    <h2>Ngày quay 20/10/2026</h2>
+    <table><caption>Kết quả xổ số</caption>
+    <tr><th>Giải</th><th>Đà Nẵng</th></tr>
+    <tr><td>Ghi chú</td><td>Kỳ trước 19/10/2026; kỳ này 20/10/2026</td></tr>
+    <tr><td>Đặc biệt</td><td>123456</td></tr><tr><td>Giải nhất</td><td>12345</td></tr>
+    <tr><td>Giải nhì</td><td>12345</td></tr><tr><td>Giải ba</td><td>12345 12345</td></tr>
+    <tr><td>Giải tư</td><td>12345 12345 12345 12345 12345 12345 12345</td></tr>
+    <tr><td>Giải năm</td><td>1234</td></tr><tr><td>Giải sáu</td><td>1234 1234 1234</td></tr>
+    <tr><td>Giải bảy</td><td>123</td></tr><tr><td>Giải tám</td><td>12</td></tr>
+    </table></body></html>"""
+    rows = f.traditional_from_html(html, 'xsmt', {'id':'fixture','url':'https://example.test'})
+    assert rows == [], "ambiguous table dates must be rejected instead of mislabeled"
+
+
+def test_max3d_products_never_cross_classify():
+    for product, pid in [('MAX 3D','max3d'), ('MAX 3D+','max3dplus'), ('MAX 3D PRO','max3dpro')]:
+        rec = {'kind':'vietlott','product':product,'product_id':pid,'date':'2026-10-20','draw_no':'123',
+               'prizes':[{'name':'Bộ số trúng thưởng','numbers':['001','123','999']}]}
+        assert f.record_valid(rec), product

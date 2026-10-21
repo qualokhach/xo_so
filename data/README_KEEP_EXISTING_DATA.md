@@ -1,0 +1,1 @@
+This patch ZIP does not include live lottery result records. Keep the repository's existing data/index.json and data/archive/*.json files when applying this patch. Do not replace the data folder with an empty one.
