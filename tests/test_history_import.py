@@ -83,3 +83,32 @@ def test_scheduled_workflow_does_not_stage_history():
     stage_lines = [line.strip() for line in workflow.splitlines() if "git add" in line]
     assert stage_lines
     assert all("data/history" not in line for line in stage_lines)
+
+def test_frontend_rejects_stations_from_other_regions():
+    html = (ROOT / "index.html").read_text(encoding="utf-8")
+    assert "const STATIONS_BY_REGION={" in html
+    assert "return !!allowed && allowed.has(name);" in html
+    # A station must not be shown under another region even if an upstream record's kind is wrong.
+    assert "xsmt:new Set(['thuathienhue'" in html
+    assert "xsmn:new Set(['hochiminh'" in html
+    assert "dongthap" not in html.split("xsmt:new Set(",1)[1].split("]),",1)[0]
+
+
+def test_imported_traditional_history_has_region_consistent_stations():
+    central = {"thuathienhue","hue","kontum","khanhhoa","danang","quangnam","quangngai","binhdinh","phuyen","ninhthuan","daklak","daknong","gialai","quangtri","quangbinh"}
+    south = {"hochiminh","tphochiminh","tphcm","saigon","bariavungtau","dongnai","cantho","soctrang","angiang","binhduong","binhphuoc","binhthuan","baclieu","bentre","camau","dongthap","haugiang","kiengiang","longan","tiengiang","travinh","vinhlong","tayninh","vungtau","dalat","lamdong"}
+    import unicodedata, re
+    def norm(value):
+        value=str(value).replace("Đ","D").replace("đ","d")
+        value=unicodedata.normalize("NFKD", value).encode("ascii","ignore").decode("ascii").casefold()
+        return re.sub(r"[^a-z0-9]+", "", value)
+    checked=0
+    for path in HISTORY.glob("*.json"):
+        if path.name in {"index.json","audit.json"}: continue
+        data=json.loads(path.read_text(encoding="utf-8"))
+        for rec in data["records"].values():
+            if rec.get("kind") not in {"xsmt","xsmn"}: continue
+            station=norm(rec.get("station") or rec.get("title"))
+            assert station in (central if rec["kind"]=="xsmt" else south), (path.name,rec.get("kind"),rec.get("station"))
+            checked+=1
+    assert checked > 0

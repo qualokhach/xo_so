@@ -223,3 +223,30 @@ def test_max3d_pro_history_heading_with_em_dash():
     assert rows[0]['draw_no']=='794'
     assert rows[0]['product']=='MAX 3D PRO'
     assert f.record_valid(rows[0])
+
+
+def test_station_region_classification_handles_vietnamese_d_letter():
+    assert f.station_belongs_to_kind("Đà Nẵng", "xsmt")
+    assert f.station_belongs_to_kind("Đắk Lắk", "xsmt")
+    assert f.station_belongs_to_kind("Đồng Tháp", "xsmn")
+    assert f.station_belongs_to_kind("TP. Hồ Chí Minh", "xsmn")
+    assert not f.station_belongs_to_kind("Đồng Tháp", "xsmt")
+    assert not f.station_belongs_to_kind("Đà Nẵng", "xsmn")
+
+
+def test_collector_validator_rejects_station_assigned_to_wrong_region():
+    rec = {
+        "kind":"xsmt", "date":"2026-10-20", "station":"Đồng Tháp",
+        "prizes":[
+            {"name":"Đặc biệt","numbers":["123456"]},
+            {"name":"Giải nhất","numbers":["12345"]},
+            {"name":"Giải nhì","numbers":["12345"]},
+            {"name":"Giải ba","numbers":["12345","23456"]},
+            {"name":"Giải tư","numbers":["12345"]*7},
+            {"name":"Giải năm","numbers":["1234"]},
+            {"name":"Giải sáu","numbers":["1234"]*3},
+            {"name":"Giải bảy","numbers":["123"]},
+            {"name":"Giải tám","numbers":["12"]},
+        ]
+    }
+    assert not f.record_valid(rec)
