@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "data_tier": "immutable_history",
+  "target_window": {
+    "start": "2024-10-21",
+    "end": "2026-10-21"
+  },
+  "months": [
+    {
+      "month": "2024-10",
+      "url": "data/history/2024-10.json",
+      "record_count": 19
+    },
+    {
+      "month": "2024-11",
+      "url": "data/history/2024-11.json",
+      "record_count": 52
+    },
+    {
+      "month": "2024-12",
+      "url": "data/history/2024-12.json",
+      "record_count": 52
+    },
+    {
+      "month": "2025-01",
+      "url": "data/history/2025-01.json",
+      "record_count": 50
+    },
+    {
+      "month": "2025-02",
+      "url": "data/history/2025-02.json",
+      "record_count": 48
+    },
+    {
+      "month": "2025-03",
+      "url": "data/history/2025-03.json",
+      "record_count": 52
+    },
+    {
+      "month": "2025-04",
+      "url": "data/history/2025-04.json",
+      "record_count": 52
+    },
+    {
+      "month": "2025-05",
+      "url": "data/history/2025-05.json",
+      "record_count": 54
+    },
+    {
+      "month": "2025-06",
+      "url": "data/history/2025-06.json",
+      "record_count": 50
+    },
+    {
+      "month": "2025-07",
+      "url": "data/history/2025-07.json",
+      "record_count": 54
+    },
+    {
+      "month": "2025-08",
+      "url": "data/history/2025-08.json",
+      "record_count": 212
+    },
+    {
+      "month": "2025-09",
+      "url": "data/history/2025-09.json",
+      "record_count": 239
+    },
+    {
+      "month": "2025-10",
+      "url": "data/history/2025-10.json",
+      "record_count": 257
+    },
+    {
+      "month": "2025-11",
+      "url": "data/history/2025-11.json",
+      "record_count": 250
+    },
+    {
+      "month": "2025-12",
+      "url": "data/history/2025-12.json",
+      "record_count": 255
+    },
+    {
+      "month": "2026-01",
+      "url": "data/history/2026-01.json",
+      "record_count": 259
+    },
+    {
+      "month": "2026-02",
+      "url": "data/history/2026-02.json",
+      "record_count": 225
+    },
+    {
+      "month": "2026-03",
+      "url": "data/history/2026-03.json",
+      "record_count": 248
+    },
+    {
+      "month": "2026-04",
+      "url": "data/history/2026-04.json",
+      "record_count": 249
+    },
+    {
+      "month": "2026-05",
+      "url": "data/history/2026-05.json",
+      "record_count": 258
+    },
+    {
+      "month": "2026-06",
+      "url": "data/history/2026-06.json",
+      "record_count": 247
+    },
+    {
+      "month": "2026-07",
+      "url": "data/history/2026-07.json",
+      "record_count": 257
+    },
+    {
+      "month": "2026-08",
+      "url": "data/history/2026-08.json",
+      "record_count": 257
+    },
+    {
+      "month": "2026-09",
+      "url": "data/history/2026-09.json",
+      "record_count": 266
+    },
+    {
+      "month": "2026-10",
+      "url": "data/history/2026-10.json",
+      "record_count": 206
+    }
+  ],
+  "record_count": 4168,
+  "coverage": {
+    "traditional": {
+      "available_from": "2025-08-08",
+      "available_to": "2026-10-20",
+      "complete_two_years": false
+    },
+    "vietlott": {
+      "available_from": "2024-10-21",
+      "available_to": "2026-10-20"
+    },
+    "max_3d_plus": {
+      "available": false,
+      "reason": "No dedicated Max 3D+ rows in uploaded workbook; not inferred from Max 3D."
+    },
+    "lotto_5_35": {
+      "retained_from": "2026-09-22",
+      "retained_to": "2026-10-21",
+      "session_time_verified": false
+    }
+  },
+  "note": "This manifest describes imported history. It is not a claim that every product/date is complete or source-verified."
+}

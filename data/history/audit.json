@@ -1,0 +1,35 @@
+{
+  "audit_version": "history-import-1",
+  "target_window": {
+    "start": "2024-10-21",
+    "end": "2026-10-21"
+  },
+  "imported_records": 4168,
+  "monthly_partitions": 25,
+  "record_counts_by_kind": {
+    "xsmb": 435,
+    "xsmt": 1061,
+    "xsmn": 1378,
+    "vietlott": 1294
+  },
+  "record_counts_by_product": {
+    "traditional": 2874,
+    "Mega 6/45": 311,
+    "Power 6/55": 311,
+    "Lotto 5/35": 58,
+    "Max 3D": 307,
+    "Max 3D Pro": 307
+  },
+  "known_gaps": [
+    "Traditional source data begins 2025-08-08; target window starts 2024-10-21.",
+    "Max 3D+ has no dedicated source rows in the uploaded workbook.",
+    "Lotto 5/35 source does not provide verified draw time; draw IDs are retained.",
+    "Imported records were structurally normalized but not all were independently cross-checked against official sources."
+  ],
+  "rules": [
+    "Historical records are stored in data/history/YYYY-MM.json.",
+    "Live scheduled collector remains scoped to data/archive/ and data/index.json.",
+    "No Max 3D+ records were inferred from Max 3D.",
+    "Lotto 5/35 history partition retains only dates from 2026-09-22 onward."
+  ]
+}
