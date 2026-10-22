@@ -16,6 +16,9 @@ jobs:
   update-results:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: lottery
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -75,8 +78,8 @@ jobs:
         with:
           name: appnho-lottery-partitioned-data
           path: |
-            data/index.json
-            data/archive/**/*.json
-            data/archive-quarantine.json
+            lottery/data/index.json
+            lottery/data/archive/**/*.json
+            lottery/data/archive-quarantine.json
           if-no-files-found: warn
           retention-days: 30
