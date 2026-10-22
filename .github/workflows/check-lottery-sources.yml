@@ -14,14 +14,13 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # This repository root contains scripts/ and reports/ directly.
+  # Do not set working-directory: lottery here.
   check-sources:
     name: Check candidate lottery sources
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
-    defaults:
-      run:
-        working-directory: lottery
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -62,6 +61,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: appnho-lottery-source-report
-          path: lottery/reports/source-status.json
+          path: reports/source-status.json
           if-no-files-found: warn
           retention-days: 14
