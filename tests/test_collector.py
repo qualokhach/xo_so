@@ -225,6 +225,24 @@ def test_max3d_pro_history_heading_with_em_dash():
     assert f.record_valid(rows[0])
 
 
+
+def test_max3dpro_minhngoc_me_history_page():
+    html = '''<html><head><title>Kết quả xổ số Max 3D</title></head><body>
+    <h3>KẾT QUẢ XỔ SỐ MAX 3D PRO - NGÀY: 22/10/2026</h3>
+    Thứ năm Kỳ vé: #00795 | Ngày quay thưởng 22/10/2026
+    123 456 789 012 345 678
+    Giải thưởng 1.000.000 đồng
+    </body></html>'''
+    src={'id':'max3dpro','product':'MAX 3D PRO',
+         'url':'https://www.minhngoc.me/xo-so-dien-toan-max-3d.html',
+         'generic_fallback':True}
+    rows=f.vietlott_from_html(html,src)
+    assert len(rows)==1, rows
+    assert rows[0]['date']=='2026-10-22'
+    assert rows[0]['draw_no']=='795'
+    assert rows[0]['product']=='MAX 3D PRO'
+    assert f.record_valid(rows[0])
+
 def test_station_region_classification_handles_vietnamese_d_letter():
     assert f.station_belongs_to_kind("Đà Nẵng", "xsmt")
     assert f.station_belongs_to_kind("Đắk Lắk", "xsmt")
