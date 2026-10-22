@@ -29,7 +29,7 @@ VIETLOTT=[
  {"id":"lotto535","product":"LOTTO 5/35","urls":["https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/535","https://xosomoinhat.com/xo-so-lotto-535"]},
  {"id":"max3d","product":"MAX 3D","urls":["https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3D.html","https://www.minhngoc.me/xo-so-dien-toan-max-3d.html"]},
  {"id":"max3dplus","product":"MAX 3D+","urls":["https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3DPlus.html","https://www.minhngoc.me/xo-so-dien-toan-max-3d.html"]},
- {"id":"max3dpro","product":"MAX 3D PRO","urls":["https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3DPro.html","https://xskt.com.vn/xsmax3dpro"]},
+ {"id":"max3dpro","product":"MAX 3D PRO","urls":["https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3DPro.html","https://xskt.com.vn/xsmax3dpro","https://www.minhngoc.me/xo-so-dien-toan-max-3d.html"]},
 ]
 STATIONS=["Thừa Thiên Huế","Thua Thien Hue","Phú Yên","Phu Yen","Đà Nẵng","Da Nang","Khánh Hòa","Khanh Hoa","Đắk Lắk","Dak Lak","Quảng Nam","Quang Nam","Bình Định","Binh Dinh","Quảng Trị","Quang Tri","Quảng Bình","Quang Binh","Gia Lai","Ninh Thuận","Ninh Thuan","Quảng Ngãi","Quang Ngai","Đắk Nông","Dak Nong","Kon Tum","Hồ Chí Minh","Ho Chi Minh","Đồng Tháp","Dong Thap","Cà Mau","Ca Mau","Bến Tre","Ben Tre","Vũng Tàu","Vung Tau","Bạc Liêu","Bac Lieu","Cần Thơ","Can Tho","Sóc Trăng","Soc Trang","Trà Vinh","Tra Vinh","An Giang","Long An","Tiền Giang","Tien Giang","Kiên Giang","Kien Giang","Đồng Nai","Dong Nai","Bình Dương","Binh Duong","Tây Ninh","Tay Ninh","Bình Phước","Binh Phuoc","Bình Thuận","Binh Thuan","Hậu Giang","Hau Giang","Vĩnh Long","Vinh Long","Đà Lạt","Da Lat","Lâm Đồng","Lam Dong"]
 PRIZE_ALIASES={"đb":"Đặc biệt","đặc biệt":"Đặc biệt","giải đặc biệt":"Đặc biệt","giải nhất":"Giải nhất","giải nhì":"Giải nhì","giải ba":"Giải ba","giải tư":"Giải tư","giải năm":"Giải năm","giải sáu":"Giải sáu","giải bảy":"Giải bảy","giải tám":"Giải tám","g.đb":"Đặc biệt","g1":"Giải nhất","g2":"Giải nhì","g3":"Giải ba","g4":"Giải tư","g5":"Giải năm","g6":"Giải sáu","g7":"Giải bảy","g8":"Giải tám"}
@@ -234,7 +234,7 @@ def vietlott_from_html(html,src):
  }[product]
  # History-list layout used by Minh Ngoc: each result starts with a product title/date,
  # then a ticket/draw number and the winning balls. A window ends at the next result heading.
- if "minhngoc.net.vn" in host_url:
+ if re.search(r"minhngoc\.(?:net\.vn|me)", host_url):
   headings=list(re.finditer(r"KẾT QUẢ XỔ SỐ\s+(.{0,35}?)\s*[-–]\s*NGÀY\s*:\s*(\d{1,2}/\d{1,2}/\d{4})",flat,re.I))
   out=[]
   for i,h in enumerate(headings):
