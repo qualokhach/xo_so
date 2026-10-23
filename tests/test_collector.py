@@ -225,24 +225,6 @@ def test_max3d_pro_history_heading_with_em_dash():
     assert f.record_valid(rows[0])
 
 
-
-def test_max3dpro_minhngoc_me_history_page():
-    html = '''<html><head><title>Kết quả xổ số Max 3D</title></head><body>
-    <h3>KẾT QUẢ XỔ SỐ MAX 3D PRO - NGÀY: 22/10/2026</h3>
-    Thứ năm Kỳ vé: #00795 | Ngày quay thưởng 22/10/2026
-    123 456 789 012 345 678
-    Giải thưởng 1.000.000 đồng
-    </body></html>'''
-    src={'id':'max3dpro','product':'MAX 3D PRO',
-         'url':'https://www.minhngoc.me/xo-so-dien-toan-max-3d.html',
-         'generic_fallback':True}
-    rows=f.vietlott_from_html(html,src)
-    assert len(rows)==1, rows
-    assert rows[0]['date']=='2026-10-22'
-    assert rows[0]['draw_no']=='795'
-    assert rows[0]['product']=='MAX 3D PRO'
-    assert f.record_valid(rows[0])
-
 def test_station_region_classification_handles_vietnamese_d_letter():
     assert f.station_belongs_to_kind("Đà Nẵng", "xsmt")
     assert f.station_belongs_to_kind("Đắk Lắk", "xsmt")
@@ -268,3 +250,39 @@ def test_collector_validator_rejects_station_assigned_to_wrong_region():
         ]
     }
     assert not f.record_valid(rec)
+
+
+
+def test_max3d_family_product_labels_are_strictly_separated():
+    cases = [
+        ("MAX 3D", "Kết quả Max 3D ngày 22/10/2026", True),
+        ("MAX 3D", "Kết quả Max 3D+ ngày 22/10/2026", False),
+        ("MAX 3D", "Kết quả Max 3D Plus ngày 22/10/2026", False),
+        ("MAX 3D", "Kết quả Max3DPLUS ngày 22/10/2026", False),
+        ("MAX 3D", "Kết quả Max 3D Pro ngày 22/10/2026", False),
+        ("MAX 3D+", "Kết quả Max 3D+ ngày 22/10/2026", True),
+        ("MAX 3D+", "Kết quả MAX 3D PLUS ngày 22/10/2026", True),
+        ("MAX 3D+", "Kết quả Max3DPLUS ngày 22/10/2026", True),
+        ("MAX 3D+", "Kết quả Max 3D Pro ngày 22/10/2026", False),
+        ("MAX 3D PRO", "Kết quả Max 3D Pro ngày 22/10/2026", True),
+        ("MAX 3D PRO", "Kết quả MAX3DPRO ngày 22/10/2026", True),
+        ("MAX 3D PRO", "Kết quả Max 3D Plus ngày 22/10/2026", False),
+    ]
+    for product, label, expected in cases:
+        assert f.product_label_matches(product, label) is expected, (product, label)
+
+
+def test_vietlott_history_parser_accepts_minhngoc_me_and_separates_plus():
+    html = """<html><head><title>Kết quả xổ số Max 3D</title></head><body>
+    <h2>KẾT QUẢ XỔ SỐ Max 3D - NGÀY: 22/10/2026</h2>
+    <p>Kỳ vé: #00123 Ngày quay thưởng 22/10/2026 123 456 789 012</p>
+    <h2>KẾT QUẢ XỔ SỐ Max 3D Plus - NGÀY: 22/10/2026</h2>
+    <p>Kỳ vé: #00124 Ngày quay thưởng 22/10/2026 111 222 333 444</p>
+    <h2>KẾT QUẢ XỔ SỐ Max 3D Pro - NGÀY: 22/10/2026</h2>
+    <p>Kỳ vé: #00125 Ngày quay thưởng 22/10/2026 555 666 777 888</p>
+    </body></html>"""
+    for product, pid, expected_draw in [("MAX 3D", "max3d", "123"), ("MAX 3D+", "max3dplus", "124"), ("MAX 3D PRO", "max3dpro", "125")]:
+        src={"id":pid,"product":product,"url":"https://www.minhngoc.me/xo-so-dien-toan-max-3d.html"}
+        rows=f.vietlott_from_html(html,src)
+        assert rows and all(r["product"] == product for r in rows), (product, rows)
+        assert expected_draw in {r["draw_no"] for r in rows}, (product, rows)
