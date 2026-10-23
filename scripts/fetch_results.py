@@ -11,25 +11,91 @@ TRADITIONAL = {
   {"id":"kqxs_mb","name":"KQXS.vn miền Bắc","url":"https://m.kqxs.vn/mien-bac"},
   {"id":"ketqua_org","name":"KetQua.org miền Bắc","url":"https://ketqua.org/"},
   {"id":"xskt_io","name":"XSKT.io miền Bắc","url":"https://xskt.io/"},
+  {"id":"dovesovn","name":"Dò Vé Số VN (trang tổng hợp)","url":"https://dovesovn.com/"},
+  {"id":"kqxs_info","name":"KQXS.info.vn (trang tổng hợp)","url":"https://kqxs.info.vn/"},
  ],
  "xsmt":[
   {"id":"kqxs_mt","name":"KQXS.vn miền Trung","url":"https://m.kqxs.vn/mien-trung"},
   {"id":"ketqua_org","name":"KetQua.org miền Trung","url":"https://ketqua.org/"},
   {"id":"xskt_io","name":"XSKT.io miền Trung","url":"https://xskt.io/"},
+  {"id":"dovesovn","name":"Dò Vé Số VN (trang tổng hợp)","url":"https://dovesovn.com/"},
+  {"id":"kqxs_info","name":"KQXS.info.vn (trang tổng hợp)","url":"https://kqxs.info.vn/"},
  ],
  "xsmn":[
   {"id":"kqxs_mn","name":"KQXS.vn miền Nam","url":"https://m.kqxs.vn/mien-nam"},
   {"id":"ketqua_org","name":"KetQua.org miền Nam","url":"https://ketqua.org/"},
   {"id":"xskt_io","name":"XSKT.io miền Nam","url":"https://xskt.io/"},
+  {"id":"dovesovn","name":"Dò Vé Số VN (trang tổng hợp)","url":"https://dovesovn.com/"},
+  {"id":"kqxs_info","name":"KQXS.info.vn (trang tổng hợp)","url":"https://kqxs.info.vn/"},
  ],
 }
 VIETLOTT=[
- {"id":"mega645","product":"MEGA 6/45","urls":["https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/645","https://www.minhngoc.net.vn/ket-qua-xo-so/dien-toan-vietlott/mega-6x45.html"]},
- {"id":"power655","product":"POWER 6/55","urls":["https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/655","https://www.minhngoc.net.vn/ket-qua-xo-so/dien-toan-vietlott/power-6x55.html"]},
- {"id":"lotto535","product":"LOTTO 5/35","urls":["https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/535","https://xosomoinhat.com/xo-so-lotto-535"]},
- {"id":"max3d","product":"MAX 3D","urls":["https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3D.html","https://www.minhngoc.me/xo-so-dien-toan-max-3d.html"]},
- {"id":"max3dplus","product":"MAX 3D+","urls":["https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3DPlus.html","https://www.minhngoc.me/xo-so-dien-toan-max-3d.html"]},
- {"id":"max3dpro","product":"MAX 3D PRO","urls":["https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3DPro.html","https://xskt.com.vn/xsmax3dpro"]},
+ {"id":"mega645","product":"MEGA 6/45","urls":[
+  "https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/645",
+  "https://www.minhngoc.net.vn/ket-qua-xo-so/dien-toan-vietlott/mega-6x45.html",
+  "https://lottpicker.vn/?route=vietlott/mega645.results",
+  "https://xosohn.com/vietlott/mega-645",
+  "https://cvwork.vn/ket-qua-xo-so/vietlott/mega-645",
+  "https://xosovietguide.com/lich-su/",
+  "https://xosovietloto.com/lich-su/",
+  "https://andromeda.com.vn/vietlott-max3d/",
+  "https://www.hpsc.com.vn/xo-so-vietlott.html",
+  "https://xosonay.com/vietlott/"]},
+ {"id":"power655","product":"POWER 6/55","urls":[
+  "https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/655",
+  "https://www.minhngoc.net.vn/ket-qua-xo-so/dien-toan-vietlott/power-6x55.html",
+  "https://lottpicker.vn/?route=vietlott/power655.results",
+  "https://xosovietguide.com/lich-su/",
+  "https://xosovietloto.com/lich-su/",
+  "https://cvwork.vn/ket-qua-xo-so/vietlott/power-655",
+  "https://xosohn.com/vietlott/power-655",
+  "https://andromeda.com.vn/",
+  "https://www.hpsc.com.vn/xo-so-vietlott.html",
+  "https://xosonay.com/vietlott/"]},
+ {"id":"lotto535","product":"LOTTO 5/35","urls":[
+  "https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/535",
+  "https://xosomoinhat.com/xo-so-lotto-535",
+  "https://xosovietguide.com/lich-su/",
+  "https://cvwork.vn/ket-qua-xo-so/vietlott/power-5-35",
+  "https://xosohn.com/vietlott/lotto-535",
+  "https://lottpicker.vn/",
+  "https://andromeda.com.vn/",
+  "https://www.hpsc.com.vn/xo-so-vietlott.html",
+  "https://www.vietnamyello.com/lottery/results/history",
+  "https://xosonay.com/vietlott/"]},
+ {"id":"max3d","product":"MAX 3D","urls":[
+  "https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3D.html",
+  "https://andromeda.com.vn/vietlott-max3d/",
+  "https://lottpicker.vn/?route=vietlott/max3d.results",
+  "https://xosovietguide.com/lich-su/",
+  "https://xosovietloto.com/lich-su/",
+  "https://www.xsmbav.com/xo-so-vietlott",
+  "https://www.hpsc.com.vn/xo-so-vietlott.html",
+  "https://www.vietnamyello.com/lottery/results/history",
+  "https://xosonay.com/vietlott/",
+  "https://www.lotteryfool.com/results/vietlott"]},
+ {"id":"max3dplus","product":"MAX 3D+","urls":[
+  "https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3DPlus.html",
+  "https://lottpicker.vn/?route=vietlott/max3d.results",
+  "https://andromeda.com.vn/vietlott-max3d/",
+  "https://xosovietguide.com/lich-su/",
+  "https://xosohn.com/vietlott/max-3d-plus",
+  "https://cvwork.vn/ket-qua-xo-so/vietlott/max-3d-plus",
+  "https://www.xsmbav.com/xo-so-vietlott",
+  "https://www.hpsc.com.vn/xo-so-vietlott.html",
+  "https://www.vietnamyello.com/lottery/results/history",
+  "https://xosonay.com/vietlott/"]},
+ {"id":"max3dpro","product":"MAX 3D PRO","urls":[
+  "https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3DPro.html",
+  "https://xskt.com.vn/xsmax3dpro",
+  "https://xosophonix.vn/vietlott/max-3d-pro",
+  "https://doveso.com.vn/vietlott-max-3d-pro/",
+  "https://cupdienlamdong.com/xo-so-max-3d-pro/",
+  "https://cvwork.vn/ket-qua-xo-so/vietlott/max-3d-pro",
+  "https://vineco.net.vn/kqxs-max-3d-pro.html",
+  "https://vesophuocdanh.vn/vietlott/max-3d-pro",
+  "https://hpsc.com.vn/xs-max-3d-pro.html",
+  "https://www.vietnamyello.com/lottery/results/history"]},
 ]
 STATIONS=["Thừa Thiên Huế","Thua Thien Hue","Phú Yên","Phu Yen","Đà Nẵng","Da Nang","Khánh Hòa","Khanh Hoa","Đắk Lắk","Dak Lak","Quảng Nam","Quang Nam","Bình Định","Binh Dinh","Quảng Trị","Quang Tri","Quảng Bình","Quang Binh","Gia Lai","Ninh Thuận","Ninh Thuan","Quảng Ngãi","Quang Ngai","Đắk Nông","Dak Nong","Kon Tum","Hồ Chí Minh","Ho Chi Minh","Đồng Tháp","Dong Thap","Cà Mau","Ca Mau","Bến Tre","Ben Tre","Vũng Tàu","Vung Tau","Bạc Liêu","Bac Lieu","Cần Thơ","Can Tho","Sóc Trăng","Soc Trang","Trà Vinh","Tra Vinh","An Giang","Long An","Tiền Giang","Tien Giang","Kiên Giang","Kien Giang","Đồng Nai","Dong Nai","Bình Dương","Binh Duong","Tây Ninh","Tay Ninh","Bình Phước","Binh Phuoc","Bình Thuận","Binh Thuan","Hậu Giang","Hau Giang","Vĩnh Long","Vinh Long","Đà Lạt","Da Lat","Lâm Đồng","Lam Dong"]
 PRIZE_ALIASES={"đb":"Đặc biệt","đặc biệt":"Đặc biệt","giải đặc biệt":"Đặc biệt","giải nhất":"Giải nhất","giải nhì":"Giải nhì","giải ba":"Giải ba","giải tư":"Giải tư","giải năm":"Giải năm","giải sáu":"Giải sáu","giải bảy":"Giải bảy","giải tám":"Giải tám","g.đb":"Đặc biệt","g1":"Giải nhất","g2":"Giải nhì","g3":"Giải ba","g4":"Giải tư","g5":"Giải năm","g6":"Giải sáu","g7":"Giải bảy","g8":"Giải tám"}
@@ -316,7 +382,8 @@ def vietlott_from_html(html,src):
  heading_re=re.compile(
   r"(?:(?:kết quả(?: quay số mở thưởng)?|quay số mở thưởng)\s*)?"
   r"(?:qsm[dt]\s*)?(?:kỳ(?:\s+quay(?:\s+thưởng)?)?\s*)#?\s*(\d{3,6})"
-  r"\s*(?:ngày|[-–|—]\s*)(\d{1,2}[/-]\d{1,2}[/-]\d{4})"
+  r"\s*(?:(?:thứ\s*[2-7]|chủ\s*nhật|thứ\s*hai|thứ\s*ba|thứ\s*tư|thứ\s*năm|thứ\s*sáu|thứ\s*bảy)\s*)?"
+  r"(?:ngày\s*|[-–|—]\s*(?:(?:thứ\s*[2-7]|chủ\s*nhật)\s*[-–|—]?\s*)?)(\d{1,2}[/-]\d{1,2}[/-]\d{4})"
   r"(?:\s*[-–|,]?\s*(?:lúc|vào lúc|giờ)\s*(\d{1,2}:\d{2}|\d{1,2}\s*[hH]))?",re.I)
  matches=list(heading_re.finditer(text))
  # Some official pages render a shorter label.
@@ -328,7 +395,10 @@ def vietlott_from_html(html,src):
  aliases={"MEGA 6/45":("mega 6/45","mega645"),"POWER 6/55":("power 6/55","power655"),"MAX 3D":("max 3d","max3d"),"MAX 3D+":("max 3d+","max 3d plus","max3dplus","3d plus","3d+"),"MAX 3D PRO":("max 3d pro","max3dpro","3d pro","max 3d professional"),"LOTTO 5/35":("lotto 5/35","lotto535","lotto-535")}
  # A product-specific page is safe by URL/title. A mixed fallback must identify the
  # product near each draw heading, otherwise never relabel its first draw.
- specific_url=(product=="LOTTO 5/35" and "lotto-535" in src.get("url", "")) or ("vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/" in src.get("url", "")) or ("minhngoc.net.vn" in src.get("url", "") and product in ("MEGA 6/45","POWER 6/55")) or (product=="MAX 3D PRO" and "xskt.com.vn/xsmax3dpro" in src.get("url", ""))
+ url_lc=src.get("url", "").casefold()
+ official_path={"MEGA 6/45":"/645", "POWER 6/55":"/655", "LOTTO 5/35":"/535", "MAX 3D":"/max-3d.html", "MAX 3D+":"/max-3dplus.html", "MAX 3D PRO":"/max-3dpro.html"}.get(product, "")
+ official_specific=("vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/" in url_lc and official_path and url_lc.endswith(official_path))
+ specific_url = bool((product == "LOTTO 5/35" and "lotto-535" in url_lc) or official_specific or ("minhngoc.net.vn" in url_lc and product in ("MEGA 6/45", "POWER 6/55")) or (product == "MAX 3D PRO" and any(x in url_lc for x in ("xskt.com.vn/xsmax3dpro", "xosophonix.vn/vietlott/max-3d-pro", "doveso.com.vn/vietlott-max-3d-pro", "cupdienlamdong.com/xo-so-max-3d-pro", "cvwork.vn/ket-qua-xo-so/vietlott/max-3d-pro", "vineco.net.vn/kqxs-max-3d-pro.html", "vesophuocdanh.vn/vietlott/max-3d-pro", "hpsc.com.vn/xs-max-3d-pro.html", "tracuuxoso.vn/vietlott/max-3d-pro"))) or (product == "MAX 3D+" and "lottpicker.vn/?route=vietlott/max3d.results" in url_lc) or (product == "MAX 3D" and "andromeda.com.vn/vietlott-max3d" in url_lc))
  page_title=(soup.title.get_text(" ",strip=True) if soup.title else "").casefold()
  out=[]
  for i,m in enumerate(matches):
@@ -338,7 +408,7 @@ def vietlott_from_html(html,src):
   # Only consider the text belonging to this draw, ending before the next heading.
   seg_end=matches[i+1].start() if i+1<len(matches) else min(len(text),m.end()+900)
   segment=text[m.end():seg_end]
-  if src.get("generic_fallback") and not specific_url:
+  if not specific_url:
    context=text[max(0,m.start()-220):min(len(text),m.end()+300)].casefold()
    terms=aliases.get(product,())
    context_ok=product_label_matches(product,context) or product_label_matches(product,page_title)
@@ -464,7 +534,7 @@ def record_valid(rec):
  prod=rec.get("product")
  allowed={x["product"] for x in VIETLOTT}
  if prod not in allowed:return False
- if rec.get("product_id") and rec["product_id"] not in {x["id"] for x in VIETLOTT}:return False
+ if rec.get("product_id") and rec["product_id"] != next((x["id"] for x in VIETLOTT if x["product"]==prod), None):return False
  if prod in ("MEGA 6/45","POWER 6/55"):
   main=next((p for p in prizes if p.get("name")=="Bộ số trúng thưởng"),None)
   expected=6 if prod=="MEGA 6/45" else 7
@@ -541,13 +611,15 @@ def main():
  # Collect new records from multiple source candidates; only append previously unseen keys.
  report={"updated_at_vietnam":now_iso,"sources":{},"added":[],"kept_existing":len(records),"quarantined_count":len(quarantine.get("records",{})),"retention":{"traditional_and_vietlott_standard_days":730,"lotto_5_35_days":30}}
  for kind,sources in TRADITIONAL.items():
-  attempts=[];found=[]
+  attempts=[];found=[];found_valid=[]
   for src in sources:
    started=time.time()
    try:
     html,final_url,http=get_html(src["url"]);draws=traditional_from_html(html,kind,src)
-    new=[d for d in draws if d["key"] not in records and record_valid(d) and is_in_retention(d,today)]
-    attempts.append({"source":src["name"],"url":src["url"],"status":"new_valid_draws" if new else "no_new_valid_draws","draw_count":len(draws),"new_count":len(new),"seconds":round(time.time()-started,2)})
+    valid=[d for d in draws if record_valid(d) and is_in_retention(d,today)]
+    new=[d for d in valid if d["key"] not in records]
+    attempts.append({"source":src["name"],"url":src["url"],"status":"new_valid_draws" if new else ("valid_existing_only" if valid else "no_valid_draws"),"draw_count":len(draws),"valid_count":len(valid),"new_count":len(new),"seconds":round(time.time()-started,2)})
+    if valid: found_valid.extend(valid)
     if new: found.extend(new)
    except Exception as e: attempts.append({"source":src["name"],"url":src["url"],"status":"error","error":f"{type(e).__name__}: {e}","seconds":round(time.time()-started,2)})
   found=list({d["key"]:d for d in found}.values())
@@ -558,9 +630,9 @@ def main():
     d["first_source_id"]=d["source_id"]
     d["content_sha256"]=hashlib.sha256(json.dumps(d,ensure_ascii=False,sort_keys=True).encode()).hexdigest()
     records[d["key"]]=d;report["added"].append(d["key"]);added+=1
-  report["sources"][kind]={"attempts":attempts,"selected_source":found[0]["source_id"] if found else None,"new_records_locked":added}
+  report["sources"][kind]={"attempts":attempts,"selected_source":(found_valid[0]["source_id"] if found_valid else None),"valid_records_seen":len({d["key"] for d in found_valid}),"new_records_locked":added,"source_warning":None if found_valid else "No valid result parsed from configured sources."}
  for src in VIETLOTT:
-  attempts=[];found=[]
+  attempts=[];found=[];found_valid=[]
   # Only query the product-specific official page. Generic Vietlott pages can expose
   # another product's latest draw and must never be mislabeled as this product.
   urls=src.get("urls",[src.get("url")])
@@ -571,6 +643,7 @@ def main():
     valid=[d for d in draws if record_valid(d) and is_in_retention(d,today)]
     new=[d for d in valid if d["key"] not in records]
     attempts.append({"source":url,"status":"new_valid_draws" if new else ("valid_existing_only" if valid else "no_product_specific_valid_draws"),"draw_count":len(draws),"valid_count":len(valid),"new_count":len(new),"seconds":round(time.time()-started,2)})
+    if valid: found_valid.extend(valid)
     if new: found.extend(new)
    except Exception as e: attempts.append({"source":url,"status":"error","error":f"{type(e).__name__}: {e}","seconds":round(time.time()-started,2)})
   found=list({d["key"]:d for d in found}.values())
@@ -581,7 +654,7 @@ def main():
     d["first_source_id"]=d["source_id"]
     d["content_sha256"]=hashlib.sha256(json.dumps(d,ensure_ascii=False,sort_keys=True).encode()).hexdigest()
     records[d["key"]]=d;report["added"].append(d["key"]);added+=1
-  report["sources"][src["id"]]={"product":src["product"],"attempts":attempts,"selected_source":found[0]["source_id"] if found else None,"new_records_locked":added,"source_warning":None if found else "No valid draw parsed from any configured source; do not fabricate a result."}
+  report["sources"][src["id"]]={"product":src["product"],"attempts":attempts,"selected_source":(found_valid[0]["source_id"] if found_valid else None),"valid_records_seen":len({d["key"] for d in found_valid}),"new_records_locked":added,"source_warning":None if found_valid else "No valid draw parsed from any configured source; do not fabricate a result."}
  # Enforce retention and product allow-list. This only affects the active published dataset.
  allowed={"MEGA 6/45","POWER 6/55","LOTTO 5/35","MAX 3D","MAX 3D+","MAX 3D PRO"}
  expired=[];retained={}
