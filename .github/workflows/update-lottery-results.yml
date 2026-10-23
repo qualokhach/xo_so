@@ -2,10 +2,12 @@ name: Update lottery results
 
 on:
   workflow_dispatch:
+  # Vietnam time (UTC+7): scan only 16:15–19:00, every 15 minutes.
+  # 16:15–16:45 VN = 09:15–09:45 UTC; 17:00–18:45 VN = 10:00–11:45 UTC; 19:00 VN = 12:00 UTC.
   schedule:
-    # Retry throughout the day so a late-published draw is picked up automatically.
-    # UTC minute 7/27/47 = Vietnam minute 7/27/47 (UTC+7).
-    - cron: "7,27,47 * * * *"
+    - cron: "15,30,45 9 * * *"
+    - cron: "0,15,30,45 10,11 * * *"
+    - cron: "0 12 * * *"
 
 permissions:
   contents: write
@@ -36,39 +38,6 @@ jobs:
         run: python -m pytest -q
       - name: Collect, validate, lock and prune by retention policy
         run: python scripts/fetch_results.py
-      - name: Report coverage for Vietnam's current date
-        if: always()
-        shell: bash
-        run: |
-          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
-          import json, os
-          from datetime import datetime, timezone, timedelta
-          today = (datetime.now(timezone.utc) + timedelta(hours=7)).date().isoformat()
-          path = "data/index.json"
-          try:
-              manifest = json.load(open(path, encoding="utf-8"))
-              count = 0
-              products = {}
-              for part in manifest.get("files", []):
-                  fp = part.get("url", "")
-                  if not os.path.isfile(fp):
-                      continue
-                  data = json.load(open(fp, encoding="utf-8"))
-                  for rec in data.get("records", {}).values():
-                      if str(rec.get("date", ""))[:10] == today:
-                          count += 1
-                          label = rec.get("product") or rec.get("kind") or "unknown"
-                          products[label] = products.get(label, 0) + 1
-              print(f"## Coverage for Vietnam date {today}")
-              print(f"- Published records dated today: **{count}**")
-              if products:
-                  print("- By group/product:")
-                  for label, n in sorted(products.items()): print(f"  - {label}: {n}")
-              else:
-                  print("- No records for today's date are published yet. The next scheduled run will retry automatically.")
-          except Exception as e:
-              print(f"## Coverage diagnostic unavailable\n- {type(e).__name__}: {e}")
-          PY
       - name: Validate partition manifest and all published records
         run: |
           python - <<'PY'
