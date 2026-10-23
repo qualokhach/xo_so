@@ -225,6 +225,22 @@ def test_max3d_pro_history_heading_with_em_dash():
     assert f.record_valid(rows[0])
 
 
+
+def test_max3d_pro_weekday_before_date_heading():
+    html = """<html><head><title>Kết quả xổ số Max 3D Pro</title></head><body>
+    <h2>Kỳ quay thưởng #00795 Thứ 5 - 22/10/2026</h2>
+    <p>Giải đặc biệt 807 789</p><p>Giải nhất 958 979 147 240</p>
+    <p>Giải nhì 352 533 587 700 239 886</p>
+    <p>Giải ba 206 121 882 911 713 393 317 909</p>
+    </body></html>"""
+    src={'id':'max3dpro','product':'MAX 3D PRO','url':'https://xosophonix.vn/vietlott/max-3d-pro'}
+    rows=f.vietlott_from_html(html,src)
+    assert len(rows)==1, rows
+    assert rows[0]['date']=='2026-10-22'
+    assert rows[0]['draw_no']=='795'
+    assert rows[0]['product']=='MAX 3D PRO'
+    assert f.record_valid(rows[0])
+
 def test_station_region_classification_handles_vietnamese_d_letter():
     assert f.station_belongs_to_kind("Đà Nẵng", "xsmt")
     assert f.station_belongs_to_kind("Đắk Lắk", "xsmt")
@@ -286,3 +302,33 @@ def test_vietlott_history_parser_accepts_minhngoc_me_and_separates_plus():
         rows=f.vietlott_from_html(html,src)
         assert rows and all(r["product"] == product for r in rows), (product, rows)
         assert expected_draw in {r["draw_no"] for r in rows}, (product, rows)
+
+
+def test_each_vietlott_product_has_ten_configured_source_candidates():
+    assert len(f.VIETLOTT) == 6
+    for source in f.VIETLOTT:
+        assert len(source["urls"]) == 10, (source["product"], len(source["urls"]))
+        assert len(set(source["urls"])) == 10, source["product"]
+
+
+def test_each_vietlott_product_has_ten_configured_source_candidates():
+    assert len(f.VIETLOTT) == 6
+    for source in f.VIETLOTT:
+        assert len(source["urls"]) == 10, (source["product"], len(source["urls"]))
+        assert len(set(source["urls"])) == 10, source["product"]
+
+def test_product_id_must_match_product_name():
+    rec = {"kind":"vietlott", "product":"MAX 3D", "product_id":"max3dpro",
+           "date":"2026-10-20", "draw_no":"123",
+           "prizes":[{"name":"Bộ số trúng thưởng", "numbers":["001", "123"]}]}
+    assert not f.record_valid(rec)
+
+def test_official_product_endpoint_is_not_generic_for_other_products():
+    html = """<html><head><title>Kết quả QSMT kỳ #01148 ngày 21/10/2026</title></head><body>
+    <h2>Kết quả QSMT kỳ #01148 ngày 21/10/2026</h2>
+    <p>456 213</p><p>650 872 687 369</p><p>671 563 220 419 023 222</p>
+    </body></html>"""
+    src = {"id":"mega645", "product":"MEGA 6/45",
+           "url":"https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3D.html"}
+    rows = f.vietlott_from_html(html, src)
+    assert rows == [], "MAX 3D official endpoint must not be trusted as Mega product-specific"
