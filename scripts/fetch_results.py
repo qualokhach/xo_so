@@ -29,7 +29,7 @@ VIETLOTT=[
  {"id":"lotto535","product":"LOTTO 5/35","urls":["https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/535","https://xosomoinhat.com/xo-so-lotto-535"]},
  {"id":"max3d","product":"MAX 3D","urls":["https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3D.html","https://www.minhngoc.me/xo-so-dien-toan-max-3d.html"]},
  {"id":"max3dplus","product":"MAX 3D+","urls":["https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3DPlus.html","https://www.minhngoc.me/xo-so-dien-toan-max-3d.html"]},
- {"id":"max3dpro","product":"MAX 3D PRO","urls":["https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3DPro.html","https://xskt.com.vn/xsmax3dpro","https://www.minhngoc.me/xo-so-dien-toan-max-3d.html"]},
+ {"id":"max3dpro","product":"MAX 3D PRO","urls":["https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3DPro.html","https://xskt.com.vn/xsmax3dpro"]},
 ]
 STATIONS=["Thừa Thiên Huế","Thua Thien Hue","Phú Yên","Phu Yen","Đà Nẵng","Da Nang","Khánh Hòa","Khanh Hoa","Đắk Lắk","Dak Lak","Quảng Nam","Quang Nam","Bình Định","Binh Dinh","Quảng Trị","Quang Tri","Quảng Bình","Quang Binh","Gia Lai","Ninh Thuận","Ninh Thuan","Quảng Ngãi","Quang Ngai","Đắk Nông","Dak Nong","Kon Tum","Hồ Chí Minh","Ho Chi Minh","Đồng Tháp","Dong Thap","Cà Mau","Ca Mau","Bến Tre","Ben Tre","Vũng Tàu","Vung Tau","Bạc Liêu","Bac Lieu","Cần Thơ","Can Tho","Sóc Trăng","Soc Trang","Trà Vinh","Tra Vinh","An Giang","Long An","Tiền Giang","Tien Giang","Kiên Giang","Kien Giang","Đồng Nai","Dong Nai","Bình Dương","Binh Duong","Tây Ninh","Tay Ninh","Bình Phước","Binh Phuoc","Bình Thuận","Binh Thuan","Hậu Giang","Hau Giang","Vĩnh Long","Vinh Long","Đà Lạt","Da Lat","Lâm Đồng","Lam Dong"]
 PRIZE_ALIASES={"đb":"Đặc biệt","đặc biệt":"Đặc biệt","giải đặc biệt":"Đặc biệt","giải nhất":"Giải nhất","giải nhì":"Giải nhì","giải ba":"Giải ba","giải tư":"Giải tư","giải năm":"Giải năm","giải sáu":"Giải sáu","giải bảy":"Giải bảy","giải tám":"Giải tám","g.đb":"Đặc biệt","g1":"Giải nhất","g2":"Giải nhì","g3":"Giải ba","g4":"Giải tư","g5":"Giải năm","g6":"Giải sáu","g7":"Giải bảy","g8":"Giải tám"}
@@ -212,6 +212,23 @@ def parse_max3d_prizes(text):
  return result if len(result)>=2 else []
 
 
+def product_label_matches(product, label):
+ """Strictly classify a Vietlott label; MAX 3D must not steal 3D+ or 3D Pro."""
+ import unicodedata
+ text=unicodedata.normalize("NFKC",str(label or "")).casefold()
+ text=text.replace("điện toán", " ").replace("vietlott", " ")
+ compact=re.sub(r"[^a-z0-9+]+", "", text)
+ has_pro=bool(re.search(r"max\s*3d\s*(?:pro|professional)\b|max3dpro|3d\s*pro\b",text)) or "max3dpro" in compact
+ has_plus=bool(re.search(r"max\s*3d\s*(?:\+|plus)(?:\b|$)|max3dplus|3d\s*(?:\+|plus)(?:\b|$)",text)) or "max3d+" in compact or "max3dplus" in compact
+ has_max3d=bool(re.search(r"max\s*3d",text)) or "max3d" in compact
+ if product == "MAX 3D PRO": return has_pro
+ if product == "MAX 3D+": return has_plus and not has_pro
+ if product == "MAX 3D": return has_max3d and not has_plus and not has_pro
+ if product == "MEGA 6/45": return bool(re.search(r"mega\s*6\s*/?\s*45|mega645",text))
+ if product == "POWER 6/55": return bool(re.search(r"power\s*6\s*/?\s*55|power655",text))
+ if product == "LOTTO 5/35": return bool(re.search(r"lotto\s*5\s*/?\s*35|lotto535|lotto-535",text))
+ return False
+
 def vietlott_from_html(html,src):
  # Minh Ngoc exposes several historic draws on one product page. Parse each
  # product/date block independently; do not assign a mixed page's first draw to every product.
@@ -225,21 +242,21 @@ def vietlott_from_html(html,src):
  title=(soup.title.get_text(" ",strip=True) if soup.title else "").casefold()
  flat=re.sub(r"\s+"," ",soup.get_text(" ",strip=True))
  product_pattern={
-  "MEGA 6/45":r"mega\s*6\s*/\s*45",
-  "POWER 6/55":r"power\s*6\s*/\s*55",
-  "MAX 3D PRO":r"max\s*3d\s*pro",
-  "MAX 3D+":r"max\s*3d\s*\+|max3dplus",
-  "MAX 3D":r"max\s*3d(?!\s*(?:pro|\+|plus))",
-  "LOTTO 5/35":r"lotto\s*5\s*/\s*35",
+  "MEGA 6/45":r"mega\s*6\s*/?\s*45|mega645",
+  "POWER 6/55":r"power\s*6\s*/?\s*55|power655",
+  "MAX 3D PRO":r"(?:max\s*3d\s*(?:pro|professional)|max3dpro|3d\s*pro)",
+  "MAX 3D+":r"(?:max\s*3d\s*(?:\+|plus)|max3dplus|3d\s*(?:\+|plus))",
+  "MAX 3D":r"max\s*3d(?!\s*(?:pro|professional|\+|plus))",
+  "LOTTO 5/35":r"lotto\s*5\s*/?\s*35|lotto535|lotto-535",
  }[product]
  # History-list layout used by Minh Ngoc: each result starts with a product title/date,
  # then a ticket/draw number and the winning balls. A window ends at the next result heading.
- if re.search(r"minhngoc\.(?:net\.vn|me)", host_url):
+ if "minhngoc.net.vn" in host_url or "minhngoc.me" in host_url:
   headings=list(re.finditer(r"KẾT QUẢ XỔ SỐ\s+(.{0,35}?)\s*[-–]\s*NGÀY\s*:\s*(\d{1,2}/\d{1,2}/\d{4})",flat,re.I))
   out=[]
   for i,h in enumerate(headings):
    label=h.group(1).casefold()
-   if not re.search(product_pattern,label):
+   if not re.search(product_pattern,label) or not product_label_matches(product,label):
     continue
    date=norm_date(h.group(2))
    if not date: continue
@@ -308,7 +325,7 @@ def vietlott_from_html(html,src):
   matches=list(heading_re.finditer(text))
  if not matches:
   return []
- aliases={"MEGA 6/45":("mega 6/45","mega645"),"POWER 6/55":("power 6/55","power655"),"MAX 3D":("max 3d","max3d"),"MAX 3D+":("max 3d+","max 3d plus","max3dplus"),"MAX 3D PRO":("max 3d pro","max3dpro"),"LOTTO 5/35":("lotto 5/35","lotto535","lotto-535")}
+ aliases={"MEGA 6/45":("mega 6/45","mega645"),"POWER 6/55":("power 6/55","power655"),"MAX 3D":("max 3d","max3d"),"MAX 3D+":("max 3d+","max 3d plus","max3dplus","3d plus","3d+"),"MAX 3D PRO":("max 3d pro","max3dpro","3d pro","max 3d professional"),"LOTTO 5/35":("lotto 5/35","lotto535","lotto-535")}
  # A product-specific page is safe by URL/title. A mixed fallback must identify the
  # product near each draw heading, otherwise never relabel its first draw.
  specific_url=(product=="LOTTO 5/35" and "lotto-535" in src.get("url", "")) or ("vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/" in src.get("url", "")) or ("minhngoc.net.vn" in src.get("url", "") and product in ("MEGA 6/45","POWER 6/55")) or (product=="MAX 3D PRO" and "xskt.com.vn/xsmax3dpro" in src.get("url", ""))
@@ -324,7 +341,8 @@ def vietlott_from_html(html,src):
   if src.get("generic_fallback") and not specific_url:
    context=text[max(0,m.start()-220):min(len(text),m.end()+300)].casefold()
    terms=aliases.get(product,())
-   if not any(a in context for a in terms) and not any(a in page_title for a in terms):
+   context_ok=product_label_matches(product,context) or product_label_matches(product,page_title)
+   if not context_ok:
     continue
   draw_time=None
   time_match=re.search(r"(?:lúc|vào lúc|giờ)\s*(\d{1,2}:\d{2}|\d{1,2}\s*[hH])",text[m.start():min(len(text),m.end()+100)],re.I)
