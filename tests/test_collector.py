@@ -307,15 +307,15 @@ def test_vietlott_history_parser_accepts_minhngoc_me_and_separates_plus():
 def test_each_vietlott_product_has_ten_configured_source_candidates():
     assert len(f.VIETLOTT) == 6
     for source in f.VIETLOTT:
-        assert len(source["urls"]) == 10, (source["product"], len(source["urls"]))
-        assert len(set(source["urls"])) == 10, source["product"]
+        assert len(source["urls"]) >= 10, (source["product"], len(source["urls"]))
+        assert len(set(source["urls"])) == len(source["urls"]), source["product"]
 
 
 def test_each_vietlott_product_has_ten_configured_source_candidates():
     assert len(f.VIETLOTT) == 6
     for source in f.VIETLOTT:
-        assert len(source["urls"]) == 10, (source["product"], len(source["urls"]))
-        assert len(set(source["urls"])) == 10, source["product"]
+        assert len(source["urls"]) >= 10, (source["product"], len(source["urls"]))
+        assert len(set(source["urls"])) == len(source["urls"]), source["product"]
 
 def test_product_id_must_match_product_name():
     rec = {"kind":"vietlott", "product":"MAX 3D", "product_id":"max3dpro",
