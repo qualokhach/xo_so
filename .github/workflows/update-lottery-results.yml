@@ -60,18 +60,54 @@ jobs:
           assert total == m.get("record_count"), (total,m.get("record_count"))
           print("Validated",total,"records in",len(m.get("files",[])),"partitions")
           PY
-      - name: Commit only changed data files
+      - name: Commit and publish data with remote-update retry
         if: github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A -- data/index.json data/archive/
-          if git diff --cached --quiet; then
-            echo "No data changes; no commit needed."
-          else
+
+          # First attempt uses the data collected above. If another commit lands
+          # on main before push, reset to the newest main and recollect against
+          # that current history so partition files are merged by the collector,
+          # rather than force-pushing or overwriting another run's data.
+          for attempt in 1 2 3; do
+            git add -A -- data/index.json data/archive/ data/archive-quarantine.json
+            if git diff --cached --quiet; then
+              echo "No data changes; no commit needed."
+              exit 0
+            fi
+
             git commit -m "data: update partitioned lottery results"
-            git push origin HEAD:main
-          fi
+
+            if git push origin HEAD:main; then
+              echo "Published lottery data successfully on attempt ${attempt}."
+              exit 0
+            fi
+
+            if [ "$attempt" -eq 3 ]; then
+              echo "::error::Push failed after 3 attempts; inspect remote permissions or branch protection."
+              exit 1
+            fi
+
+            echo "Push rejected; preserving collected data before syncing latest main (attempt ${attempt}/3)."
+            # Preserve the exact collected snapshot before resetting the checkout.
+            # This prevents a transient source failure on retry from losing valid results.
+            snapshot="${RUNNER_TEMP}/lottery-collected-snapshot-${attempt}"
+            rm -rf "$snapshot"
+            mkdir -p "$snapshot"
+            cp -a data/. "$snapshot/"
+            git fetch origin main
+            git reset --hard origin/main
+            # Merge only valid unseen records from the snapshot into latest remote data.
+            # Existing remote records win on duplicate keys; never force-push.
+            python -m py_compile scripts/fetch_results.py scripts/merge_collected_data.py
+            python scripts/merge_collected_data.py --snapshot "$snapshot" --target data
+            # Recollect against merged history, regenerate the manifest and apply retention.
+            python scripts/fetch_results.py
+          done
       - name: Upload diagnostics
         if: always()
         uses: actions/upload-artifact@v4
