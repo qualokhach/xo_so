@@ -307,15 +307,15 @@ def test_vietlott_history_parser_accepts_minhngoc_me_and_separates_plus():
 def test_each_vietlott_product_has_ten_configured_source_candidates():
     assert len(f.VIETLOTT) == 6
     for source in f.VIETLOTT:
-        assert len(source["urls"]) >= 10, (source["product"], len(source["urls"]))
-        assert len(set(source["urls"])) == len(source["urls"]), source["product"]
+        assert len(source["urls"]) == 10, (source["product"], len(source["urls"]))
+        assert len(set(source["urls"])) == 10, source["product"]
 
 
 def test_each_vietlott_product_has_ten_configured_source_candidates():
     assert len(f.VIETLOTT) == 6
     for source in f.VIETLOTT:
-        assert len(source["urls"]) >= 10, (source["product"], len(source["urls"]))
-        assert len(set(source["urls"])) == len(source["urls"]), source["product"]
+        assert len(source["urls"]) == 10, (source["product"], len(source["urls"]))
+        assert len(set(source["urls"])) == 10, source["product"]
 
 def test_product_id_must_match_product_name():
     rec = {"kind":"vietlott", "product":"MAX 3D", "product_id":"max3dpro",
@@ -332,3 +332,19 @@ def test_official_product_endpoint_is_not_generic_for_other_products():
            "url":"https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3D.html"}
     rows = f.vietlott_from_html(html, src)
     assert rows == [], "MAX 3D official endpoint must not be trusted as Mega product-specific"
+
+
+def test_max3d_name_variants_are_normalized_without_cross_classification():
+    cases = [
+        ("MAX 3D", "3D", True), ("MAX 3D", "Vietlott 3D", True),
+        ("MAX 3D", "Max3D", True), ("MAX 3D", "MAX_3D", True),
+        ("MAX 3D", "MAX 3D+", False), ("MAX 3D", "3D Plus", False),
+        ("MAX 3D", "Max3DPlus", False), ("MAX 3D", "MAX 3D PRO", False),
+        ("MAX 3D+", "3D+", True), ("MAX 3D+", "3D Plus", True),
+        ("MAX 3D+", "MAX 3D PLUS", True), ("MAX 3D+", "MAX_3D_PLUS", True),
+        ("MAX 3D+", "Max3DPlus", True), ("MAX 3D+", "MAX3D+", True),
+        ("MAX 3D+", "MAX 3D PRO", False), ("MAX 3D PRO", "MAX3DPRO", True),
+        ("MAX 3D PRO", "Max 3D Pro", True), ("MAX 3D PRO", "3D Plus", False),
+    ]
+    for product, label, expected in cases:
+        assert f.product_label_matches(product, label) is expected, (product, label)
