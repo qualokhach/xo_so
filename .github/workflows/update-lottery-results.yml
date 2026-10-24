@@ -2,11 +2,10 @@ name: Update lottery results
 
 on:
   workflow_dispatch:
-  # Vietnam time (UTC+7): scan only 16:15–19:00, every 15 minutes.
-  # 16:15–16:45 VN = 09:15–09:45 UTC; 17:00–18:45 VN = 10:00–11:45 UTC; 19:00 VN = 12:00 UTC.
+  # Vietnam time (UTC+7): scan 16:00–19:00, every 15 minutes.
+  # GitHub Actions cron uses UTC: 16:00–18:45 VN = 09:00–11:45 UTC; 19:00 VN = 12:00 UTC.
   schedule:
-    - cron: "15,30,45 9 * * *"
-    - cron: "0,15,30,45 10,11 * * *"
+    - cron: "0,15,30,45 9,10,11 * * *"
     - cron: "0 12 * * *"
 
 permissions:
@@ -14,7 +13,7 @@ permissions:
 
 concurrency:
   group: lottery-results-update
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   update-results:
