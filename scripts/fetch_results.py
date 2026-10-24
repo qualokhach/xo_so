@@ -121,7 +121,7 @@ class HTML(HTMLParser):
 
 def get_html(url):
  req=Request(url,headers={"User-Agent":"Mozilla/5.0 (compatible; AppNhoResults/3.0)","Accept":"text/html,application/xhtml+xml"})
- with urlopen(req,timeout=20) as r:
+ with urlopen(req,timeout=8) as r:
   raw=r.read(6_000_000);enc=r.headers.get_content_charset() or "utf-8"
   try:return raw.decode(enc,errors="replace"),r.geturl(),r.status
   except LookupError:return raw.decode("utf-8",errors="replace"),r.geturl(),r.status
