@@ -13,13 +13,6 @@ TRADITIONAL = {
   {"id":"xskt_io","name":"XSKT.io miền Bắc","url":"https://xskt.io/"},
   {"id":"dovesovn","name":"Dò Vé Số VN (trang tổng hợp)","url":"https://dovesovn.com/"},
   {"id":"kqxs_info","name":"KQXS.info.vn (trang tổng hợp)","url":"https://kqxs.info.vn/"},
-  {"id":"xoso_com","name":"Xoso.com.vn (tổng hợp 3 miền)","url":"https://xoso.com.vn/"},
-  {"id":"ketqua_vn","name":"Ketqua.vn (tổng hợp 3 miền)","url":"https://ketqua.vn/"},
-  {"id":"xoso_net","name":"XoSo.net.vn miền Bắc","url":"https://xoso.net.vn/"},
-  {"id":"xosomoinhat_mb","name":"XoSoMoiNhat miền Bắc","url":"https://xosomoinhat.com/xsmb"},
-  {"id":"kqxs_uk_mb","name":"KQXS.uk tổng hợp","url":"https://www.kqxs.uk/"},
-  {"id":"minhngoc_mb","name":"Minh Ngọc miền Bắc","url":"https://www.minhngoc.net.vn/xo-so-mien-bac.html"},
-  {"id":"sxmn_mb","name":"SXMN miền Bắc","url":"https://sxmn.com.vn/"},
  ],
  "xsmt":[
   {"id":"kqxs_mt","name":"KQXS.vn miền Trung","url":"https://m.kqxs.vn/mien-trung"},
@@ -27,13 +20,6 @@ TRADITIONAL = {
   {"id":"xskt_io","name":"XSKT.io miền Trung","url":"https://xskt.io/"},
   {"id":"dovesovn","name":"Dò Vé Số VN (trang tổng hợp)","url":"https://dovesovn.com/"},
   {"id":"kqxs_info","name":"KQXS.info.vn (trang tổng hợp)","url":"https://kqxs.info.vn/"},
-  {"id":"xoso_com","name":"Xoso.com.vn (tổng hợp 3 miền)","url":"https://xoso.com.vn/"},
-  {"id":"ketqua_vn","name":"Ketqua.vn (tổng hợp 3 miền)","url":"https://ketqua.vn/"},
-  {"id":"xoso_net","name":"XoSo.net.vn miền Trung","url":"https://xoso.net.vn/"},
-  {"id":"xosomoinhat_mt","name":"XoSoMoiNhat miền Trung","url":"https://xosomoinhat.com/xsmt"},
-  {"id":"kqxs_uk_mt","name":"KQXS.uk tổng hợp","url":"https://www.kqxs.uk/"},
-  {"id":"minhngoc_mt","name":"Minh Ngọc miền Trung","url":"https://www.minhngoc.net.vn/xo-so-mien-trung.html"},
-  {"id":"sxmn_mt","name":"SXMN miền Trung","url":"https://www.sxmn.com.vn/xsmt-xo-so-mien-trung"},
  ],
  "xsmn":[
   {"id":"kqxs_mn","name":"KQXS.vn miền Nam","url":"https://m.kqxs.vn/mien-nam"},
@@ -41,13 +27,6 @@ TRADITIONAL = {
   {"id":"xskt_io","name":"XSKT.io miền Nam","url":"https://xskt.io/"},
   {"id":"dovesovn","name":"Dò Vé Số VN (trang tổng hợp)","url":"https://dovesovn.com/"},
   {"id":"kqxs_info","name":"KQXS.info.vn (trang tổng hợp)","url":"https://kqxs.info.vn/"},
-  {"id":"xoso_com","name":"Xoso.com.vn (tổng hợp 3 miền)","url":"https://xoso.com.vn/"},
-  {"id":"ketqua_vn","name":"Ketqua.vn (tổng hợp 3 miền)","url":"https://ketqua.vn/"},
-  {"id":"xoso_net","name":"XoSo.net.vn miền Nam","url":"https://xoso.net.vn/"},
-  {"id":"xosomoinhat_mn","name":"XoSoMoiNhat miền Nam","url":"https://xosomoinhat.com/xsmn"},
-  {"id":"kqxs_uk_mn","name":"KQXS.uk tổng hợp","url":"https://www.kqxs.uk/"},
-  {"id":"minhngoc_mn","name":"Minh Ngọc xổ số trực tiếp","url":"https://www.minhngoc.net.vn/xo-so-mien-nam.html"},
-  {"id":"sxmn_mn","name":"SXMN miền Nam","url":"https://www.sxmn.com.vn/"},
  ],
 }
 VIETLOTT=[
@@ -61,10 +40,7 @@ VIETLOTT=[
   "https://xosovietloto.com/lich-su/",
   "https://andromeda.com.vn/vietlott-max3d/",
   "https://www.hpsc.com.vn/xo-so-vietlott.html",
-  "https://xosonay.com/vietlott/",
-  "https://tracuuxoso.vn/vietlott/mega-6-45",
-  "https://cafef.vn/du-lieu/ket-qua-xo-so/vietlott-mega-6-45.chn",
-  "https://xosominhphat.vn/vietlott.html"]},
+  "https://xosonay.com/vietlott/"]},
  {"id":"power655","product":"POWER 6/55","urls":[
   "https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/655",
   "https://www.minhngoc.net.vn/ket-qua-xo-so/dien-toan-vietlott/power-6x55.html",
@@ -75,10 +51,7 @@ VIETLOTT=[
   "https://xosohn.com/vietlott/power-655",
   "https://andromeda.com.vn/",
   "https://www.hpsc.com.vn/xo-so-vietlott.html",
-  "https://xosonay.com/vietlott/",
-  "https://tracuuxoso.vn/vietlott/power-6-55",
-  "https://cafef.vn/du-lieu/ket-qua-xo-so/vietlott-power-6-55.chn",
-  "https://xosominhphat.vn/vietlott.html"]},
+  "https://xosonay.com/vietlott/"]},
  {"id":"lotto535","product":"LOTTO 5/35","urls":[
   "https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/535",
   "https://xosomoinhat.com/xo-so-lotto-535",
@@ -89,10 +62,7 @@ VIETLOTT=[
   "https://andromeda.com.vn/",
   "https://www.hpsc.com.vn/xo-so-vietlott.html",
   "https://www.vietnamyello.com/lottery/results/history",
-  "https://xosonay.com/vietlott/",
-  "https://xosominhngoc.net.vn/kqxs-lotto-535",
-  "https://nef.vn/lotto-5-35.html",
-  "https://tramso.vercel.app/ket-qua/lotto"]},
+  "https://xosonay.com/vietlott/"]},
  {"id":"max3d","product":"MAX 3D","urls":[
   "https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3D.html",
   "https://andromeda.com.vn/vietlott-max3d/",
@@ -103,10 +73,7 @@ VIETLOTT=[
   "https://www.hpsc.com.vn/xo-so-vietlott.html",
   "https://www.vietnamyello.com/lottery/results/history",
   "https://xosonay.com/vietlott/",
-  "https://www.lotteryfool.com/results/vietlott",
-  "https://tracuuxoso.vn/vietlott/max-3d",
-  "https://cafef.vn/du-lieu/ket-qua-xo-so/vietlott-max-3d.chn",
-  "https://xosominhphat.vn/vietlott.html"]},
+  "https://www.lotteryfool.com/results/vietlott"]},
  {"id":"max3dplus","product":"MAX 3D+","urls":[
   "https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3DPlus.html",
   "https://lottpicker.vn/?route=vietlott/max3d.results",
@@ -117,10 +84,7 @@ VIETLOTT=[
   "https://www.xsmbav.com/xo-so-vietlott",
   "https://www.hpsc.com.vn/xo-so-vietlott.html",
   "https://www.vietnamyello.com/lottery/results/history",
-  "https://xosonay.com/vietlott/",
-  "https://tracuuxoso.vn/vietlott/max-3d",
-  "https://xosominhphat.vn/vietlott.html",
-  "https://cafef.vn/du-lieu/ket-qua-xo-so/vietlott-max-3d.chn"]},
+  "https://xosonay.com/vietlott/"]},
  {"id":"max3dpro","product":"MAX 3D PRO","urls":[
   "https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/max-3DPro.html",
   "https://xskt.com.vn/xsmax3dpro",
@@ -131,10 +95,7 @@ VIETLOTT=[
   "https://vineco.net.vn/kqxs-max-3d-pro.html",
   "https://vesophuocdanh.vn/vietlott/max-3d-pro",
   "https://hpsc.com.vn/xs-max-3d-pro.html",
-  "https://www.vietnamyello.com/lottery/results/history",
-  "https://tracuuxoso.vn/vietlott/max-3d-pro",
-  "https://cafef.vn/du-lieu/ket-qua-xo-so/vietlott-max-3d-pro.chn",
-  "https://xosominhphat.vn/vietlott.html"]},
+  "https://www.vietnamyello.com/lottery/results/history"]},
 ]
 STATIONS=["Thừa Thiên Huế","Thua Thien Hue","Phú Yên","Phu Yen","Đà Nẵng","Da Nang","Khánh Hòa","Khanh Hoa","Đắk Lắk","Dak Lak","Quảng Nam","Quang Nam","Bình Định","Binh Dinh","Quảng Trị","Quang Tri","Quảng Bình","Quang Binh","Gia Lai","Ninh Thuận","Ninh Thuan","Quảng Ngãi","Quang Ngai","Đắk Nông","Dak Nong","Kon Tum","Hồ Chí Minh","Ho Chi Minh","Đồng Tháp","Dong Thap","Cà Mau","Ca Mau","Bến Tre","Ben Tre","Vũng Tàu","Vung Tau","Bạc Liêu","Bac Lieu","Cần Thơ","Can Tho","Sóc Trăng","Soc Trang","Trà Vinh","Tra Vinh","An Giang","Long An","Tiền Giang","Tien Giang","Kiên Giang","Kien Giang","Đồng Nai","Dong Nai","Bình Dương","Binh Duong","Tây Ninh","Tay Ninh","Bình Phước","Binh Phuoc","Bình Thuận","Binh Thuan","Hậu Giang","Hau Giang","Vĩnh Long","Vinh Long","Đà Lạt","Da Lat","Lâm Đồng","Lam Dong"]
 PRIZE_ALIASES={"đb":"Đặc biệt","đặc biệt":"Đặc biệt","giải đặc biệt":"Đặc biệt","giải nhất":"Giải nhất","giải nhì":"Giải nhì","giải ba":"Giải ba","giải tư":"Giải tư","giải năm":"Giải năm","giải sáu":"Giải sáu","giải bảy":"Giải bảy","giải tám":"Giải tám","g.đb":"Đặc biệt","g1":"Giải nhất","g2":"Giải nhì","g3":"Giải ba","g4":"Giải tư","g5":"Giải năm","g6":"Giải sáu","g7":"Giải bảy","g8":"Giải tám"}
@@ -318,17 +279,19 @@ def parse_max3d_prizes(text):
 
 
 def product_label_matches(product, label):
- """Strictly classify a Vietlott label; MAX 3D must not steal 3D+ or 3D Pro."""
+ """Normalize source naming variants and strictly separate 3D, 3D+ and 3D PRO."""
  import unicodedata
  text=unicodedata.normalize("NFKC",str(label or "")).casefold()
  text=text.replace("điện toán", " ").replace("vietlott", " ")
+ # Keep the plus sign while tolerating spaces, punctuation, hyphens and underscores.
+ words=re.sub(r"[^a-z0-9+]+", " ", text).strip()
  compact=re.sub(r"[^a-z0-9+]+", "", text)
- has_pro=bool(re.search(r"max\s*3d\s*(?:pro|professional)\b|max3dpro|3d\s*pro\b",text)) or "max3dpro" in compact
- has_plus=bool(re.search(r"max\s*3d\s*(?:\+|plus)(?:\b|$)|max3dplus|3d\s*(?:\+|plus)(?:\b|$)",text)) or "max3d+" in compact or "max3dplus" in compact
- has_max3d=bool(re.search(r"max\s*3d",text)) or "max3d" in compact
+ has_pro=bool(re.search(r"(?:max\s*)?3d\s*(?:pro|professional)|3dpro|3dprofessional", words)) or "max3dpro" in compact
+ has_plus=bool(re.search(r"(?:max\s*)?3d\s*(?:\+|plus)|(?:max\s*)?3d\s*\+|3dplus", words)) or "3d+" in compact or "3dplus" in compact
+ has_3d=bool(re.search(r"(?:max\s*)?3d", words)) or compact in ("3d", "vietlott3d", "max3d") or "max3d" in compact
  if product == "MAX 3D PRO": return has_pro
  if product == "MAX 3D+": return has_plus and not has_pro
- if product == "MAX 3D": return has_max3d and not has_plus and not has_pro
+ if product == "MAX 3D": return has_3d and not has_plus and not has_pro
  if product == "MEGA 6/45": return bool(re.search(r"mega\s*6\s*/?\s*45|mega645",text))
  if product == "POWER 6/55": return bool(re.search(r"power\s*6\s*/?\s*55|power655",text))
  if product == "LOTTO 5/35": return bool(re.search(r"lotto\s*5\s*/?\s*35|lotto535|lotto-535",text))
@@ -351,7 +314,7 @@ def vietlott_from_html(html,src):
   "POWER 6/55":r"power\s*6\s*/?\s*55|power655",
   "MAX 3D PRO":r"(?:max\s*3d\s*(?:pro|professional)|max3dpro|3d\s*pro)",
   "MAX 3D+":r"(?:max\s*3d\s*(?:\+|plus)|max3dplus|3d\s*(?:\+|plus))",
-  "MAX 3D":r"max\s*3d(?!\s*(?:pro|professional|\+|plus))",
+  "MAX 3D":r"(?:(?:max\s*)?3d|vietlott\s*3d)(?!\s*(?:pro|professional|\+|plus))",
   "LOTTO 5/35":r"lotto\s*5\s*/?\s*35|lotto535|lotto-535",
  }[product]
  # History-list layout used by Minh Ngoc: each result starts with a product title/date,
