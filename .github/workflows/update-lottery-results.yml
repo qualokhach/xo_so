@@ -2,11 +2,12 @@ name: Update lottery results
 
 on:
   workflow_dispatch:
-  # Vietnam time (UTC+7): scan 16:00–19:00, every 15 minutes.
-  # GitHub Actions cron uses UTC: 16:00–18:45 VN = 09:00–11:45 UTC; 19:00 VN = 12:00 UTC.
+  # Vietnam time (UTC+7): run every 15 minutes during the 16:00–19:00 window.
+  # Use minute offsets (UTC 09:05–11:50) to avoid relying on the top of the hour,
+  # when GitHub scheduled workflows are more prone to queue delays.
+  # Local run times: 16:05, 16:20, 16:35, 16:50 ... through 18:50.
   schedule:
-    - cron: "0,15,30,45 9,10,11 * * *"
-    - cron: "0 12 * * *"
+    - cron: "5,20,35,50 9-11 * * *"
 
 permissions:
   contents: write
