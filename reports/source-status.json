@@ -1,42 +1,78 @@
 {
-  "checked_at_utc": "2026-10-28T05:42:23+00:00",
+  "checked_at_utc": "2026-10-28T12:55:34+00:00",
   "purpose": "source feasibility only",
   "sources": [
     {
       "id": "xsmb",
       "name": "Xổ số miền Bắc (XSMB)",
       "url": "https://m.kqxs.vn/mien-bac",
-      "status": "unreachable",
-      "error": "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'm.kqxs.vn'. (_ssl.c:1010)>",
-      "elapsed_seconds": 0.85,
-      "note": "Could be a temporary network block, anti-bot protection, or source outage."
+      "final_url": "https://m.kqxs.vn/mien-bac",
+      "http_status": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "page_chars": 12131,
+      "matched_keywords": [
+        "kết quả xổ số miền bắc",
+        "đặc biệt",
+        "giải nhất"
+      ],
+      "numeric_tokens_found": 48,
+      "elapsed_seconds": 2.65,
+      "status": "candidate_accessible",
+      "note": "Accessibility/content check only; not proof of official accuracy, stable structure, or reuse permission."
     },
     {
       "id": "xsmt",
       "name": "Xổ số miền Trung (XSMT)",
       "url": "https://m.kqxs.vn/mien-trung",
-      "status": "unreachable",
-      "error": "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'm.kqxs.vn'. (_ssl.c:1010)>",
-      "elapsed_seconds": 0.79,
-      "note": "Could be a temporary network block, anti-bot protection, or source outage."
+      "final_url": "https://m.kqxs.vn/mien-trung",
+      "http_status": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "page_chars": 12327,
+      "matched_keywords": [
+        "xổ số miền trung",
+        "đặc biệt",
+        "giải nhất"
+      ],
+      "numeric_tokens_found": 112,
+      "elapsed_seconds": 2.83,
+      "status": "candidate_accessible",
+      "note": "Accessibility/content check only; not proof of official accuracy, stable structure, or reuse permission."
     },
     {
       "id": "xsmn",
       "name": "Xổ số miền Nam (XSMN)",
       "url": "https://m.kqxs.vn/mien-nam",
-      "status": "unreachable",
-      "error": "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'm.kqxs.vn'. (_ssl.c:1010)>",
-      "elapsed_seconds": 0.6,
-      "note": "Could be a temporary network block, anti-bot protection, or source outage."
+      "final_url": "https://m.kqxs.vn/mien-nam",
+      "http_status": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "page_chars": 14159,
+      "matched_keywords": [
+        "xổ số miền nam",
+        "đặc biệt",
+        "giải nhất"
+      ],
+      "numeric_tokens_found": 168,
+      "elapsed_seconds": 2.61,
+      "status": "candidate_accessible",
+      "note": "Accessibility/content check only; not proof of official accuracy, stable structure, or reuse permission."
     },
     {
       "id": "vietlott",
       "name": "Vietlott (trang tổng hợp ứng viên)",
       "url": "https://m.kqxs.vn/xo-so-vietlott",
-      "status": "unreachable",
-      "error": "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'm.kqxs.vn'. (_ssl.c:1010)>",
-      "elapsed_seconds": 0.62,
-      "note": "Could be a temporary network block, anti-bot protection, or source outage."
+      "final_url": "https://m.kqxs.vn/xo-so-vietlott",
+      "http_status": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "page_chars": 8968,
+      "matched_keywords": [
+        "vietlott",
+        "mega",
+        "power"
+      ],
+      "numeric_tokens_found": 207,
+      "elapsed_seconds": 2.13,
+      "status": "candidate_accessible",
+      "note": "Accessibility/content check only; not proof of official accuracy, stable structure, or reuse permission."
     }
   ]
 }
