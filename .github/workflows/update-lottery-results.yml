@@ -2,12 +2,13 @@ name: Update lottery results
 
 on:
   workflow_dispatch:
-  # Vietnam time (UTC+7): run every 15 minutes during the 16:00–19:00 window.
-  # Use minute offsets (UTC 09:05–11:50) to avoid relying on the top of the hour,
-  # when GitHub scheduled workflows are more prone to queue delays.
-  # Local run times: 16:05, 16:20, 16:35, 16:50 ... through 18:50.
+  # Vietnam local time. Start shortly after 16:00 to reduce top-of-hour queue contention.
+  # Runs every 15 minutes from 16:05 through 18:50, then one final run at 19:00.
   schedule:
-    - cron: "5,20,35,50 9-11 * * *"
+    - cron: "5,20,35,50 16-18 * * *"
+      timezone: "Asia/Ho_Chi_Minh"
+    - cron: "0 19 * * *"
+      timezone: "Asia/Ho_Chi_Minh"
 
 permissions:
   contents: write
@@ -94,19 +95,14 @@ jobs:
             fi
 
             echo "Push rejected; preserving collected data before syncing latest main (attempt ${attempt}/3)."
-            # Preserve the exact collected snapshot before resetting the checkout.
-            # This prevents a transient source failure on retry from losing valid results.
             snapshot="${RUNNER_TEMP}/lottery-collected-snapshot-${attempt}"
             rm -rf "$snapshot"
             mkdir -p "$snapshot"
             cp -a data/. "$snapshot/"
             git fetch origin main
             git reset --hard origin/main
-            # Merge only valid unseen records from the snapshot into latest remote data.
-            # Existing remote records win on duplicate keys; never force-push.
             python -m py_compile scripts/fetch_results.py scripts/merge_collected_data.py
             python scripts/merge_collected_data.py --snapshot "$snapshot" --target data
-            # Recollect against merged history, regenerate the manifest and apply retention.
             python scripts/fetch_results.py
           done
       - name: Upload diagnostics
