@@ -2,12 +2,13 @@ name: Update lottery results
 
 on:
   workflow_dispatch:
-  # Vietnam local time. Start shortly after 16:00 to reduce top-of-hour queue contention.
-  # Runs every 15 minutes from 16:05 through 18:50, then one final run at 19:00.
+  # Vietnam local time (IANA timezone is supported by GitHub Actions).
+  # 16:05, 16:20, 16:35, 16:50 ... 18:50, then 19:05.
+  # Avoid :00 to reduce GitHub schedule queue contention.
   schedule:
     - cron: "5,20,35,50 16-18 * * *"
       timezone: "Asia/Ho_Chi_Minh"
-    - cron: "0 19 * * *"
+    - cron: "5 19 * * *"
       timezone: "Asia/Ho_Chi_Minh"
 
 permissions:
@@ -27,19 +28,58 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: true
+      - name: Log trigger and guard scheduled execution window
+        id: schedule_guard
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_SCHEDULE: ${{ github.event.schedule }}
+          GIT_REF: ${{ github.ref }}
+        run: |
+          python - <<'PY'
+          import os
+          from datetime import datetime, time
+          from zoneinfo import ZoneInfo
+
+          now = datetime.now(ZoneInfo("Asia/Ho_Chi_Minh"))
+          event = os.environ.get("EVENT_NAME", "unknown")
+          cron = os.environ.get("EVENT_SCHEDULE", "")
+          ref = os.environ.get("GIT_REF", "")
+          print(f"Event: {event}")
+          print(f"Schedule cron: {cron or '(not a scheduled event)'}")
+          print(f"Git ref: {ref}")
+          print(f"Vietnam local time: {now.isoformat(timespec='seconds')}")
+
+          # Manual runs remain available at any time. Scheduled runs outside the
+          # intended 16:00-19:30 Vietnam window are skipped to prevent accidental
+          # midnight publishing if the workflow schedule is ever misconfigured.
+          allowed = event != "schedule" or (
+              time(16, 0) <= now.timetz().replace(tzinfo=None) <= time(19, 30)
+          )
+          if not allowed:
+              print("::warning::Scheduled run is outside 16:00-19:30 Asia/Ho_Chi_Minh; collection will be skipped.")
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+              output.write(f"allowed={'true' if allowed else 'false'}\n")
+          PY
       - name: Set up Python
+        if: steps.schedule_guard.outputs.allowed == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - name: Install parser and test dependencies
+        if: steps.schedule_guard.outputs.allowed == 'true'
         run: python -m pip install --disable-pip-version-check beautifulsoup4 pytest
       - name: Verify collector syntax
+        if: steps.schedule_guard.outputs.allowed == 'true'
         run: python -m py_compile scripts/fetch_results.py
       - name: Run all collector and regression tests
+        if: steps.schedule_guard.outputs.allowed == 'true'
         run: python -m pytest -q
       - name: Collect, validate, lock and prune by retention policy
+        if: steps.schedule_guard.outputs.allowed == 'true'
         run: python scripts/fetch_results.py
       - name: Validate partition manifest and all published records
+        if: steps.schedule_guard.outputs.allowed == 'true'
         run: |
           python - <<'PY'
           import json, re, os, sys
@@ -63,7 +103,7 @@ jobs:
           print("Validated",total,"records in",len(m.get("files",[])),"partitions")
           PY
       - name: Commit and publish data with remote-update retry
-        if: github.ref == 'refs/heads/main'
+        if: steps.schedule_guard.outputs.allowed == 'true' && github.ref == 'refs/heads/main'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -106,7 +146,7 @@ jobs:
             python scripts/fetch_results.py
           done
       - name: Upload diagnostics
-        if: always()
+        if: always() && steps.schedule_guard.outputs.allowed == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: appnho-lottery-partitioned-data
