@@ -286,9 +286,9 @@ def product_label_matches(product, label):
  # Keep the plus sign while tolerating spaces, punctuation, hyphens and underscores.
  words=re.sub(r"[^a-z0-9+]+", " ", text).strip()
  compact=re.sub(r"[^a-z0-9+]+", "", text)
- has_pro=bool(re.search(r"(?:max\s*)?3d\s*(?:pro|professional)|3dpro|3dprofessional", words)) or "max3dpro" in compact
- has_plus=bool(re.search(r"(?:max\s*)?3d\s*(?:\+|plus)|(?:max\s*)?3d\s*\+|3dplus", words)) or "3d+" in compact or "3dplus" in compact
- has_3d=bool(re.search(r"(?:max\s*)?3d", words)) or compact in ("3d", "vietlott3d", "max3d") or "max3d" in compact
+ has_pro=bool(re.search(r"(?:max\s*)?3d\s*(?:pro|professional)\b|3dpro|3dprofessional", words)) or "max3dpro" in compact
+ has_plus=bool(re.search(r"(?:max\s*)?3d\s*(?:\+|plus)\b|(?:max\s*)?3d\s*\+|3dplus", words)) or "3d+" in compact or "3dplus" in compact
+ has_3d=bool(re.search(r"(?:max\s*)?3d\b", words)) or compact in ("3d", "vietlott3d", "max3d") or "max3d" in compact
  if product == "MAX 3D PRO": return has_pro
  if product == "MAX 3D+": return has_plus and not has_pro
  if product == "MAX 3D": return has_3d and not has_plus and not has_pro
