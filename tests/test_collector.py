@@ -348,3 +348,14 @@ def test_max3d_name_variants_are_normalized_without_cross_classification():
     ]
     for product, label, expected in cases:
         assert f.product_label_matches(product, label) is expected, (product, label)
+
+
+def test_max3d_product_label_matching_is_strict_and_whitespace_safe():
+    assert f.product_label_matches("MAX 3D PRO", "Max 3D Pro")
+    assert f.product_label_matches("MAX 3D PRO", "MAX 3D Professional")
+    assert f.product_label_matches("MAX 3D+", "Max 3D Plus")
+    assert f.product_label_matches("MAX 3D+", "Max 3D+")
+    assert f.product_label_matches("MAX 3D", "Max 3D")
+    assert not f.product_label_matches("MAX 3D", "Max 3D Pro")
+    assert not f.product_label_matches("MAX 3D", "Max 3D+")
+    assert not f.product_label_matches("MAX 3D+", "Max 3D Pro")
