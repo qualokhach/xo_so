@@ -2,14 +2,15 @@ name: Update lottery results
 
 on:
   workflow_dispatch:
-  # Vietnam local time (IANA timezone is supported by GitHub Actions).
-  # 16:05, 16:20, 16:35, 16:50 ... 18:50, then 19:05.
-  # Avoid :00 to reduce GitHub schedule queue contention.
+  # GitHub Actions evaluates schedule cron in UTC. Vietnam is UTC+7 and has no
+  # daylight-saving time, so 16:00-19:00 Vietnam time = 09:00-12:00 UTC.
+  # Runs every 15 minutes at Vietnam time:
+  #   16:00, 16:15, 16:30, 16:45, 17:00 ... 18:45, and finally 19:00.
   schedule:
-    - cron: "5,20,35,50 16-18 * * *"
-      timezone: "Asia/Ho_Chi_Minh"
-    - cron: "5 19 * * *"
-      timezone: "Asia/Ho_Chi_Minh"
+    # 09:00-11:45 UTC  ==  16:00-18:45 Vietnam time
+    - cron: "0,15,30,45 9-11 * * *"
+    # 12:00 UTC  ==  19:00 Vietnam time (last run of the day)
+    - cron: "0 12 * * *"
 
 permissions:
   contents: write
