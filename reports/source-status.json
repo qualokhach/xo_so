@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-11-23T07:38:59+00:00",
+  "checked_at_utc": "2026-11-23T23:53:37+00:00",
   "purpose": "source feasibility only",
   "sources": [
     {
@@ -9,14 +9,14 @@
       "final_url": "https://m.kqxs.vn/mien-bac",
       "http_status": 200,
       "content_type": "text/html; charset=UTF-8",
-      "page_chars": 12637,
+      "page_chars": 12628,
       "matched_keywords": [
         "kết quả xổ số miền bắc",
         "đặc biệt",
         "giải nhất"
       ],
       "numeric_tokens_found": 48,
-      "elapsed_seconds": 2.15,
+      "elapsed_seconds": 3.94,
       "status": "candidate_accessible",
       "note": "Accessibility/content check only; not proof of official accuracy, stable structure, or reuse permission."
     },
@@ -27,14 +27,14 @@
       "final_url": "https://m.kqxs.vn/mien-trung",
       "http_status": 200,
       "content_type": "text/html; charset=UTF-8",
-      "page_chars": 14465,
+      "page_chars": 13678,
       "matched_keywords": [
         "xổ số miền trung",
         "đặc biệt",
         "giải nhất"
       ],
-      "numeric_tokens_found": 168,
-      "elapsed_seconds": 1.55,
+      "numeric_tokens_found": 140,
+      "elapsed_seconds": 2.66,
       "status": "candidate_accessible",
       "note": "Accessibility/content check only; not proof of official accuracy, stable structure, or reuse permission."
     },
@@ -45,14 +45,14 @@
       "final_url": "https://m.kqxs.vn/mien-nam",
       "http_status": 200,
       "content_type": "text/html; charset=UTF-8",
-      "page_chars": 15458,
+      "page_chars": 14680,
       "matched_keywords": [
         "xổ số miền nam",
         "đặc biệt",
         "giải nhất"
       ],
-      "numeric_tokens_found": 188,
-      "elapsed_seconds": 1.81,
+      "numeric_tokens_found": 168,
+      "elapsed_seconds": 3.12,
       "status": "candidate_accessible",
       "note": "Accessibility/content check only; not proof of official accuracy, stable structure, or reuse permission."
     },
@@ -63,14 +63,14 @@
       "final_url": "https://m.kqxs.vn/xo-so-vietlott",
       "http_status": 200,
       "content_type": "text/html; charset=UTF-8",
-      "page_chars": 9547,
+      "page_chars": 9534,
       "matched_keywords": [
         "vietlott",
         "mega",
         "power"
       ],
-      "numeric_tokens_found": 224,
-      "elapsed_seconds": 1.6,
+      "numeric_tokens_found": 225,
+      "elapsed_seconds": 2.05,
       "status": "candidate_accessible",
       "note": "Accessibility/content check only; not proof of official accuracy, stable structure, or reuse permission."
     }
